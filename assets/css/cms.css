@@ -1,0 +1,43 @@
+/**************************************************************
+					CMS Pages Styles
+***************************************************************/
+blockquote {
+	background:#fff;
+	padding:20px !important;
+}
+
+.rte ul ul, .rte ol ol{
+	margin-left:20px;
+}
+
+
+.rte ul li, .rte ol li{
+	margin-bottom:5px;
+}
+
+
+.rte  img{
+	margin:0 10px 10px 0;
+}
+
+
+.rte h1, .rte h2, .rte h3, .rte h4, .rte h5, .rte h6 {
+    margin-bottom: 10px;
+}
+.rte h1 a:hover, .rte h2 a:hover, .rte h3 a:hover, .rte h4 a:hover, .rte h5 a:hover, .rte h6  a:hover{
+	text-decoration:underline !important;
+}
+.rte .text-danger {
+    color: red !important;
+}
+.rte .text-success {
+    color: green !important;
+}
+
+blockquote.pull-right{
+	display:inline-block;
+	width:100%;
+}
+.rte p{
+	margin-bottom:10px;
+}

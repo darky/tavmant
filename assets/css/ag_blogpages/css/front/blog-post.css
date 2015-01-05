@@ -1,0 +1,104 @@
+.title-blog-home {
+	margin-bottom: 20px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 35px;
+}
+.cat-wrap {
+	position: relative;
+}
+.cat-blog-grid {
+	list-style: none;
+	overflow: hidden;
+	width: 31%;
+	vertical-align: top;
+	display: inline-block;
+	margin: 0 1% 2% 1% !important;
+	padding: 0;
+}
+.cat-blog-grid img {
+	width: 100%;
+	height: auto;
+}
+.blog-post-title {
+	font-size: 22px;
+}
+.blog-post {
+	margin-bottom: 20px;
+}
+.cat-blog-grid .blog-post-content {
+	width: 100%;
+}
+.blog-post-content {
+	display: inline-block;
+	width: 100%;
+}
+.blog-post-title {
+	margin: 0;
+	padding: 10px 0 15px 0;
+}
+.blog-post-panel {
+	display: inline-block;
+	padding-top: 15px;
+	width: 100%;
+	margin-bottom: 0;
+}
+.cat-blog-grid .social-block-links {
+	float: none;
+}
+.social-block-links {
+	float: left;
+}
+.social-block-links li {
+	display: inline-block;
+	vertical-align: top;
+}
+.social-block-links li a {
+	font-size: 20px;
+	margin: 0 10px 0 0;
+	padding: 0;
+}
+.blog-view-more {
+	float: right;
+}
+.blog-view-more .fa {
+	margin-right: 7px;
+}
+#index .blog-post iframe {
+	display: block;
+	height: auto;
+	max-width: 100%;
+	min-height: 240px;
+}
+.blog-post iframe {
+	display: block;
+	max-width: 100%;
+}
+.blog-post.cat-blog-grid iframe {
+	display: block;
+	max-width: 100%;
+	max-height: 215px;
+}
+.post-date {
+	float: left;
+}
+.post-date .fa {
+	margin-right: 7px;
+}
+.post-share {
+	float: right;
+}
+/*tickerBlog  fix*/
+
+.products-block-image {
+	float: left;
+	margin: 0 3% 3% 0;
+	max-width: 40%;
+}
+.products-block-image img {
+	width: 100%;
+	height: auto;
+}
+.tickerBlog ul li {
+	padding-bottom: 15px;
+}

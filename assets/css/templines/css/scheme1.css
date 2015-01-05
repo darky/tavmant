@@ -1,0 +1,217 @@
+html .first-bg, .i-tab li.active, .sf-menu ul {
+	background-color: #ffffff;
+}
+html .first-bg-hover:hover, .pagination ul a:hover {
+	background-color: #ffffff;
+}
+html .first-color, .btn-icon i {
+	color: #ffffff;
+}
+html .first-brd, .pagination ul .active a, .sf-menu li a:after {
+	border-color: #ffffff;
+}
+html .second-bg {
+	background: #ff8383;
+}
+html .second-bg-hover:hover {
+	background: #ff8383;
+}
+html .second-color {
+	color: #ff8383;
+}
+html .second-brd {
+	border-color: #ff8383;
+}
+html .third-bg {
+	background: none repeat scroll 0 0 #fafafa;
+}
+html .third-bg-hover:hover {
+	background: #f6f6f6;
+}
+html .third-color {
+	color: f6f6f6;
+}
+html .third-brd {
+	border-color: f6f6f6;
+}
+html .fourth-bg, .cart-table .btn-update span, .opc .active .step-title {
+	background-color: #676767;
+}
+html .fourth-color {
+	color: #424242;
+}
+html .fourth-brd {
+	border-color: #424242;
+}
+html .fifth-bg {
+	background-color: #212224;
+}
+html .fifth-color {
+	color: #212224;
+}
+html .fifth-brd {
+	border-color: #212224;
+}
+/*Theme*/
+
+.sf-menu a:hover, .bx-wrapper .bx-controls-direction a:hover, html .closed {
+}
+.accordion-toggle:hover {
+	background-color: #ff8383;
+	color: #fff;
+}
+.accordion-toggle:hover:after {
+	border-color: #ff8383 #F6F6F6 #F6F6F6;
+}
+html .price-notice .price {
+	color: #FF8383;
+	font-weight: normal;
+}
+html .product-options-bottom .price, html .product-options-bottom .price-label {
+	color: #FF8383;
+}
+.lg-panel a.active, .lg-panel a:hover {
+	background-color: #ff8383;
+	color: #fff;
+}
+html .btn-proceed-checkout span, html .btn-icon-primary {
+	background-color: #ff8383;
+}
+.btn-icon:hover {
+	background-color: #676767;
+}
+/*Product*/
+
+.address li.address_update a {
+	background: none repeat scroll 0 0 #A1BD59;
+}
+.address li.address_update a + a {
+	background: #37bbec;
+}
+/*Theme Coloring*/
+
+html .content_sortPagiBar .selected {
+	background: none repeat scroll 0 0 #37bbec;
+}
+ul.product_list.grid > li .button-container .button.ajax_add_to_cart_button:hover {
+	background: none repeat scroll 0 0 #fbcf00;
+	text-shadow: -1px -1px 1px #d7b101;
+}
+html .button.ajax_add_to_cart_button {
+	background: none repeat scroll 0 0 #fbcf00;
+	text-shadow: -1px -1px 1px #d7b101;
+}
+html h3.page-product-heading:hover {
+	background-color: #37bbec;
+}
+html ul.product_list.grid > li .button-container {
+	background-color: #37bbec;
+}
+ul.product_list.grid > li .button-container .btn:hover {
+	background-color: #37bbec;
+}
+html .shopping_cart > a:first-child {
+	background: none repeat scroll 0 0 #edefef;
+	box-shadow: 0 1px #fff, 0 1px #c9cbcb inset;
+}
+html .shopping_cart > a:first-child:before {
+	color: #282727;
+}
+html .container .search_block_top:hover {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .cl-effect-11 a:before {
+	color: #37bbec;
+}
+html .label-hot {
+	background-color: #37bbec;
+}
+.grid .price-repeat .slider-price * {
+	color: #37bbec;
+}
+html .special-price {
+	color: #37bbec;
+}
+html .price-percent-reduction {
+	background: none repeat scroll 0 0 #fbcf00;
+}
+html .our_price_display {
+	color: #37bbec;
+}
+html .btn-danger {
+	background-color: #37bbec;
+	border-color: #37bbec;
+	color: #FFFFFF;
+}
+html .reduction_percent_product {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .price {
+	color: #37bbec;
+}
+html .footer-set-bottom .btn {
+	background: none repeat scroll 0 0 #37bbec;
+}
+.layer_cart_cart .button-container .btn {
+ background: none repeat scroll 0 0 #fbcf00;
+    margin-bottom: 10px;
+    text-shadow: none;
+}
+.layer_cart_cart .button-container span.exclusive-medium {
+	background: none repeat scroll 0 0 #37bbec;
+	margin-right: 5px;
+}
+html .cart_navigation .button-medium {
+	background-color: #37bbec;
+	border-color: #37bbec;
+}
+html .cart_navigation .button-exclusive {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .button.button-medium.exclusive {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .button-container a {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .header-button i:hover, html .mega-menu .menu-title:hover {
+	background-color: #37bbec;
+}
+html .address li.address_update a {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html header .nav nav a:hover, html footer .block li a:hover {
+	color: #37bbec;
+}
+html .button.button-medium {
+	background: none repeat scroll 0 0 #37bbec;
+}
+.pagination .active.current {
+	background-color: #37bbec;
+}
+/*COONCOOK*/
+
+.header_top div.current:after, .header_top i, .header_top a:before {
+	color: #37bbec;
+}
+.product_pager .fa-arrow-circle-right {
+	color: #37bbec;
+}
+.product_pager .fa-arrow-circle-left {
+	color: #37bbec;
+}
+div .comments_advices a:before {
+	background: none repeat scroll 0 0 #37bbec;
+}
+#layer_cart .layer_cart_product h2 {
+	color: #fbcf00;
+}
+html .isotope-tabs .is-checked , html  .isotope-view-more , html .bx-controls-direction .fa:hover ,html .btn_c , html ul.product_list .product-image-container .quick-view , html .btn , html .cart_block .cart-buttons a#button_order_cart ,  html  .shopping_cart .fa-shopping-cart:hover , .bgheader .btn.button-search:hover{
+    background: none repeat scroll 0 0  #37bbec;
+}
+html  .footer .f_mid p a , html .fa-arrow-circle-right , .main-menu > li:hover > a {
+	color: #37bbec;
+	
+}
+
+
