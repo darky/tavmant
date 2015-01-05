@@ -1,0 +1,2452 @@
+<!DOCTYPE HTML> 
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7 " lang="es"><![endif]--> 
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8 ie7" lang="es"><![endif]--> 
+<!--[if IE 8]><html class="no-js lt-ie9 ie8" lang="es"><![endif]--> 
+<!--[if gt IE 8]> <html class="no-js ie9" lang="es"><![endif]-->
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Login - CoonCook</title>
+<meta name="generator" content="PrestaShop" />
+<meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, minimum-scale=0.25, maximum-scale=1.6, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="icon" type="image/vnd.microsoft.icon" href="../img/favicon-1420229896.ico" />
+<link rel="shortcut icon" type="image/x-icon" href="../img/favicon-1420229896.ico" />
+	<link rel="stylesheet" href="../themes/cooncook/css/global.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/autoload/all.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/autoload/debugging.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../js/jquery/plugins/fancybox/jquery.fancybox.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/authentication.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blockcart/blockcart.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blockcategories/blockcategories.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blockcurrencies/blockcurrencies.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blocklanguages/blocklanguages.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blockcontact/blockcontact.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blocknewsletter/blocknewsletter.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../js/jquery/plugins/autocomplete/jquery.autocomplete.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/product_list.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blocksearch/blocksearch.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blocktags/blocktags.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/blockuserinfo/blockuserinfo.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blockviewed/blockviewed.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blockwishlist/blockwishlist.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/productcomments/productcomments.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/ag_blogpages/css/front/blog-post.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/ag_blogpages/css/front/blog.bxslider.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/templines/css/scheme1.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/templines/css/styles.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/templines/colorpicker/css/colorpicker.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/templines/colorpicker/css/layout.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/templines/css/component.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../modules/ag_viewhelper/lib/font-awesome/css/font-awesome.min.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blocktopmenu/css/blocktopmenu.css" type="text/css" media="all" />
+<link rel="stylesheet" href="../themes/cooncook/css/modules/blocktopmenu/css/superfish-modified.css" type="text/css" media="all" />
+
+
+	<script type="text/javascript">
+var CUSTOMIZE_TEXTFIELD = 1;
+var FancyboxI18nClose = 'Close';
+var FancyboxI18nNext = 'Next';
+var FancyboxI18nPrev = 'Previous';
+var added_to_wishlist = 'Added to your wishlist.';
+var ajax_allowed = true;
+var ajaxsearch = true;
+var baseDir = 'http://prestazilla.com/demo/cooncook/';
+var baseUri = 'http://prestazilla.com/demo/cooncook/';
+var blocksearch_type = 'top';
+var contentOnly = false;
+var countries = {"21":{"id_country":"21","id_lang":"2","name":"United States","id_zone":"2","id_currency":"0","iso_code":"US","call_prefix":"1","active":"1","contains_states":"1","need_identification_number":"0","need_zip_code":"1","zip_code_format":"NNNNN","display_tax_label":"0","country":"United States","zone":"North America","states":[{"id_state":"1","id_country":"21","id_zone":"2","name":"Alabama","iso_code":"AL","tax_behavior":"0","active":"1"},{"id_state":"2","id_country":"21","id_zone":"2","name":"Alaska","iso_code":"AK","tax_behavior":"0","active":"1"},{"id_state":"3","id_country":"21","id_zone":"2","name":"Arizona","iso_code":"AZ","tax_behavior":"0","active":"1"},{"id_state":"4","id_country":"21","id_zone":"2","name":"Arkansas","iso_code":"AR","tax_behavior":"0","active":"1"},{"id_state":"5","id_country":"21","id_zone":"2","name":"California","iso_code":"CA","tax_behavior":"0","active":"1"},{"id_state":"6","id_country":"21","id_zone":"2","name":"Colorado","iso_code":"CO","tax_behavior":"0","active":"1"},{"id_state":"7","id_country":"21","id_zone":"2","name":"Connecticut","iso_code":"CT","tax_behavior":"0","active":"1"},{"id_state":"8","id_country":"21","id_zone":"2","name":"Delaware","iso_code":"DE","tax_behavior":"0","active":"1"},{"id_state":"53","id_country":"21","id_zone":"2","name":"District of Columbia","iso_code":"DC","tax_behavior":"0","active":"1"},{"id_state":"9","id_country":"21","id_zone":"2","name":"Florida","iso_code":"FL","tax_behavior":"0","active":"1"},{"id_state":"10","id_country":"21","id_zone":"2","name":"Georgia","iso_code":"GA","tax_behavior":"0","active":"1"},{"id_state":"11","id_country":"21","id_zone":"2","name":"Hawaii","iso_code":"HI","tax_behavior":"0","active":"1"},{"id_state":"12","id_country":"21","id_zone":"2","name":"Idaho","iso_code":"ID","tax_behavior":"0","active":"1"},{"id_state":"13","id_country":"21","id_zone":"2","name":"Illinois","iso_code":"IL","tax_behavior":"0","active":"1"},{"id_state":"14","id_country":"21","id_zone":"2","name":"Indiana","iso_code":"IN","tax_behavior":"0","active":"1"},{"id_state":"15","id_country":"21","id_zone":"2","name":"Iowa","iso_code":"IA","tax_behavior":"0","active":"1"},{"id_state":"16","id_country":"21","id_zone":"2","name":"Kansas","iso_code":"KS","tax_behavior":"0","active":"1"},{"id_state":"17","id_country":"21","id_zone":"2","name":"Kentucky","iso_code":"KY","tax_behavior":"0","active":"1"},{"id_state":"18","id_country":"21","id_zone":"2","name":"Louisiana","iso_code":"LA","tax_behavior":"0","active":"1"},{"id_state":"19","id_country":"21","id_zone":"2","name":"Maine","iso_code":"ME","tax_behavior":"0","active":"1"},{"id_state":"20","id_country":"21","id_zone":"2","name":"Maryland","iso_code":"MD","tax_behavior":"0","active":"1"},{"id_state":"21","id_country":"21","id_zone":"2","name":"Massachusetts","iso_code":"MA","tax_behavior":"0","active":"1"},{"id_state":"22","id_country":"21","id_zone":"2","name":"Michigan","iso_code":"MI","tax_behavior":"0","active":"1"},{"id_state":"23","id_country":"21","id_zone":"2","name":"Minnesota","iso_code":"MN","tax_behavior":"0","active":"1"},{"id_state":"24","id_country":"21","id_zone":"2","name":"Mississippi","iso_code":"MS","tax_behavior":"0","active":"1"},{"id_state":"25","id_country":"21","id_zone":"2","name":"Missouri","iso_code":"MO","tax_behavior":"0","active":"1"},{"id_state":"26","id_country":"21","id_zone":"2","name":"Montana","iso_code":"MT","tax_behavior":"0","active":"1"},{"id_state":"27","id_country":"21","id_zone":"2","name":"Nebraska","iso_code":"NE","tax_behavior":"0","active":"1"},{"id_state":"28","id_country":"21","id_zone":"2","name":"Nevada","iso_code":"NV","tax_behavior":"0","active":"1"},{"id_state":"29","id_country":"21","id_zone":"2","name":"New Hampshire","iso_code":"NH","tax_behavior":"0","active":"1"},{"id_state":"30","id_country":"21","id_zone":"2","name":"New Jersey","iso_code":"NJ","tax_behavior":"0","active":"1"},{"id_state":"31","id_country":"21","id_zone":"2","name":"New Mexico","iso_code":"NM","tax_behavior":"0","active":"1"},{"id_state":"32","id_country":"21","id_zone":"2","name":"New York","iso_code":"NY","tax_behavior":"0","active":"1"},{"id_state":"33","id_country":"21","id_zone":"2","name":"North Carolina","iso_code":"NC","tax_behavior":"0","active":"1"},{"id_state":"34","id_country":"21","id_zone":"2","name":"North Dakota","iso_code":"ND","tax_behavior":"0","active":"1"},{"id_state":"35","id_country":"21","id_zone":"2","name":"Ohio","iso_code":"OH","tax_behavior":"0","active":"1"},{"id_state":"36","id_country":"21","id_zone":"2","name":"Oklahoma","iso_code":"OK","tax_behavior":"0","active":"1"},{"id_state":"37","id_country":"21","id_zone":"2","name":"Oregon","iso_code":"OR","tax_behavior":"0","active":"1"},{"id_state":"38","id_country":"21","id_zone":"2","name":"Pennsylvania","iso_code":"PA","tax_behavior":"0","active":"1"},{"id_state":"51","id_country":"21","id_zone":"2","name":"Puerto Rico","iso_code":"PR","tax_behavior":"0","active":"1"},{"id_state":"39","id_country":"21","id_zone":"2","name":"Rhode Island","iso_code":"RI","tax_behavior":"0","active":"1"},{"id_state":"40","id_country":"21","id_zone":"2","name":"South Carolina","iso_code":"SC","tax_behavior":"0","active":"1"},{"id_state":"41","id_country":"21","id_zone":"2","name":"South Dakota","iso_code":"SD","tax_behavior":"0","active":"1"},{"id_state":"42","id_country":"21","id_zone":"2","name":"Tennessee","iso_code":"TN","tax_behavior":"0","active":"1"},{"id_state":"43","id_country":"21","id_zone":"2","name":"Texas","iso_code":"TX","tax_behavior":"0","active":"1"},{"id_state":"52","id_country":"21","id_zone":"2","name":"US Virgin Islands","iso_code":"VI","tax_behavior":"0","active":"1"},{"id_state":"44","id_country":"21","id_zone":"2","name":"Utah","iso_code":"UT","tax_behavior":"0","active":"1"},{"id_state":"45","id_country":"21","id_zone":"2","name":"Vermont","iso_code":"VT","tax_behavior":"0","active":"1"},{"id_state":"46","id_country":"21","id_zone":"2","name":"Virginia","iso_code":"VA","tax_behavior":"0","active":"1"},{"id_state":"47","id_country":"21","id_zone":"2","name":"Washington","iso_code":"WA","tax_behavior":"0","active":"1"},{"id_state":"48","id_country":"21","id_zone":"2","name":"West Virginia","iso_code":"WV","tax_behavior":"0","active":"1"},{"id_state":"49","id_country":"21","id_zone":"2","name":"Wisconsin","iso_code":"WI","tax_behavior":"0","active":"1"},{"id_state":"50","id_country":"21","id_zone":"2","name":"Wyoming","iso_code":"WY","tax_behavior":"0","active":"1"}]}};
+var customizationIdMessage = 'Customization #';
+var delete_txt = 'Delete';
+var email_create = false;
+var freeProductTranslation = 'Free!';
+var freeShippingTranslation = 'Free shipping!';
+var idSelectedCountry = false;
+var idSelectedState = false;
+var id_lang = 2;
+var img_dir = 'http://prestazilla.com/demo/cooncook/themes/cooncook/img/';
+var instantsearch = false;
+var isGuest = 0;
+var isLogged = 0;
+var loggin_required = 'You must be logged in to manage your wishlist.';
+var mywishlist_url = 'http://prestazilla.com/demo/cooncook/es/module/blockwishlist/mywishlist';
+var page_name = 'authentication';
+var placeholder_blocknewsletter = 'Enter your e-mail';
+var priceDisplayMethod = 1;
+var priceDisplayPrecision = 2;
+var quickView = true;
+var removingLinkText = 'remove this product from my cart';
+var roundMode = 2;
+var search_url = 'http://prestazilla.com/demo/cooncook/es/search';
+var static_token = 'b40684078be120028a5a1c2a41f4b836';
+var token = 'e36c68abadc601a0267b4748cbbc625d';
+var usingSecureMode = false;
+var wishlistProductsIds = false;
+</script>
+
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="../js/jquery/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/jquery/plugins/jquery.easing.js"></script>
+		<script type="text/javascript" src="../js/tools.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/global.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/10-bootstrap.min.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/15-jquery.total-storage.min.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/15-jquery.uniform-modified.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/index.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/ios-orientationchange-fix.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/jquery.fancybox.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/modernizr.custom.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/package.min.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/prefixfree.min.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/autoload/scripts.js"></script>
+		<script type="text/javascript" src="../js/jquery/plugins/fancybox/jquery.fancybox.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/products-comparison.js"></script>
+		<script type="text/javascript" src="../js/jquery/plugins/jquery.typewatch.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/tools/vatManagement.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/tools/statesManagement.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/authentication.js"></script>
+		<script type="text/javascript" src="../js/validate.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/modules/blockcart/ajax-cart.js"></script>
+		<script type="text/javascript" src="../js/jquery/plugins/jquery.scrollTo.js"></script>
+		<script type="text/javascript" src="../js/jquery/plugins/jquery.serialScroll.js"></script>
+		<script type="text/javascript" src="../js/jquery/plugins/bxslider/jquery.bxslider.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/tools/treeManagement.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/modules/blocknewsletter/blocknewsletter.js"></script>
+		<script type="text/javascript" src="../js/jquery/plugins/autocomplete/jquery.autocomplete.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/modules/blocksearch/blocksearch.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/modules/blockwishlist/js/ajax-wishlist.js"></script>
+		<script type="text/javascript" src="../modules/mega_dropdownmenulight/js/jquery.hoverIntent.minified.js"></script>
+		<script type="text/javascript" src="../modules/mega_dropdownmenulight/js/jquery.dcmegamenu.1.3.3.js"></script>
+		<script type="text/javascript" src="../modules/ag_blogpages/js/front/jquery.newsticker.js"></script>
+		<script type="text/javascript" src="../modules/ag_blogpages/js/front/blog.bxslider.min.js"></script>
+		<script type="text/javascript" src="../modules/ag_blogpages/js/front/blog.js"></script>
+		<script type="text/javascript" src="../modules/bestkit_responsiveslider/js/raphael-min.js"></script>
+		<script type="text/javascript" src="../modules/bestkit_responsiveslider/js/jquery.easing.js"></script>
+		<script type="text/javascript" src="../modules/bestkit_responsiveslider/js/iview.js"></script>
+		<script type="text/javascript" src="../modules/templines/js/thmconfigurator.js"></script>
+		<script type="text/javascript" src="../modules/templines/js/ajaxupload.js"></script>
+		<script type="text/javascript" src="../modules/templines/colorpicker/js/colorpicker.js"></script>
+		<script type="text/javascript" src="../modules/templines/colorpicker/js/eye.js"></script>
+		<script type="text/javascript" src="../modules/templines/colorpicker/js/utils.js"></script>
+		<script type="text/javascript" src="../modules/templines/js/classie.js"></script>
+		<script type="text/javascript" src="../modules/templines/js/script.js"></script>
+		<script type="text/javascript" src="../modules/ag_contactform/js/front/jquery.validate.pack.js"></script>
+		<script type="text/javascript" src="../modules/ag_contactform/js/front/jquery.contactable.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/js/shorty.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/lib/portfolio/js/jquery.isotope.min.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/lib/portfolio/js/sorting.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/lib/fancybox/jquery.fancybox.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/js/jquery.mb.YTPlayer.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/lib/animated/animate.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/lib/animated/waypoints.min.js"></script>
+		<script type="text/javascript" src="../modules/ag_viewhelper/lib/social-likes/social-likes.min.js"></script>
+		<script type="text/javascript" src="../modules/isotope_filter/js/isotope.pkgd.min.js"></script>
+		<script type="text/javascript" src="../modules/isotope_filter/js/active_filter.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/modules/blocktopmenu/js/hoverIntent.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/modules/blocktopmenu/js/superfish-modified.js"></script>
+		<script type="text/javascript" src="../themes/cooncook/js/modules/blocktopmenu/js/blocktopmenu.js"></script>
+		<script type="text/javascript" src="../modules/dy_infinity_scroll/js/front.js"></script>
+	
+
+
+
+
+		<style>.background-section {
+	display: none !important;
+}
+
+</style>
+
+<script>
+
+</script>
+
+<form id="themeConfigForm">
+  <!-- mp-menu -->
+  <nav id="mp-menu" class="mp-menu">
+    <h2 ><i class="icon-wrench"></i> Theme Designer</h2>
+    <h3>Color Scheme</h3>
+    <ul class="color_scheme_item">
+      <li class="active"> <a id="scheme1" href="javascript:void(0)"><span style="background:#37bbec;"></span></a> </li>
+      <li > <a id="scheme2" href="javascript:void(0)"><span style="background:#8DC838;"></span></a> </li>
+      <li > <a id="scheme3" href="javascript:void(0)"><span style="background:#FBCF00;"></span></a> </li>
+      <li > <a id="scheme4" href="javascript:void(0)"><span style="background:#FB5700;"></span></a> </li>
+    </ul>
+    <input id="schemer_scheme" type="hidden" name="schemer[scheme]" value="scheme1" />
+    <div id="css_scheme_content">
+      <style scoped>html .first-bg, .i-tab li.active, .sf-menu ul {
+	background-color: #ffffff;
+}
+html .first-bg-hover:hover, .pagination ul a:hover {
+	background-color: #ffffff;
+}
+html .first-color, .btn-icon i {
+	color: #ffffff;
+}
+html .first-brd, .pagination ul .active a, .sf-menu li a:after {
+	border-color: #ffffff;
+}
+html .second-bg {
+	background: #ff8383;
+}
+html .second-bg-hover:hover {
+	background: #ff8383;
+}
+html .second-color {
+	color: #ff8383;
+}
+html .second-brd {
+	border-color: #ff8383;
+}
+html .third-bg {
+	background: none repeat scroll 0 0 #fafafa;
+}
+html .third-bg-hover:hover {
+	background: #f6f6f6;
+}
+html .third-color {
+	color: f6f6f6;
+}
+html .third-brd {
+	border-color: f6f6f6;
+}
+html .fourth-bg, .cart-table .btn-update span, .opc .active .step-title {
+	background-color: #676767;
+}
+html .fourth-color {
+	color: #424242;
+}
+html .fourth-brd {
+	border-color: #424242;
+}
+html .fifth-bg {
+	background-color: #212224;
+}
+html .fifth-color {
+	color: #212224;
+}
+html .fifth-brd {
+	border-color: #212224;
+}
+/*Theme*/
+
+.sf-menu a:hover, .bx-wrapper .bx-controls-direction a:hover, html .closed {
+}
+.accordion-toggle:hover {
+	background-color: #ff8383;
+	color: #fff;
+}
+.accordion-toggle:hover:after {
+	border-color: #ff8383 #F6F6F6 #F6F6F6;
+}
+html .price-notice .price {
+	color: #FF8383;
+	font-weight: normal;
+}
+html .product-options-bottom .price, html .product-options-bottom .price-label {
+	color: #FF8383;
+}
+.lg-panel a.active, .lg-panel a:hover {
+	background-color: #ff8383;
+	color: #fff;
+}
+html .btn-proceed-checkout span, html .btn-icon-primary {
+	background-color: #ff8383;
+}
+.btn-icon:hover {
+	background-color: #676767;
+}
+/*Product*/
+
+.address li.address_update a {
+	background: none repeat scroll 0 0 #A1BD59;
+}
+.address li.address_update a + a {
+	background: #37bbec;
+}
+/*Theme Coloring*/
+
+html .content_sortPagiBar .selected {
+	background: none repeat scroll 0 0 #37bbec;
+}
+ul.product_list.grid > li .button-container .button.ajax_add_to_cart_button:hover {
+	background: none repeat scroll 0 0 #fbcf00;
+	text-shadow: -1px -1px 1px #d7b101;
+}
+html .button.ajax_add_to_cart_button {
+	background: none repeat scroll 0 0 #fbcf00;
+	text-shadow: -1px -1px 1px #d7b101;
+}
+html h3.page-product-heading:hover {
+	background-color: #37bbec;
+}
+html ul.product_list.grid > li .button-container {
+	background-color: #37bbec;
+}
+ul.product_list.grid > li .button-container .btn:hover {
+	background-color: #37bbec;
+}
+html .shopping_cart > a:first-child {
+	background: none repeat scroll 0 0 #edefef;
+	box-shadow: 0 1px #fff, 0 1px #c9cbcb inset;
+}
+html .shopping_cart > a:first-child:before {
+	color: #282727;
+}
+html .container .search_block_top:hover {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .cl-effect-11 a:before {
+	color: #37bbec;
+}
+html .label-hot {
+	background-color: #37bbec;
+}
+.grid .price-repeat .slider-price * {
+	color: #37bbec;
+}
+html .special-price {
+	color: #37bbec;
+}
+html .price-percent-reduction {
+	background: none repeat scroll 0 0 #fbcf00;
+}
+html .our_price_display {
+	color: #37bbec;
+}
+html .btn-danger {
+	background-color: #37bbec;
+	border-color: #37bbec;
+	color: #FFFFFF;
+}
+html .reduction_percent_product {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .price {
+	color: #37bbec;
+}
+html .footer-set-bottom .btn {
+	background: none repeat scroll 0 0 #37bbec;
+}
+.layer_cart_cart .button-container .btn {
+ background: none repeat scroll 0 0 #fbcf00;
+    margin-bottom: 10px;
+    text-shadow: none;
+}
+.layer_cart_cart .button-container span.exclusive-medium {
+	background: none repeat scroll 0 0 #37bbec;
+	margin-right: 5px;
+}
+html .cart_navigation .button-medium {
+	background-color: #37bbec;
+	border-color: #37bbec;
+}
+html .cart_navigation .button-exclusive {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .button.button-medium.exclusive {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .button-container a {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html .header-button i:hover, html .mega-menu .menu-title:hover {
+	background-color: #37bbec;
+}
+html .address li.address_update a {
+	background: none repeat scroll 0 0 #37bbec;
+}
+html header .nav nav a:hover, html footer .block li a:hover {
+	color: #37bbec;
+}
+html .button.button-medium {
+	background: none repeat scroll 0 0 #37bbec;
+}
+.pagination .active.current {
+	background-color: #37bbec;
+}
+/*COONCOOK*/
+
+.header_top div.current:after, .header_top i, .header_top a:before {
+	color: #37bbec;
+}
+.product_pager .fa-arrow-circle-right {
+	color: #37bbec;
+}
+.product_pager .fa-arrow-circle-left {
+	color: #37bbec;
+}
+div .comments_advices a:before {
+	background: none repeat scroll 0 0 #37bbec;
+}
+#layer_cart .layer_cart_product h2 {
+	color: #fbcf00;
+}
+html .isotope-tabs .is-checked , html  .isotope-view-more , html .bx-controls-direction .fa:hover ,html .btn_c , html ul.product_list .product-image-container .quick-view , html .btn , html .cart_block .cart-buttons a#button_order_cart ,  html  .shopping_cart .fa-shopping-cart:hover , .bgheader .btn.button-search:hover{
+    background: none repeat scroll 0 0  #37bbec;
+}
+html  .footer .f_mid p a , html .fa-arrow-circle-right , .main-menu > li:hover > a {
+	color: #37bbec;
+	
+}
+
+
+
+</style>
+    </div>
+   
+    <ul>
+      <div class="clearfix button-prestadesigner">
+        <button  title="Save section styles" type="button" disabled=disabled class="btn-save" conftype="scheme" ><i class="icon-tint"></i> Save this section</button>
+      </div>
+      <li > <a class="anchor-link" >
+        <h3>Global</h3>
+        </a>
+        <ul>
+          <li>
+            <div class="s_cp_row clearfix">
+              <label> Baground</label>
+              <div id="cs-columns-container , html body .columns-container
+
+
+" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"  value="4cb2c9" name="schemer[colors][button][cs-columns-container , html body .columns-container
+
+
+
+]" class="s_color"/>
+            </div>
+            <div class="s_cp_row clearfix">
+              <label> First Bg</label>
+              <div id="cs-blanck0002" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"  value="4cb2c9" name="schemer[colors][button][cs-isotope-tabs .is-checked, html body .isotope-tabs .is-checked , html body .isotope-view-more, html body .bx-controls-direction .fa:hover, html body .btn_c, html body ul.product_list .product-image-container .quick-view, html body .btn, html body .cart_block .cart-buttons a#button_order_cart, html body .shopping_cart .fa-shopping-cart:hover,html body  .bgheader .btn.button-search:hover , html body .content_sortPagiBar .selected , html body  .button.button-medium ,  html .pagination .active.current , html body .ui-widget-header
+
+
+
+]" class="s_color"/>
+            </div>
+            <div class="s_cp_row clearfix">
+              <label> First color</label>
+              <div id="cs-blanck0001" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"  value="4cb2c9" name="schemer[colors][button][cs-link-price, html body .price
+
+
+
+]" class="s_color"/>
+            </div>
+            <div class="clearfix button-prestadesigner">
+              <button title="Save section styles" type="button" disabled=disabled class="btn-save" conftype="button" ><i class="icon-tint"></i> Save this section</button>
+            </div>
+            <a target="_blank" class="btn-css" href="../modules/templines/css/button.css"><i class="fa icon-pencil   "></i>Get Css section</a> </li>
+        </ul>
+      </li>
+      
+      <!--/////////////////
+      ///////////////////
+      /////////////////
+      ////////////////
+      //////////////
+                           
+         HEADER
+           
+       /////////////
+       ////////////////
+       //////////////////
+       /////////////////////
+       /////////////////////// -->
+      
+      <li> <a class="anchor-link"  href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#header" >
+        <h3>Header</h3>
+        </a>
+        <ul>
+          <li> 
+            
+            <!--////////// HEADER BG/////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label>Header Bg </label>
+              <div id="cs-bgheader, html .bgheader" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"  value="4cb2c9" name="schemer[colors][header][cs-bgheader, html .bgheader]" class="s_color"/>
+            </div>
+            
+            <!--////////// HEADER COLO /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label> Header color </label>
+              <div id="cs-link-header_top * ,html .header_top *
+
+
+" data-type="text" class="colorSelector" style="background-color: rgb(76, 178, 201);"></div>
+              <input type="hidden"  value="4cb2c9" name="schemer[colors][header][cs-link-header_top * ,html .header_top *]" class="s_color"/>
+            </div>
+            
+            <!--////////// MENU COLOR /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label> Menu Text color </label>
+              <div id="cs-link-main-menu > li > a , html body .main-menu > li > a" data-type="text" class="colorSelector" style="background-color: rgb(76, 178, 201);"></div>
+              <input type="hidden"  value="4cb2c9" name="schemer[colors][header][cs-link-main-menu > li > a , html body .main-menu > li > a
+
+
+
+]" class="s_color"/>
+            </div>
+            
+            <!--////////// MENU COLOR HOVER  /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label> Menu Text hover </label>
+              <div id="cs-link-main-menu > li:hover a , html .main-menu > li:hover > a" data-type="text" class="colorSelector" style="background-color: rgb(76, 178, 201);"></div>
+              <input type="hidden"  value="4cb2c9" name="schemer[colors][header][cs-link-main-menu > li:hover a , html .main-menu > li:hover a
+
+
+
+]" class="s_color"/>
+            </div>
+            
+            <!--////////// TOP ICONS BG /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label>Icons bg</label>
+              <div id="cs-shopping_cart > a:first-child:before , html .shopping_cart > a:first-child:before , html .bgheader .btn.button-search , html .popover-shorty i , body .shopping_cart .fa-shopping-cart
+
+
+" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"   value="4cb2c9" name="schemer[colors][header][cs-shopping_cart > a:first-child:before , html .shopping_cart > a:first-child:before , html .bgheader .btn.button-search , html .popover-shorty i , body .shopping_cart .fa-shopping-cart
+
+]" class="s_color"/>
+            </div>
+            
+            <!--////////// TOP ICONS BG HOVER /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label>Icons Hover</label>
+              <div id="cs-link-shopping_cart > a:hover:first-child:before , html .shopping_cart > a:hover:first-child:before , html .bgheader .btn.button-search:hover , html .popover-shorty i:hover , html body .header-button i:hover, html body .mega-menu .menu-title:hover , html body .shopping_cart .fa-shopping-cart:hover
+
+
+" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"   value="4cb2c9" name="schemer[colors][header][cs-link-shopping_cart > a:hover:first-child:before , html .shopping_cart > a:hover:first-child:before , html .bgheader .btn.button-search:hover , html .popover-shorty i:hover , html body .header-button i:hover, html body .mega-menu .menu-title:hover , html body .shopping_cart .fa-shopping-cart:hover
+
+]" class="s_color"/>
+            </div>
+            
+            <!--////////// TOP ICONS COLOR /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label>Icons color</label>
+              <div id="cs-link-empty
+
+
+" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"   value="4cb2c9" name="schemer[colors][header][cs-link-header_top div.current:after,html .header_top i, .header_top a:before , html body .header_top div.current:after ,html.header_top div.current:after,html .header_top i,html  .header_top a:before
+]" class="s_color"/>
+            </div>
+            
+            <!--////////// ICONS COLOR  /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label>Icons color</label>
+              <div id="cs-border
+
+
+" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"   value="4cb2c9" name="schemer[colors][header][cs-border
+]" class="s_color"/>
+            </div>
+            
+            <!--////////// BUTTONS SAVE /////////////////// -->
+            
+            <div class="clearfix button-prestadesigner">
+              <button title="Save section styles" type="button" disabled=disabled class="btn-save" conftype="header"><i class="icon-tint"></i> Save this section</button>
+            </div>
+            <a target="_blank" class="btn-css" href="../modules/templines/css/header.css"><i class="fa icon-pencil   "></i>Get Css section</a> </li>
+        </ul>
+      </li>
+      
+      <!--/////////////////
+      ///////////////////
+      /////////////////
+      ////////////////
+      //////////////
+                           
+           FOOTER  
+           
+       /////////////
+       ////////////////
+       //////////////////
+       /////////////////////
+       /////////////////////// -->
+      
+      <li> <a  class="anchor-link" href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#footer">
+        <h3>Footer</h3>
+        </a>
+        <ul>
+          <li>
+            <div class="s_cp_row clearfix">
+              <label>Footer Bg</label>
+              <div id="cs-footer, html footer
+
+
+" class="colorSelector" style="background-color: rgb(76, 178, 201);" ></div>
+              <input type="hidden"   value="4cb2c9" name="schemer[colors][footer][cs-footer, html .footer
+
+
+]" class="s_color"/>
+            </div>
+            
+            <!--//////////  HEADING COLOR  /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label> Heading Color </label>
+              <div id="cs-link-ftop_blk h5 , html .ftop_blk h5 ,html  .f_mid h4, html .f_mid h4 a
+
+" data-type="text" class="colorSelector" style="background-color: rgb(76, 178, 201);"></div>
+              <input type="hidden"   value="4cb2c9" name="schemer[colors][footer][cs-link-ftop_blk h5 , html .ftop_blk h5 ,html  .f_mid h4, html .f_mid h4 a
+
+
+
+]" class="s_color"/>
+            </div>
+            
+            <!--////////// INFO COLOR /////////////////// -->
+            
+            <div class="s_cp_row clearfix">
+              <label> Info color </label>
+              <div id="cs-link-f_mid .desc , html .f_mid .desc , html .footer .f_mid p ,html .footer .f_mid * , html body  .footer .f_mid p a, html .fa-arrow-circle-right, html .footer .f_mid .social ul li a i , html body .footer .f_mid p a,html body .footer  .fa-arrow-circle-right
+
+
+
+
+
+
+" data-type="text" class="colorSelector" style="background-color: rgb(76, 178, 201);"></div>
+              <input type="hidden"   value="4cb2c9" name="schemer[colors][footer][cs-link-f_mid .desc , html .f_mid .desc , html .footer .f_mid p ,html .footer .f_mid * , html body  .footer .f_mid p a, html .fa-arrow-circle-right, html .footer .f_mid .social ul li a i , html body .footer .f_mid p a,html body .footer  .fa-arrow-circle-right
+
+
+]" class="s_color"/>
+            </div>
+            <div class="clearfix button-prestadesigner">
+              <button title="Save section styles" type="button" disabled=disabled class="btn-save" conftype="footer"><i class="icon-tint"></i> Save this section</button>
+            </div>
+            <a target="_blank" class="btn-css" href="../modules/templines/css/footer.css"><i class="fa icon-pencil   "></i>Get Css section</a> </li>
+        </ul>
+      </li>
+      
+      <!--  SIDEBAR
+============================================================================== -->
+      <li class="background-section">
+      <h4> Background </h4>
+      <div class="bg_block">
+        <label class="bg-label" for="bg-label">Background image</label>
+        <div class="section" style="display:block;">
+          <div> 
+            <!--<a id="backgrUploaderBtn">Upload Background</a>-->
+            <div style="display:none">
+              <input type="file" id="backgrUploader"/>
+            </div>
+            <input  type="hidden" name="schemer[bg][main]" id="main_bg_value" value=""/>
+            <div id="InfoBox">
+              <ul id="backgrounds" class="bg-bg">
+                <li class="add-img"> <img width="20" onclick="$('#backgrUploader').click()" height="20" src="../modules/templines/img/add.png"/>
+                <li><img width="20" onclick="selectBg(this)" height="20" src="../modules/templines/img/empty.png"/></li>
+                </li>
+                              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      </li>
+      <li style="position:absolute; left:-99999px;">
+        <h4>Fonts</h4>
+        <div class="bg_block">
+          <label class="bg-label" for="bg-label">Fonts</label>
+          <div class="section" style="display:block;">
+            <select class="chzn-select" id="headingfont" name="schemer[headingfont]">
+              <option>Arial</option>
+              <option>Tahoma</option>
+            </select>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="clearfix button-prestadesigner">
+      <button title="Reset custom styles" type="button" id="reset_cookie" style="float:left"> Reset All</button>
+      <button title="Save all" type="button" class="tc-button"  disabled=disabled id="save_theme_config"><i class="icon-cogs"></i> Save All</button>
+    </div>
+        <div class="shorty alert alert-warning  "> Saving option is only available in work mode</div>
+     </nav>
+  <a href="javascript:void(0)" id="trigger" class="menu-trigger"><i class="icon-cogs"></i></a>
+</form>
+<script type="text/javascript">
+
+	initConfigurator('http://prestazilla.com/demo/cooncook/');
+	 var url= "http://prestazilla.com/demo/cooncook/index.php?module=templines&fc=module&controller=dss&ajax=1";
+    $(document).ready(function(){
+
+  document.getElementById('backgrUploader').addEventListener('change', function(e) {
+var file = this.files[0];
+ 
+			  var fd = new FormData();
+			  fd.append("afile", file);
+
+			 
+			  var xhr = new XMLHttpRequest();
+			  xhr.open('POST', url, true);
+			  
+			  xhr.upload.onprogress = function(e) {
+			    if (e.lengthComputable) {
+			var percentComplete = (e.loaded / e.total) * 100;
+			console.log(percentComplete + '% uploaded');
+			    }
+			  };
+			 
+			  xhr.onload = function() {
+			    if (this.status == 200) {
+			var resp = JSON.parse(this.response);
+			 
+			console.log('Server got:', resp);
+			 
+			var imageHtml = "<li>";
+			imageHtml += "<img width='20' height='20' src='" + resp.dataUrl + "' onclick='selectBg(this)'/>";
+			imageHtml += "</li>";
+			$('#backgrounds').append(imageHtml);
+			
+			    }
+			  };
+			 
+			  xhr.send(fd);
+  }, false);
+    });
+</script> 
+ 
+
+
+
+<!--[if IE 8]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+        
+
+                
+                
+</head>
+<body id="authentication" class="authentication hide-left-column hide-right-column lang_es color-scheme-default  noIE">
+
+
+
+
+
+			
+
+ 
+
+<div id="page">
+
+<header id="header" class="bgheader">
+
+
+ 
+<div class="header_top ">
+  <div class="container">
+    <div class="row">
+    <div class="col-lg-12">
+      <nav><!-- Block user information module NAV  -->
+<div class="header_user_info">
+			<a class="login" href="login-back=my-account.html" rel="nofollow" title="Login to your customer account">
+			Sign in
+		</a>
+	</div>
+<!-- /Block usmodule NAV --><!-- Block currencies module -->
+	<div id="currencies-block-top" class="currencies-block-top">
+		<form id="setCurrency" action="/demo/cooncook/es/login?multi-shipping=0&amp;display_guest_checkout=0&amp;back=http://prestazilla.com/demo/cooncook/en/order?step=1&amp;multi-shipping=0" method="post">
+			<div class="current">
+				<input type="hidden" name="id_currency" id="id_currency" value=""/>
+				<input type="hidden" name="SubmitCurrency" value="" />
+				<span class="cur-label">Divisa :</span>
+									<strong>USD</strong>																</div>
+			<ul id="first-currencies" class="currencies_ul toogle_content">
+									<li class="selected">
+						<a href="javascript:setCurrency(1);" rel="nofollow" title="Dollar">
+							Dollar
+						</a>
+					</li>
+									<li >
+						<a href="javascript:setCurrency(2);" rel="nofollow" title="EUR">
+							EUR
+						</a>
+					</li>
+							</ul>
+		</form>
+	</div>
+<!-- /Block currencies module --><!-- Block languages module -->
+	<div id="languages-block-top" class="languages-block">
+														<div class="current">
+					<span>Español</span>
+				</div>
+							<ul id="first-languages" class="languages-block_ul toogle_content">
+							<li >
+																				<a href="../en/login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html" title="English (English)">
+															<span>English</span>
+									</a>
+								</li>
+							<li class="selected">
+										<span>Español</span>
+								</li>
+					</ul>
+	</div>
+<!-- /Block languages module -->
+<div id="contact-link">
+	<a href="contact-us.html" title="Contact Us">Contact us</a>
+</div>
+	<span class="shop-phone">
+		<i class="icon-phone"></i>Call us now: <strong>0123-456-789</strong>
+	</span>
+</nav>
+      </div>
+        </div>
+  </div>
+</div>
+
+
+
+<div class="header_bot">
+
+<div class="container">
+<div class="row">
+
+ <div class="col-lg-12">
+<div class="logo"> <a href="../en/index.html" title="CoonCook"> <img class="logo img-responsive" src="../img/cooncook-1410190979.jpg" alt="CoonCook" width="189" height="37"/> </a>  </div>
+  
+ <div class="header-button"> 
+    <div class="textwidget">
+    
+        <p>
+
+			
+
+ 
+
+			
+
+			
+
+			<div class="popover-shorty"> <a href="../en/content/3-shortycode.html"  target="" ><i class="icon-thumbs-up"></i></a>
+
+        <div class="popover bottom">
+
+          <div class="arrow"></div>
+
+          <h3 class="popover-title">Quality guarantee</h3>
+
+          <div class="popover-content">
+
+             Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.  
+
+          </div>
+
+        </div>
+
+      </div>
+
+			
+
+			
+
+			
+
+			 
+
+			
+
+ 
+
+			
+
+			
+
+			<div class="popover-shorty"> <a href="../en/content/3-shortycode.html"  target="" ><i class="icon-rocket"></i></a>
+
+        <div class="popover bottom">
+
+          <div class="arrow"></div>
+
+          <h3 class="popover-title">Reliable delivery</h3>
+
+          <div class="popover-content">
+
+             Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.  
+
+          </div>
+
+        </div>
+
+      </div>
+
+			
+
+			
+
+			
+
+			 
+
+			
+
+ 
+
+			
+
+			
+
+			<div class="popover-shorty"> <a href="http://www.facebook.com"  target="_blank" ><i class="icon-facebook"></i></a>
+
+        <div class="popover bottom">
+
+          <div class="arrow"></div>
+
+          <h3 class="popover-title">Suivez-nous!</h3>
+
+          <div class="popover-content">
+
+            Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
+
+          </div>
+
+        </div>
+
+      </div>
+
+			
+
+			
+
+			
+
+			</p> 
+
+      
+    </div>
+    
+  </div>
+  
+  
+  
+  <!-- Block search module TOP -->
+<div id="search_block_top" class="search_block_top">
+	<form id="searchbox" method="get" action="http://prestazilla.com/demo/cooncook/es/search" >
+		<input type="hidden" name="controller" value="search" />
+		<input type="hidden" name="orderby" value="position" />
+		<input type="hidden" name="orderway" value="desc" />
+		<input class="search_query form-control" type="text" id="search_query_top" name="search_query"  value="" />
+		<button type="submit" name="submit_search" class="btn btn-default button-search">
+			<span>Search</span>
+		</button>
+	</form>
+</div>
+<!-- /Block search module TOP -->	<!-- Menu -->
+	<div id="block_top_menu" class="sf-contener clearfix">
+		<div class="cat-title">Categories</div>
+		<ul class="sf-menu clearfix menu-content">
+			<li><a href="3-bedroom.html" title="Bedroom">Bedroom</a><ul><li><a href="4-mattresses.html" title="Mattresses">Mattresses</a><ul><li><a href="5-tshirts.html" title="T-shirts">T-shirts</a></li><li><a href="7-blouses.html" title="Blouses">Blouses</a></li></ul></li><li><a href="8-beds.html" title="Beds">Beds</a><ul><li><a href="9-casual-dresses.html" title="Casual Dresses">Casual Dresses</a></li><li><a href="10-evening-dresses.html" title="Evening Dresses">Evening Dresses</a></li><li><a href="11-summer-dresses.html" title="Summer Dresses">Summer Dresses</a></li></ul></li><li><a href="44-bedroom-storage.html" title="Bedroom storage">Bedroom storage</a></li><li><a href="45-lighting.html" title="Lighting">Lighting</a></li><li><a href="46-textiles-rugs.html" title="Textiles & rugs">Textiles & rugs</a></li><li><a href="47-mirrors.html" title="Mirrors">Mirrors</a></li><li class="category-thumbnail"></li></ul></li><li><a href="8-beds.html" title="Beds">Beds</a><ul><li><a href="9-casual-dresses.html" title="Casual Dresses">Casual Dresses</a></li><li><a href="10-evening-dresses.html" title="Evening Dresses">Evening Dresses</a></li><li><a href="11-summer-dresses.html" title="Summer Dresses">Summer Dresses</a></li><li class="category-thumbnail"></li></ul></li><li><a href="5-tshirts.html" title="T-shirts">T-shirts</a></li>
+					</ul>
+	</div>
+	<!--/ Menu -->
+
+
+
+
+
+<!-- MODULE Block cart -->
+
+	<div class="shopping_cart ">
+    
+
+  
+		<a href="order.html" title="View my shopping cart" rel="nofollow">
+	
+              <i class="fa fa-shopping-cart"></i> 
+			
+
+			<span class="ajax_cart_no_product unvisible">(empty)</span>
+					</a>
+					<div class="cart_block block exclusive">
+				<div class="block_content">
+					<!-- block list of products -->
+					<div class="cart_block_list">
+													<dl class="products">
+																																			<dt data-id="cart_block_product_1_1_0" class="first_item">
+										<a class="cart-images" href="tshirts/1-faded-short-sleeve-tshirts.html" title="Quod satis pecuniae"><img src="../40-cart_default/faded-short-sleeve-tshirts.jpg" alt="Quod satis pecuniae" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="tshirts/1-faded-short-sleeve-tshirts.html#/size-s/color-orange" title="Quod satis pecuniae">Quod satis...</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="tshirts/1-faded-short-sleeve-tshirts.html#/size-s/color-orange" title="Product detail">Orange, S</a>
+												</div>
+																						<span class="price">
+																									$16.51																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_1_1_0" class="first_item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_2_7_0" class="item">
+										<a class="cart-images" href="blouses/2-blouse.html" title="Ut sibi fuerat"><img src="../43-cart_default/blouse.jpg" alt="Ut sibi fuerat" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="blouses/2-blouse.html#/size-s/color-black" title="Ut sibi fuerat">Ut sibi...</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="blouses/2-blouse.html#/size-s/color-black" title="Product detail">Black, S</a>
+												</div>
+																						<span class="price">
+																									$27.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_2_7_0" class="item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_3_13_0" class="item">
+										<a class="cart-images" href="home/3-printed-dress.html" title="Paenitet me quod"><img src="../47-cart_default/printed-dress.jpg" alt="Paenitet me quod" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="home/3-printed-dress.html#/size-s/color-orange" title="Paenitet me quod">Paenitet...</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="home/3-printed-dress.html#/size-s/color-orange" title="Product detail">Orange, S</a>
+												</div>
+																						<span class="price">
+																									$26.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_3_13_0" class="item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_5_19_0" class="item">
+										<a class="cart-images" href="appliances/5-printed-summer-dress.html" title="Product 360 view"><img src="../58-cart_default/printed-summer-dress.jpg" alt="Product 360 view" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="appliances/5-printed-summer-dress.html#/size-s/color-yellow" title="Product 360 view">Product...</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="appliances/5-printed-summer-dress.html#/size-s/color-yellow" title="Product detail">Yellow, S</a>
+												</div>
+																						<span class="price">
+																									$28.98																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_5_19_0" class="item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_6_31_0" class="item">
+										<a class="cart-images" href="summer-dresses/6-printed-summer-dress.html" title="Uno ictu cruentus "><img src="../62-cart_default/printed-summer-dress.jpg" alt="Uno ictu cruentus " /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="summer-dresses/6-printed-summer-dress.html#/size-s/color-yellow" title="Uno ictu cruentus ">Uno ictu...</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="summer-dresses/6-printed-summer-dress.html#/size-s/color-yellow" title="Product detail">Yellow, S</a>
+												</div>
+																						<span class="price">
+																									$30.50																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_6_31_0" class="item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_9_0_0" class="item">
+										<a class="cart-images" href="home/9-paenitet-me-quod-.html" title="Ut sibi fuerat"><img src="../35-cart_default/paenitet-me-quod-.jpg" alt="Ut sibi fuerat" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="home/9-paenitet-me-quod-.html" title="Ut sibi fuerat">Ut sibi...</a>
+											</div>
+																						<span class="price">
+																									$345.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																		<!-- Customizable datas -->
+																																																					<dt data-id="cart_block_product_7_34_0" class="item">
+										<a class="cart-images" href="summer-dresses/7-printed-chiffon-dress.html" title="Mauris a nunc occideritis"><img src="../64-cart_default/printed-chiffon-dress.jpg" alt="Mauris a nunc occideritis" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="summer-dresses/7-printed-chiffon-dress.html#/size-s/color-yellow" title="Mauris a nunc occideritis">Mauris a...</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="summer-dresses/7-printed-chiffon-dress.html#/size-s/color-yellow" title="Product detail">Yellow, S</a>
+												</div>
+																						<span class="price">
+																									$16.40																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_7_34_0" class="item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_10_0_0" class="item">
+										<a class="cart-images" href="home/10-paenitet-me-quod-.html" title="Ut sibi fuerat"><img src="../38-cart_default/paenitet-me-quod-.jpg" alt="Ut sibi fuerat" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="home/10-paenitet-me-quod-.html" title="Ut sibi fuerat">Ut sibi...</a>
+											</div>
+																						<span class="price">
+																									$345.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																		<!-- Customizable datas -->
+																																																					<dt data-id="cart_block_product_11_57_0" class="item">
+										<a class="cart-images" href="summer-dresses/11-printed-summer-dress.html" title="Tu nunc coci ejus"><img src="../68-cart_default/printed-summer-dress.jpg" alt="Tu nunc coci ejus" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="summer-dresses/11-printed-summer-dress.html#/size-s/color-yellow" title="Tu nunc coci ejus">Tu nunc...</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="summer-dresses/11-printed-summer-dress.html#/size-s/color-yellow" title="Product detail">Yellow, S</a>
+												</div>
+																						<span class="price">
+																									$28.98																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_11_57_0" class="item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_13_0_0" class="item">
+										<a class="cart-images" href="home/13-paenitet-me-quod-.html" title="Ut sibi fuerat "><img src="../86-cart_default/paenitet-me-quod-.jpg" alt="Ut sibi fuerat " /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="home/13-paenitet-me-quod-.html" title="Ut sibi fuerat ">Ut sibi...</a>
+											</div>
+																						<span class="price">
+																									$345.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																		<!-- Customizable datas -->
+																																																					<dt data-id="cart_block_product_4_16_0" class="item">
+										<a class="cart-images" href="evening-dresses/4-printed-dress.html" title="Ecce dabo"><img src="../55-cart_default/printed-dress.jpg" alt="Ecce dabo" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="evening-dresses/4-printed-dress.html#/size-s/color-beige" title="Ecce dabo">Ecce dabo</a>
+											</div>
+																							<div class="product-atributes">
+													<a href="evening-dresses/4-printed-dress.html#/size-s/color-beige" title="Product detail">Beige, S</a>
+												</div>
+																						<span class="price">
+																									$50.99																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																			<dd data-id="cart_block_combination_of_4_16_0" class="item">
+																		<!-- Customizable datas -->
+																		</dd>																																			<dt data-id="cart_block_product_14_0_0" class="item">
+										<a class="cart-images" href="home/14-paenitet-me-quod-.html" title="Prohibere Striga"><img src="../92-cart_default/paenitet-me-quod-.jpg" alt="Prohibere Striga" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="home/14-paenitet-me-quod-.html" title="Prohibere Striga">Prohibere...</a>
+											</div>
+																						<span class="price">
+																									$345.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																		<!-- Customizable datas -->
+																																																					<dt data-id="cart_block_product_8_0_0" class="item">
+										<a class="cart-images" href="home/8-paenitet-me-quod-.html" title="Paenitet me quod "><img src="../25-cart_default/paenitet-me-quod-.jpg" alt="Paenitet me quod " /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="home/8-paenitet-me-quod-.html" title="Paenitet me quod ">Paenitet...</a>
+											</div>
+																						<span class="price">
+																									$345.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																		<!-- Customizable datas -->
+																																																					<dt data-id="cart_block_product_12_0_0" class="last_item">
+										<a class="cart-images" href="home/12-paenitet-me-quod-.html" title="Blowfish librantur"><img src="../77-cart_default/paenitet-me-quod-.jpg" alt="Blowfish librantur" /></a>
+										<div class="cart-info">
+											<div class="product-name">
+												<span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="home/12-paenitet-me-quod-.html" title="Blowfish librantur">Blowfish...</a>
+											</div>
+																						<span class="price">
+																									$345.00																							</span>
+										</div>
+										<span class="remove_link">
+																							<a class="ajax_cart_block_remove_link" href="order-ipa=0.html" rel="nofollow" title="remove this product from my cart">&nbsp;</a>
+																					</span>
+									</dt>
+																		<!-- Customizable datas -->
+																																	</dl>
+												<p class="cart_block_no_products unvisible">
+							No products
+						</p>
+												<div class="cart-prices">
+							<div class="cart-prices-line first-line">
+								<span class="price cart_block_shipping_cost ajax_cart_shipping_cost">
+																			$7.00
+																	</span>
+								<span>
+									Shipping
+								</span>
+							</div>
+																					<div class="cart-prices-line last-line">
+								<span class="price cart_block_total ajax_block_cart_total">$2,302.36</span>
+								<span>Total</span>
+							</div>
+													</div>
+						<p class="cart-buttons">
+							<a id="button_order_cart" class="btn btn-default button button-small" href="order.html" title="Check out" rel="nofollow">
+								<span>
+									Check out<i class="icon-chevron-right right"></i>
+								</span>
+							</a>
+						</p>
+					</div>
+				</div>
+			</div><!-- .cart_block -->
+		        
+        
+           <span class="nb_total_products"> 14 </span>            
+           
+           
+	</div>
+
+
+	<div id="layer_cart">
+		<div class="clearfix">
+			<div class="layer_cart_product col-xs-12 col-md-6">
+				<span class="cross" title="Close window"></span>
+				<h2>
+					<i class="icon-ok"></i>Product successfully added to your shopping cart
+				</h2>
+				<div class="product-image-container layer_cart_img">
+				</div>
+				<div class="layer_cart_product_info">
+					<span id="layer_cart_product_title" class="product-name"></span>
+					<span id="layer_cart_product_attributes"></span>
+					<div>
+						<strong class="dark">Quantity</strong>
+						<span id="layer_cart_product_quantity"></span>
+					</div>
+					<div>
+						<strong class="dark">Total</strong>
+						<span id="layer_cart_product_price"></span>
+					</div>
+				</div>
+			</div>
+			<div class="layer_cart_cart col-xs-12 col-md-6">
+				<h2>
+					<!-- Plural Case [both cases are needed because page may be updated in Javascript] -->
+					<span class="ajax_cart_product_txt_s ">
+						There are <span class="ajax_cart_quantity">14</span> items in your cart.
+					</span>
+					<!-- Singular Case [both cases are needed because page may be updated in Javascript] -->
+					<span class="ajax_cart_product_txt  unvisible">
+						There is 1 item in your cart.
+					</span>
+				</h2>
+	
+				<div class="layer_cart_row">
+					<strong class="dark">
+						Total products
+													(tax excl.)
+											</strong>
+					<span class="ajax_block_products_total">
+													$2,295.36
+											</span>
+				</div>
+	
+								<div class="layer_cart_row">
+					<strong class="dark">
+						Total shipping&nbsp;(tax excl.)
+					</strong>
+					<span class="ajax_cart_shipping_cost">
+													$7.00
+											</span>
+				</div>
+								<div class="layer_cart_row">	
+					<strong class="dark">
+						Total
+													(tax excl.)
+											</strong>
+					<span class="ajax_block_cart_total">
+																					$2,302.36
+																		</span>
+				</div>
+				<div class="button-container">	
+					<span class="continue btn btn-default button exclusive-medium" title="Continue shopping">
+						<span>
+							<i class="icon-chevron-left left"></i>Continue shopping
+						</span>
+					</span>
+					<a class="btn btn-default button button-medium"	href="order.html" title="Proceed to checkout" rel="nofollow">
+						<span>
+							Proceed to checkout<i class="icon-chevron-right right"></i>
+						</span>
+					</a>	
+				</div>
+			</div>
+		</div>
+		<div class="crossseling"></div>
+	</div> <!-- #layer_cart -->
+	<div class="layer_cart_overlay"></div>
+
+<!-- /MODULE Block cart -->
+
+
+<!--Header End-->
+
+<div id="site-menu" class="site-menu-mega">
+  <div class="inner container"> 
+  
+    
+    <ul  class="main-menu menu cl-effect-11     ">
+     
+   
+      
+      
+      
+      <li class="categories  " ><a  data-hover="Category" >Category</a><div class="mega-menu"><div class="row dgfdg">
+					
+					
+					<div class="col-lg-2 mm-col sub-item-lg">
+					
+					
+					<h4 class="menu-title"><a href="3-bedroom.html">Bedroom</a></h4><div class="row">
+													<div class="mm-row">
+														<div class="">
+															<ul><li><a href="4-mattresses.html">Mattresses</a></li><li><a href="8-beds.html">Beds</a></li><li><a href="44-bedroom-storage.html">Bedroom storage</a></li><li><a href="45-lighting.html">Lighting</a></li><li><a href="46-textiles-rugs.html">Textiles & rugs</a></li><li><a href="47-mirrors.html">Mirrors</a></li></ul></div></div></div></div>
+					
+					
+					<div class="col-lg-2 mm-col sub-item-lg">
+					
+					
+					<h4 class="menu-title"><a href="12-kitchen.html">Kitchen</a></h4><div class="row">
+													<div class="mm-row">
+														<div class="">
+															<ul><li><a href="13-kitchen-cabinets.html">Kitchen cabinets</a></li><li><a href="14-interior-organizers.html">Interior organizers</a></li><li><a href="15-appliances.html">Appliances</a></li><li><a href="16-free-standing-kitchens.html">Free-standing kitchens</a></li><li><a href="17-countertops.html">Countertops</a></li><li><a href="18-kitchen-faucets.html">Kitchen faucets</a></li><li><a href="19-wall-panels.html">Wall panels</a></li></ul></div></div></div></div>
+					
+					
+					<div class="col-lg-2 mm-col sub-item-lg">
+					
+					
+					<h4 class="menu-title"><a href="22-livingroom_esp.html">Livingroom</a></h4><div class="row">
+													<div class="mm-row">
+														<div class="">
+															<ul><li><a href="23-sofas-armchairs.html">Sofas & armchairs</a></li><li><a href="24-tv-media-furniture.html">TV & media furniture</a></li><li><a href="25-living-room-storage.html">Living room storage</a></li><li><a href="27-living-room-lighting.html">Living room lighting</a></li><li><a href="28-living-room-textiles.html">Living room textiles</a></li></ul></div></div></div></div>
+					
+					
+					<div class="col-lg-2 mm-col sub-item-lg">
+					
+					
+					<h4 class="menu-title"><a href="29-textiles-rugs.html">Textiles & Rugs</a></h4><div class="row">
+													<div class="mm-row">
+														<div class="">
+															<ul><li><a href="30-rugs.html">Rugs</a></li><li><a href="31-bedroom-textiles.html">Bedroom textiles</a></li><li><a href="32-curtains-blinds.html">Curtains & blinds</a></li><li><a href="33-curtain-rods-rails.html">Curtain rods & rails</a></li><li><a href="34-fabrics-sewing.html">Fabrics & sewing</a></li><li><a href="35-cushions-covers.html">Cushions covers</a></li><li><a href="36-kitchen-textiles-.html">Kitchen textiles </a></li></ul></div></div></div></div>
+					
+					
+					<div class="col-lg-2 mm-col sub-item-lg">
+					
+					
+					<h4 class="menu-title"><a href="37-for-business.html">For Business</a></h4><div class="row">
+													<div class="mm-row">
+														<div class="">
+															<ul><li><a href="38-school.html">School</a></li><li><a href="39-office.html">Office</a></li><li><a href="40-retail.html">Retail</a></li><li><a href="41-hospitality.html">Hospitality</a></li><li><a href="42-tools.html">Tools</a></li><li><a href="43-equipment.html">Equipment</a></li></ul></div></div></div></div></div></div></li>  <li class="dd-category-item ">
+					
+					
+					<a href="3-bedroom.html">Bedroom</a><ul><li><a href="4-mattresses.html">Mattresses</a></li><li><a href="8-beds.html">Beds</a></li><li><a href="44-bedroom-storage.html">Bedroom storage</a></li><li><a href="45-lighting.html">Lighting</a></li><li><a href="46-textiles-rugs.html">Textiles & rugs</a></li><li><a href="47-mirrors.html">Mirrors</a></li></ul></li>  <li class="dd-category-item ">
+					
+					
+					<a href="12-kitchen.html">Kitchen</a><ul><li><a href="13-kitchen-cabinets.html">Kitchen cabinets</a></li><li><a href="14-interior-organizers.html">Interior organizers</a></li><li><a href="15-appliances.html">Appliances</a></li><li><a href="16-free-standing-kitchens.html">Free-standing kitchens</a></li><li><a href="17-countertops.html">Countertops</a></li><li><a href="18-kitchen-faucets.html">Kitchen faucets</a></li><li><a href="19-wall-panels.html">Wall panels</a></li></ul></li>  <li class="dd-category-item ">
+					
+					
+					<a href="22-livingroom_esp.html">Livingroom</a><ul><li><a href="23-sofas-armchairs.html">Sofas & armchairs</a></li><li><a href="24-tv-media-furniture.html">TV & media furniture</a></li><li><a href="25-living-room-storage.html">Living room storage</a></li><li><a href="27-living-room-lighting.html">Living room lighting</a></li><li><a href="28-living-room-textiles.html">Living room textiles</a></li></ul></li>  <li class="dd-category-item ">
+					
+					
+					<a href="29-textiles-rugs.html">Textiles & Rugs</a><ul><li><a href="30-rugs.html">Rugs</a></li><li><a href="31-bedroom-textiles.html">Bedroom textiles</a></li><li><a href="32-curtains-blinds.html">Curtains & blinds</a></li><li><a href="33-curtain-rods-rails.html">Curtain rods & rails</a></li><li><a href="34-fabrics-sewing.html">Fabrics & sewing</a></li><li><a href="35-cushions-covers.html">Cushions covers</a></li><li><a href="36-kitchen-textiles-.html">Kitchen textiles </a></li></ul></li>  <li class="dd-category-item ">
+					
+					
+					<a href="37-for-business.html">For Business</a><ul><li><a href="38-school.html">School</a></li><li><a href="39-office.html">Office</a></li><li><a href="40-retail.html">Retail</a></li><li><a href="41-hospitality.html">Hospitality</a></li><li><a href="42-tools.html">Tools</a></li><li><a href="43-equipment.html">Equipment</a></li></ul></li>
+      
+      <li class="by_manufacturer " >
+			<a data-hover="Brand" href="manufacturers.html">Brand</a>
+			
+			
+		<div data-layout="grid" class="mega-menu section offer products-container portrait product-grid mega-menu-img-item" ><div class="row"><div class="col-lg-3  mm-col sub-item-lg">
+					
+					
+					
+															
+				
+				
+		<div class="product">
+				
+				<a href="1_themeforest.html">
+				
+				<img alt="Themeforest " src="../img/m/1.jpg"  ></a></div></div><div class="col-lg-3  mm-col sub-item-lg">
+					
+					
+					
+															
+				
+				
+		<div class="product">
+				
+				<a href="2_codecanyon-mion.html">
+				
+				<img alt="Codecanyon mion " src="../img/m/2.jpg"  ></a></div></div><div class="col-lg-3  mm-col sub-item-lg">
+					
+					
+					
+															
+				
+				
+		<div class="product">
+				
+				<a href="3_audiojangle.html">
+				
+				<img alt="AudioJangle " src="../img/m/3.jpg"  ></a></div></div><div class="col-lg-3  mm-col sub-item-lg">
+					
+					
+					
+															
+				
+				
+		<div class="product">
+				
+				<a href="4_photodune.html">
+				
+				<img alt="PhotoDune " src="../img/m/4.jpg"  ></a></div></div></div></div></li>
+      
+      <li class="specials  " ><a   data-hover="Sale"   href="prices-drop.html">Sale</a>
+			
+			
+			<div data-layout="grid" class="mega-menu section offer products-container portrait product-grid mega-menu-img-item" ><div class="row">
+					
+					
+					<div class="col-lg-3  mm-col sub-item-lg">
+					
+					
+					
+															
+				
+				
+		<div class="product">	
+		
+		<a class="item-menu-img" href="appliances/5-printed-summer-dress.html">
+		
+		<div class="product-thumbnail">
+		
+			<img  alt="default-large" src="../58-home_default/printed-summer-dress.jpg">
+			
+			</div>
+			
+			</a>
+		
+		
+		
+		
+		
+		<div class="product-info clearfix">
+            <h4 class="title"> <a href="appliances/5-printed-summer-dress.html">Product 360 view</a> </h4></div>
+			
+			
+			</div>
+
+				
+				
+		</div>
+					
+					
+					<div class="col-lg-3  mm-col sub-item-lg">
+					
+					
+					
+															
+				
+				
+		<div class="product">	
+		
+		<a class="item-menu-img" href="summer-dresses/7-printed-chiffon-dress.html">
+		
+		<div class="product-thumbnail">
+		
+			<img  alt="default-large" src="../64-home_default/printed-chiffon-dress.jpg">
+			
+			</div>
+			
+			</a>
+		
+		
+		
+		
+		
+		<div class="product-info clearfix">
+            <h4 class="title"> <a href="summer-dresses/7-printed-chiffon-dress.html">Mauris a nunc occideritis</a> </h4></div>
+			
+			
+			</div>
+
+				
+				
+		</div>
+					
+					
+					<div class="col-lg-3  mm-col sub-item-lg">
+					
+					
+					
+															
+				
+				
+		<div class="product">	
+		
+		<a class="item-menu-img" href="summer-dresses/11-printed-summer-dress.html">
+		
+		<div class="product-thumbnail">
+		
+			<img  alt="default-large" src="../68-home_default/printed-summer-dress.jpg">
+			
+			</div>
+			
+			</a>
+		
+		
+		
+		
+		
+		<div class="product-info clearfix">
+            <h4 class="title"> <a href="summer-dresses/11-printed-summer-dress.html">Tu nunc coci ejus</a> </h4></div>
+			
+			
+			</div>
+
+				
+				
+		</div></div></div></li>
+      
+      
+      
+      <li  class=""><a  data-hover="Short Cat"  href="">Short Cat</a></li>
+      
+      <li  class=""><a  data-hover="Blog"  href="">Blog</a></li>
+      
+    </ul>
+    
+    
+  </div>
+</div>
+
+
+</div>
+</div> 
+</div>
+</div>
+</header>
+
+
+
+
+<link href="../modules/blocklanguages_mobile/blocklanguages_mobile.css" rel="stylesheet" />
+<script>
+
+
+
+	   var langClick = function(){
+		   
+		 
+		   
+	  $(".languages_block_bottom").toggle();
+	  $(".currencies_block_bottom").hide();  
+    
+	
+    }
+
+
+	 
+	
+
+  </script>
+
+
+<!-- Block languages module -->
+<div class="languages_block_bottom" >
+	<div id="countries">
+	
+				<!--<p class="selected_language">
+			<img src="http://prestazilla.com/demo/cooncook/img/l/2.jpg" alt="es" width="16" height="11" />
+		</p>-->
+	
+			
+																<a href="../en/login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html" title="English (English)">
+
+												<img src="../img/l/1.jpg" alt="en" width="16" height="11" />
+							</a>
+				
+			
+								<img src="../img/l/2.jpg" alt="es" width="16" height="11" />
+				
+		
+	</div>
+</div>
+
+
+<!-- /Block languages module -->
+
+
+
+
+
+
+<link href="../modules/blockcurrencies_mobile/blockcurrencies_mobile.css" rel="stylesheet" />
+
+<!-- Block currencies module -->
+<script type="text/javascript">
+
+	$("#setCurrency").mouseover(function(){
+		$(this).addClass("countries_hover");
+		$(".currencies_ul").addClass("currencies_ul_hover");
+	});
+	
+	
+	var  curClick = function(){
+	
+	
+	   $(".currencies_block_bottom").toggle();
+	   $(".languages_block_bottom").hide();
+	   
+	   
+	   }
+
+
+
+</script>
+
+
+
+<div class="currencies_block_bottom">
+	<form id="setCurrency" action="/demo/cooncook/es/login?multi-shipping=0&amp;display_guest_checkout=0&amp;back=http://prestazilla.com/demo/cooncook/en/order?step=1&amp;multi-shipping=0" method="post">
+		<!--<p>
+			<input type="hidden" name="id_currency" id="id_currency" value=""/>
+			<input type="hidden" name="SubmitCurrency" value="" />
+			Divisa : $
+		</p>-->
+		<ul class="currency-mobile-list">
+							<li class="selected">
+					<a href="javascript:setCurrency(1);" title="Dollar">$</a>
+				</li>
+							<li >
+					<a href="javascript:setCurrency(2);" title="EUR">€</a>
+				</li>
+					</ul>
+	</form>
+</div>
+<!-- /Block currencies module -->
+ 
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+<div class="container">	
+
+
+
+
+  
+  
+  
+  </div>   
+  
+
+<div class="columns-container" id="content" >
+<div id="columns" class="container">
+
+
+  
+    
+    
+    
+						
+<!-- Breadcrumb -->
+<div class="wrap-bread">
+
+<div class="container">
+
+<div class="breadcrumb clearfix">
+	<a class="home" href="../en/index.html" title="Return to Home"><i class="icon-home"></i></a>
+			<span class="navigation-pipe" >&gt;</span>
+					<span class="navigation_page">	Authentication</span>
+			</div>
+</div>
+
+
+</div>
+
+
+<!-- /Breadcrumb -->
+					                    
+                    
+                        <div class="row">
+  <div id="top_column" class="center_column col-xs-12 col-sm-12">
+  
+
+  
+  
+    
+      
+      
+      </div>
+</div>
+                        <div class="row">
+<div id="center_column" class="center_column col-xs-12 col-sm-12">
+
+
+
+<h1 class="page-heading">Authentication</h1>
+
+
+	<!---->
+	<div class="row">
+		<div class="col-xs-12 col-sm-6">
+			<form action="http://prestazilla.com/demo/cooncook/es/login" method="post" id="create-account_form" class="box">
+				<h3 class="page-subheading">Create an account</h3>
+				<div class="form_content clearfix">
+					<p>Please enter your email address to create an account.</p>
+					<div class="alert alert-danger" id="create_account_error" style="display:none"></div>
+					<div class="form-group">
+						<label for="email_create">Email address</label>
+						<input type="text" class="is_required validate account_input form-control" data-validate="isEmail" id="email_create" name="email_create" value="" />
+					</div>
+					<div class="submit">
+						<input type="hidden" class="hidden" name="back" value="http://prestazilla.com/demo/cooncook/en/order?step=1&amp;multi-shipping=0" />						<button class="btn btn-default button button-medium exclusive" type="submit" id="SubmitCreate" name="SubmitCreate">
+							<span>
+								<i class="icon-user left"></i>
+								Create an account
+							</span>
+						</button>
+						<input type="hidden" class="hidden" name="SubmitCreate" value="Create an account" />
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-xs-12 col-sm-6">
+			<form action="http://prestazilla.com/demo/cooncook/es/login" method="post" id="login_form" class="box">
+				<h3 class="page-subheading">Already registered?</h3>
+				<div class="form_content clearfix">
+					<div class="form-group">
+						<label for="email">Email address</label>
+						<input class="is_required validate account_input form-control" data-validate="isEmail" type="text" id="email" name="email" value="" />
+					</div>
+					<div class="form-group">
+						<label for="passwd">Password</label>
+						<span><input class="is_required validate account_input form-control" type="password" data-validate="isPasswd" id="passwd" name="passwd" value="" /></span>
+					</div>
+					<p class="lost_password form-group"><a href="password-recovery.html" title="Recover your forgotten password" rel="nofollow">Forgot your password?</a></p>
+					<p class="submit">
+						<input type="hidden" class="hidden" name="back" value="http://prestazilla.com/demo/cooncook/en/order?step=1&amp;multi-shipping=0" />						<button type="submit" id="SubmitLogin" name="SubmitLogin" class="button btn btn-default button-medium">
+							<span>
+								<i class="icon-lock left"></i>
+								Sign in
+							</span>
+						</button>
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+<!-- #center_column --> 
+</div>
+<!-- .row -->
+
+
+
+    
+     
+</div>
+
+
+
+
+
+<!-- #columns -->
+</div>
+
+
+
+
+
+<div id="footer" class="footer">
+  <div class="f_top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="ftop_blk">
+          
+          <h5>Customer loyalty <br /> programs</h5> 
+          
+           
+            <span class="icon_1 icon"></span> 
+            
+            
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="ftop_blk">
+          
+                    <h5>Worldwide <br /> shipping</h5> 
+                    
+            
+            <span class="icon_2 icon"></span> </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="ftop_blk">
+          
+                    <h5>24/7 technical <br /> support</h5> 
+                    
+           
+            <span class="icon_3 icon"></span> </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="ftop_blk bor_none">
+          
+                    <h5>returns and <br /> exchanges</h5> 
+                    
+         
+            <span class="icon_4 icon"></span> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="f_mid">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+          <h4>Install Block 3</h4>
+          <div class="desc">
+          Nulla laoreet, orci at fringilla consectetur, urna dui aliquam urna, sit amet dapibus odio orci vitae risus. Praesent egestas est vitae interdum varius. Sed ac mauris sit amet erat varius elementum. Morbi leo metus, dictum vitae justo ac, posuere porttitor augue. <a class="fa fa-arrow-circle-right" href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#"></a>
+         </div>
+          <div class="partner">
+            <h4>Install Block 4 </h4>
+                 <ul>
+              <li><a href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#"><img src="http://templines.com/demo/html/cooncook/images/partner_logo_1.png" alt="alt"></a></li>
+              <li><a href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#"><img src="http://templines.com/demo/html/cooncook/images/partner_logo_2.png" alt="alt"></a></li>
+              <li><a href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#"><img src="http://templines.com/demo/html/cooncook/images/partner_logo_3.png" alt="alt"></a></li>
+              <li><a href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#"><img src="http://templines.com/demo/html/cooncook/images/partner_logo_4.png" alt="alt"></a></li>
+              <li><a href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#"><img src="http://templines.com/demo/html/cooncook/images/partner_logo_5.png" alt="alt"></a></li>
+            </ul>
+          
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+          <h4>Install Block 5 </h4>
+          <div class="desc">
+           <p>Fusce a dapibus sapien, quis pharetra eros. Praesent scelerisque nec augue sed blandit. Duis sollicitudin nisi sed sem adipiscing euismod.</p>
+<p><strong>Adress: </strong>Kiev, Hrushevskoho Street 10</p>
+<p><strong>Phone: </strong>+7123456789</p>
+<p><strong>E-mail: </strong><a href="login-multi-shipping=0&display_guest_checkout=0&back=http_||prestazilla.com|demo|cooncook|en|order-step=1&multi-shipping=0.html#">support@domain.com</a></p>
+           
+          
+        </div>
+        
+      </div>
+      
+      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+        
+        <!-- Block Newsletter module-->
+<div id="newsletter_block_left" class="block">
+	<h4>Newsletter</h4>
+	<div class="block_content">
+		<form id="newsletter-validate-detail" action="http://prestazilla.com/demo/cooncook/es/" method="post">
+			<div class="form-group" >
+				<input class="inputNew form-control grey newsletter-input" id="newsletter-input" type="text" name="email" size="18" value="Enter your e-mail" />
+                
+                <button type="submit" name="submitNewsletter"  title="Submit" class="btn btn-link "><span class="fa fa-level-down fa-rotate-90"></span></button>
+                
+                
+				<input type="hidden" name="action" value="0" />
+			</div>
+		</form>
+	</div>
+</div>
+<!-- /Block Newsletter module-->
+
+<section class="social">
+
+ <h4>Follow us</h4>
+ 
+ 
+	<ul>
+					<li class="facebook">
+				<a target="_blank" href="http://www.facebook.com/prestashop">
+					<i class="fa fa-facebook"></i>
+				</a>
+			</li>
+							<li class="twitter">
+				<a target="_blank" href="http://www.twitter.com/prestashop">
+					<i class="fa fa-twitter"></i>
+				</a>
+			</li>
+				                	<li class="youtube">
+        		<a href="http://www.youtube.com/">
+        			<i class="fa fa-youtube"></i>
+        		</a>
+        	</li>
+                        	<li class="google-plus">
+        		<a href="https://www.google.com/+prestashop">
+        				<i class="fa fa-google-plus"></i>
+        		</a>
+        	</li>
+                        	<li class="pinterest">
+        		<a href="https://www.pinterest.com/">
+        			<i class="fa fa-pinterest"></i>
+        		</a>
+        	</li>
+                
+                  
+        			<li class="pinterest">
+				<a target="_blank" href="http://instagram.com/">
+				<i class="fa fa-instagram"></i>
+
+				</a>
+			</li>
+		        
+	</ul>
+   
+</section>
+<div class="clearfix"></div>
+
+<!-- Block categories module -->
+<section class="blockcategories_footer footer-block col-xs-12 col-sm-2">
+	<h4>Categories</h4>
+	<div class="category_footer toggle-footer">
+		<div class="list">
+			<ul class="tree dhtml">
+												
+<li >
+	<a 
+	href="3-bedroom.html" title="You will find here all woman fashion collections.  
+ This category includes all the basics of your wardrobe and much more: 
+ shoes, accessories, printed t-shirts, feminine dresses, women&#039;s jeans!">
+		Bedroom
+	</a>
+			<ul>
+												
+<li >
+	<a 
+	href="4-mattresses.html" title="Choose from t-shirts, tops, blouses, short sleeves, long sleeves, tank tops, 3/4 sleeves and more. 
+ Find the cut that suits you the best!">
+		Mattresses
+	</a>
+			<ul>
+												
+<li >
+	<a 
+	href="5-tshirts.html" title="The must have of your wardrobe, take a look at our different colors, 
+ shapes and style of our collection!">
+		T-shirts
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a 
+	href="7-blouses.html" title="Match your favorites blouses with the right accessories for the perfect look.">
+		Blouses
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li >
+	<a 
+	href="8-beds.html" title="Find your favorites dresses from our wide choice of evening, casual or summer dresses! 
+ We offer dresses for every day, every style and every occasion.">
+		Beds
+	</a>
+			<ul>
+												
+<li >
+	<a 
+	href="9-casual-dresses.html" title="You are looking for a dress for every day? Take a look at 
+ our selection of dresses to find one that suits you.">
+		Casual Dresses
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="10-evening-dresses.html" title="Browse our different dresses to choose the perfect dress for an unforgettable evening!">
+		Evening Dresses
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a 
+	href="11-summer-dresses.html" title="Short dress, long dress, silk dress, printed dress, you will find the perfect dress for summer.">
+		Summer Dresses
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+																
+<li >
+	<a 
+	href="44-bedroom-storage.html" title="">
+		Bedroom storage
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="45-lighting.html" title="">
+		Lighting
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="46-textiles-rugs.html" title="">
+		Textiles &amp; rugs
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a 
+	href="47-mirrors.html" title="">
+		Mirrors
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+							
+																
+<li >
+	<a 
+	href="12-kitchen.html" title="">
+		Kitchen
+	</a>
+			<ul>
+												
+<li >
+	<a 
+	href="13-kitchen-cabinets.html" title="">
+		Kitchen cabinets
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="14-interior-organizers.html" title="">
+		Interior organizers
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="15-appliances.html" title="">
+		Appliances
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="16-free-standing-kitchens.html" title="">
+		Free-standing kitchens
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="17-countertops.html" title="">
+		Countertops
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="18-kitchen-faucets.html" title="">
+		Kitchen faucets
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a 
+	href="19-wall-panels.html" title="">
+		Wall panels
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+							
+																
+<li >
+	<a 
+	href="22-livingroom_esp.html" title="">
+		Livingroom
+	</a>
+			<ul>
+												
+<li >
+	<a 
+	href="23-sofas-armchairs.html" title="">
+		Sofas &amp; armchairs
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="24-tv-media-furniture.html" title="">
+		TV &amp; media furniture
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="25-living-room-storage.html" title="">
+		Living room storage
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="27-living-room-lighting.html" title="">
+		Living room lighting
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a 
+	href="28-living-room-textiles.html" title="">
+		Living room textiles
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+							
+																
+<li >
+	<a 
+	href="29-textiles-rugs.html" title="">
+		Textiles &amp; Rugs
+	</a>
+			<ul>
+												
+<li >
+	<a 
+	href="30-rugs.html" title="">
+		Rugs
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="31-bedroom-textiles.html" title="">
+		Bedroom textiles
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="32-curtains-blinds.html" title="">
+		Curtains &amp; blinds
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="33-curtain-rods-rails.html" title="">
+		Curtain rods &amp; rails
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="34-fabrics-sewing.html" title="">
+		Fabrics &amp; sewing
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="35-cushions-covers.html" title="">
+		Cushions covers
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a 
+	href="36-kitchen-textiles-.html" title="">
+		Kitchen textiles 
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+							
+																
+<li class="last">
+	<a 
+	href="37-for-business.html" title="">
+		For Business
+	</a>
+			<ul>
+												
+<li >
+	<a 
+	href="38-school.html" title="">
+		School
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="39-office.html" title="">
+		Office
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="40-retail.html" title="">
+		Retail
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="41-hospitality.html" title="">
+		Hospitality
+	</a>
+	</li>
+
+																
+<li >
+	<a 
+	href="42-tools.html" title="">
+		Tools
+	</a>
+	</li>
+
+																
+<li class="last">
+	<a 
+	href="43-equipment.html" title="">
+		Equipment
+	</a>
+	</li>
+
+									</ul>
+	</li>
+
+							
+										</ul>
+		</div>
+	</div> <!-- .category_footer -->
+</section>
+<!-- /Block categories module -->
+<script>
+var scrolltotop = {
+	setting: { 
+		
+			startline:100, scrollto: 0, scrollduration:1000, fadeduration:[500, 100]
+		
+	},
+	controlHTML: 
+		'<img style="width:50px; height:50px" src="/demo/cooncook/modules/scrolltop/img/1userUp.png" />'
+	,
+	controlattrs: {
+		
+			offsetx:25, offsety:25
+			
+	},
+	anchorkeyword: '#top',
+	state: {isvisible:false, shouldvisible:false},
+	scrollup:function(){
+		if (!this.cssfixedsupport)
+			this.$control.css({opacity:0})
+		var dest=isNaN(this.setting.scrollto)? this.setting.scrollto : parseInt(this.setting.scrollto)
+		if (typeof dest=="string" && jQuery('#'+dest).length==1)
+			dest=jQuery('#'+dest).offset().top
+		else
+			dest=0
+		this.$body.animate({scrollTop: dest}, this.setting.scrollduration);
+	},
+
+	keepfixed:function(){
+		var $window=jQuery(window)
+		var controlx=$window.scrollLeft() + $window.width() - this.$control.width() - this.controlattrs.offsetx
+		var controly=$window.scrollTop() + $window.height() - this.$control.height() - this.controlattrs.offsety
+		this.$control.css({left:controlx+'px', top:controly+'px'})
+	},
+
+	togglecontrol:function(){
+		var scrolltop=jQuery(window).scrollTop()
+		if (!this.cssfixedsupport)
+			this.keepfixed()
+		this.state.shouldvisible=(scrolltop>=this.setting.startline)? true : false
+		if (this.state.shouldvisible && !this.state.isvisible){
+			this.$control.stop().animate({opacity:1}, this.setting.fadeduration[0])
+			this.state.isvisible=true
+		}
+		else if (this.state.shouldvisible==false && this.state.isvisible){
+			this.$control.stop().animate({opacity:0}, this.setting.fadeduration[1])
+			this.state.isvisible=false
+		}
+	},
+	
+	init:function(){
+		jQuery(document).ready(function($){
+			var mainobj=scrolltotop
+			var iebrws=document.all
+			mainobj.cssfixedsupport=!iebrws || iebrws && document.compatMode=="CSS1Compat" && window.XMLHttpRequest
+			mainobj.$body=(window.opera)? (document.compatMode=="CSS1Compat"? $('html') : $('body')) : $('html,body')
+			mainobj.$control=$('<div id="topcontrol">'+mainobj.controlHTML+'</div>')
+				.css({position:mainobj.cssfixedsupport? 'fixed' : 'absolute', bottom:mainobj.controlattrs.offsety, right:mainobj.controlattrs.offsetx, opacity:0, cursor:'pointer', zIndex:9999})
+				.attr({title:'Scroll Back to Top'})
+				.click(function(){mainobj.scrollup(); return false})
+				.appendTo('body')
+			if (document.all && !window.XMLHttpRequest && mainobj.$control.text()!='')
+				mainobj.$control.css({width:mainobj.$control.width()})
+			mainobj.togglecontrol()
+			$('a[href="' + mainobj.anchorkeyword +'"]').click(function(){
+				mainobj.scrollup()
+				return false
+			})
+			$(window).bind('scroll resize', function(e){
+				mainobj.togglecontrol()
+			})
+		})
+	}
+}
+$(document).ready(function(){
+	scrolltotop.init();
+});
+</script>
+<!--<section class="footer-block col-xs-12 col-sm-4">
+	<h4>Blog</h4>
+	<div class="block_content toggle-footer" style="">
+		<ul class="bullet">
+            				<li>
+					<a href="http://prestazilla.com/demo/cooncook/es/blog/category/blog.html" title="Blog">
+                        Blog
+                    </a>
+				</li>
+			        </ul>
+	</div>
+</section>--><div id="contactable"></div>
+
+<script>
+    $(document).ready(function(){
+            $('#contactable').contactable({"url":"http:\/\/prestazilla.com\/demo\/cooncook\/es\/index.php?controller=contact-form","name":"Name","email":"Email","message":"Message","subject":"A contactable message","submit":"SEND","recievedMsg":"Thank you for your message","notRecievedMsg":"Sorry but your message could not be sent, try again later","disclaimer":"Please feel free to get in touch, we value your feedback","hideOnSubmit":false});
+    })  
+</script> 
+
+<script src="../modules/as_themesettings/js/front.js"></script> 
+<script src="../modules/as_themesettings/js/blocklayered.js"></script> 
+
+
+  
+        
+
+          
+        </div>
+        
+    </div>
+  </div>
+  
+  
+
+
+
+  <div class="f_bot">
+    <div class="container">
+      <div class="f_bot_left"><strong>CoonCook - </strong>Responsive  Theme  &copy; 2020</div>
+      <div class="f_bot_right">By <a target="_blank" href="http://prestazilla.com/demo/cooncook/es/prestazilla@gmail.com">Prestazilla</a></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+      
+<!-- .columns-container --> 
+<!-- Footer -->
+
+<!-- #footer -->
+</div>
+<!-- #page -->
+</body></html>
