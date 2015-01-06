@@ -53,8 +53,8 @@ var FancyboxI18nPrev = 'Previous';
 var added_to_wishlist = 'Added to your wishlist.';
 var ajax_allowed = true;
 var ajaxsearch = true;
-var baseDir = 'http://prestazilla.com/demo/cooncook/';
-var baseUri = 'http://prestazilla.com/demo/cooncook/';
+var baseDir = '/';
+var baseUri = '/';
 var blocksearch_type = 'top';
 var comparator_max_item = 3;
 var comparedProductsIds = [];
@@ -64,14 +64,14 @@ var delete_txt = 'Delete';
 var freeProductTranslation = 'Free!';
 var freeShippingTranslation = 'Free shipping!';
 var id_lang = 1;
-var img_dir = 'http://prestazilla.com/demo/cooncook/themes/cooncook/img/';
+var img_dir = '/img/';
 var instantsearch = false;
 var isGuest = 0;
 var isLogged = 0;
 var loggin_required = 'You must be logged in to manage your wishlist.';
 var max_item = 'You cannot add more than 3 product(s) to the product comparison';
 var min_item = 'Please select at least one product';
-var mywishlist_url = 'http://prestazilla.com/demo/cooncook/en/module/blockwishlist/mywishlist';
+var mywishlist_url = '';
 var page_name = 'index';
 var placeholder_blocknewsletter = 'Enter your e-mail';
 var priceDisplayMethod = 1;
@@ -79,7 +79,7 @@ var priceDisplayPrecision = 2;
 var quickView = true;
 var removingLinkText = 'remove this product from my cart';
 var roundMode = 2;
-var search_url = 'http://prestazilla.com/demo/cooncook/en/search';
+var search_url = '';
 var static_token = 'b40684078be120028a5a1c2a41f4b836';
 var token = 'e36c68abadc601a0267b4748cbbc625d';
 var usingSecureMode = false;
@@ -677,8 +677,8 @@ html  .footer .f_mid p a , html .fa-arrow-circle-right , .main-menu > li:hover >
 </form>
 <script type="text/javascript">
 
-	initConfigurator('http://prestazilla.com/demo/cooncook/');
-	 var url= "http://prestazilla.com/demo/cooncook/index.php?module=templines&fc=module&controller=dss&ajax=1";
+	initConfigurator('/');
+	 var url= "/";
     $(document).ready(function(){
 
   document.getElementById('backgrUploader').addEventListener('change', function(e) {
@@ -932,7 +932,7 @@ var file = this.files[0];
   
   <!-- Block search module TOP -->
 <div id="search_block_top" class="search_block_top">
-	<form id="searchbox" method="get" action="http://prestazilla.com/demo/cooncook/en/search" >
+	<form id="searchbox" method="get" action="" >
 		<input type="hidden" name="controller" value="search" />
 		<input type="hidden" name="orderby" value="position" />
 		<input type="hidden" name="orderway" value="desc" />
@@ -1880,10 +1880,10 @@ var file = this.files[0];
     </li>
         
         <li >
-      <button  data-filter=".bestsel_products" data-href = "http://prestazilla.com/demo/cooncook/en/best-sales"  >Best Sellers</button>
+      <button  data-filter=".bestsel_products" data-href = "/best-sales"  >Best Sellers</button>
     </li>
             <li >
-      <button  data-filter=".new_products"   data-href = "http://prestazilla.com/demo/cooncook/en/new-products"   class='is-checked'  >New products</button>
+      <button  data-filter=".new_products"   data-href = "/new-products"   class='is-checked'  >New products</button>
     </li>
         
     
@@ -6093,7 +6093,7 @@ if ( $(".homefeat-item button").hasClass("is-checked") ) {
 <div id="newsletter_block_left" class="block">
 	<h4>Newsletter</h4>
 	<div class="block_content">
-		<form id="newsletter-validate-detail" action="http://prestazilla.com/demo/cooncook/en/" method="post">
+		<form id="newsletter-validate-detail" action="/" method="post">
 			<div class="form-group" >
 				<input class="inputNew form-control grey newsletter-input" id="newsletter-input" type="text" name="email" size="18" value="Enter your e-mail" />
                 
@@ -6609,7 +6609,7 @@ $(document).ready(function(){
 
 <script>
     $(document).ready(function(){
-            $('#contactable').contactable({"url":"http:\/\/prestazilla.com\/demo\/cooncook\/en\/index.php?controller=contact-form","name":"Name","email":"Email","message":"Message","subject":"A contactable message","submit":"SEND","recievedMsg":"Thank you for your message","notRecievedMsg":"Sorry but your message could not be sent, try again later","disclaimer":"Please feel free to get in touch, we value your feedback","hideOnSubmit":false});
+            $('#contactable').contactable({"url":"/","name":"Name","email":"Email","message":"Message","subject":"A contactable message","submit":"SEND","recievedMsg":"Thank you for your message","notRecievedMsg":"Sorry but your message could not be sent, try again later","disclaimer":"Please feel free to get in touch, we value your feedback","hideOnSubmit":false});
     })  
 </script> 
 
@@ -6633,7 +6633,7 @@ $(document).ready(function(){
   <div class="f_bot">
     <div class="container">
       <div class="f_bot_left"><strong>CoonCook - </strong>Responsive  Theme  &copy; 2020</div>
-      <div class="f_bot_right">By <a target="_blank" href="http://prestazilla.com/demo/cooncook/en/prestazilla@gmail.com">Prestazilla</a></div>
+      <div class="f_bot_right">By <a target="_blank" href="/">Prestazilla</a></div>
     </div>
   </div>
 </div>

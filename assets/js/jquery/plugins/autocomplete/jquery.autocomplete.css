@@ -35,12 +35,6 @@
 	overflow: hidden;
 }
 
-/*
-.ac_loading {
-	background: white url('http://prestazilla.com/demo/cooncook/js/jquery/plugins/autocomplete/indicator.gif') right center no-repeat;
-}
-*/
-
 .ac_odd {
 	background-color: #eee;
 }

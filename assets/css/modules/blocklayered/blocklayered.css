@@ -24,10 +24,6 @@
 	width: 13px;
 	text-decoration: none;
 	text-indent: -5000px;
-	background: url("http://prestazilla.com/demo/cooncook/themes/cooncook/css/modules/blocklayered/img/icon/less.gif") no-repeat 2px 2px;
-}
-#layered_block_left span.closed a {
-	background: url("http://prestazilla.com/demo/cooncook/themes/cooncook/css/modules/blocklayered/img/icon/more.gif") no-repeat 2px 2px;
 }
 #layered_block_left .layered_subtitle {
 	display: inline-block;
