@@ -1,15 +1,44 @@
+_ = require "lodash"
+async = require "async"
+co = require "co"
+dir_helper = require "node-dir"
 fs = require "fs"
 gulp = require "gulp"
 html_build = require "gulp-build"
 static_server = require "gulp-connect"
+thunkify = require "thunkify"
 
 
-gulp.task "build_html", ->
-    fs.readFile "./layouts/main.html", encoding : "utf8", (err, html_layout)->
-        gulp.src "./pages/*.html"
-        .pipe html_build {},
-            layout : html_layout
-        .pipe gulp.dest "./@dev/"
+gulp.task "build_html", -> co ->
+    partials_paths = yield thunkify(
+        dir_helper.paths
+    )(
+        "./partials"
+        true
+    )
+
+    contents = yield thunkify(
+        async.map
+    )(
+        partials_paths.concat "./layouts/main.html"
+        (path, next)-> fs.readFile(
+            path
+            encoding : "utf8"
+            next
+        )
+    )
+
+    gulp.src "./pages/*.html"
+    .pipe html_build {},
+        layout   : _.last contents
+        partials : _.map partials_paths, (path, i)->
+            name : path.match(
+                ///
+                    / (\w+) \.html$
+                ///
+            )[1]
+            tpl  : contents[i]
+    .pipe gulp.dest "./@dev/"
 
 gulp.task "copy_assets", ->
     gulp.src "./assets/**"

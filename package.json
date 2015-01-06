@@ -1,8 +1,13 @@
 {
     "dependencies" : {
-        "coffee-script" : "1.8.0",
+        "async"         : "0.9.0",
+        "co"            : "4.1.0",
+        "coffee-script" : "git://github.com/jashkenas/coffeescript#c478f283f4c5da1ca643b9d4c8721007c3bf0c8e",
         "gulp"          : "3.8.10",
         "gulp-build"    : "0.5.3",
-        "gulp-connect"  : "2.2.0"
+        "gulp-connect"  : "2.2.0",
+        "lodash"        : "2.4.1",
+        "node-dir"      : "0.1.6",
+        "thunkify"      : "2.1.2"
     }
 }
