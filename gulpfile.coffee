@@ -21,6 +21,7 @@ mercury_save = require "./connect_middleware/mercury_save"
 # **********************
 gulp = require "gulp"
 html_build = require "gulp-build"
+cache = require "gulp-cached"
 static_server = require "gulp-connect"
 
 
@@ -68,13 +69,19 @@ gulp.task "build_html", ["predefine_partials"], -> co ->
             tpl  : contents[i]
     .pipe gulp.dest "./@dev/"
 
+gulp.task "copy_text_assets", ->
+    gulp.src ["./assets/**/*.js", "./assets/**/*.css"]
+    .pipe cache "text_assets"
+    .pipe gulp.dest "./@dev/"
+
 gulp.task "copy_assets", ->
-    gulp.src "./assets/**"
+    gulp.src ["./assets/**", "!./assets/**/*.js", "!./assets/**/*.css"]
     .pipe gulp.dest "./@dev/"
 
 gulp.task "fill_dev_folder", [
     "build_html"
     "copy_assets"
+    "copy_text_assets"
 ]
 
 
@@ -83,6 +90,7 @@ gulp.task "fill_dev_folder", [
 # ************************
 gulp.task "static_server", ["fill_dev_folder"], ->
     static_server.server
+        livereload : true
         middleware : ->
             [
                 body_parser.json()
@@ -91,6 +99,21 @@ gulp.task "static_server", ["fill_dev_folder"], ->
             ] 
         port       : 9000
         root       : "./@dev"
+
+
+    # *****************
+    #    LIVERELOAD
+    # *****************
+    gulp.watch "./layouts/**", ["build_html"]
+    gulp.watch ["./assets/**/*.js", "./assets/**/*.css"], ["copy_text_assets"]
+    gulp.watch ["./assets/**", "!./assets/**/*.js", "!./assets/**/*.css"], ["copy_assets"]
+
+    gulp.watch "./@dev/**/*.html", (event)->
+        gulp.src event.path
+        .pipe static_server.reload()
+    gulp.watch ["./@dev/css/**/*.css", "./@dev/js/**/*.js"], (event)->
+        gulp.src event.path
+        .pipe static_server.reload()
 
 
 # **********************
