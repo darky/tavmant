@@ -725,10 +725,25 @@ var file = this.files[0];
 <![endif]-->
         
 
-                
-                
+
 </head>
 <body id="index" class="index hide-left-column hide-right-column lang_en color-scheme-default  noIE">
+
+<!-- MERCURY --start-- -->
+<link rel="stylesheet" href="/css/mercury/mercury.css" type="text/css" media="all" />
+<script type="text/javascript" src="/js/mercury/mercury.js"></script>
+<script type="text/javascript" src="/js/mercury/mercury_dialogs.js"></script>
+<script>
+    $(function(){
+        $("body").prepend("<style>#page { padding-top : 85px; }</style>");
+        setTimeout(function(){
+            new Mercury.PageEditor();
+        }, 3000);
+    });
+</script>
+<!-- MERCURY --end-- -->
+
+
 {{> body}}
 
 
@@ -814,7 +829,9 @@ var file = this.files[0];
 
  <div class="col-lg-12">
 <div class="logo">
-    {{> logo}}
+    <a href="/" id="logo" data-mercury="full">
+        {{> logo}}
+    </a>
 </div>
   
  <div class="header-button"> 

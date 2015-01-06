@@ -1,6 +1,7 @@
 {
     "dependencies" : {
         "async"         : "0.9.0",
+        "body-parser"   : "1.10.1",
         "co"            : "4.1.0",
         "coffee-script" : "git://github.com/jashkenas/coffeescript#c478f283f4c5da1ca643b9d4c8721007c3bf0c8e",
         "gulp"          : "3.8.10",

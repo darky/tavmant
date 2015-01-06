@@ -1,5 +1,6 @@
 _ = require "lodash"
 async = require "async"
+body_parser = require "body-parser"
 co = require "co"
 dir_helper = require "node-dir"
 fs = require "fs"
@@ -52,9 +53,38 @@ gulp.task "fill_dev_folder", [
 
 
 gulp.task "static_server", ["fill_dev_folder"], ->
+    partials = [
+        "logo"
+    ] 
+
     static_server.server
-        port : 9000
-        root : "./@dev"
+        middleware : ->
+            [
+                body_parser.json()
+                (req, res, next)->
+                    if req.method is "PUT" and req.url is "/" then co ->
+                        yield thunkify(
+                            async.each
+                        )(
+                            _.pairs req.body.content
+                            ([key, obj], next)->
+                                fs.writeFile(
+                                    if key in partials
+                                        "./partials/#{key}.html"
+                                    obj.value
+                                    next
+                                )
+                        )
+
+                        res.setHeader "Content-Type", "application/json"
+                        res.end """
+                            "{}"
+                        """
+                    else
+                        next()
+            ] 
+        port       : 9000
+        root       : "./@dev"
 
 
 gulp.task "default", ["static_server"]
