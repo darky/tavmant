@@ -163,7 +163,7 @@ position: relative;
 	position: absolute;
 	width: 27px;
 	height: 27px;
-	background-image: url("../../img/bg_direction_nav.png");
+	background-image: url("/img/bestkit_responsiveslider/img/bg_direction_nav.png");
 	text-indent: -9999px;
 	-webkit-transition: left 0.3s ease-in-out;
 	-webkit-transition-property: left, right;
@@ -243,7 +243,7 @@ position: relative;
 	float: left;
 	width: 11px;
 	height: 11px;
-	background: url('../../img/bullets_2.png') no-repeat 0px 0px;
+	background: url('/img/bestkit_responsiveslider/img/bullets_2.png') no-repeat 0px 0px;
 	line-height: 0px;
 	margin-right: 7px;
 }
@@ -263,11 +263,11 @@ position: relative;
 	position: absolute;
 	width: 40px;
 	height: 100px;
-	background-image: url("../../img/nav_paddles.png");
+	background-image: url("/img/bestkit_responsiveslider/img/nav_paddles.png");
 	text-indent: -9999px;
 }
 .controlNav div.iview-directionNav a:active {
-	background-image: url("../../img/nav_paddles_down.png");
+	background-image: url("/img/bestkit_responsiveslider/img/nav_paddles_down.png");
 }
 .controlNav div.iview-directionNav a.iview-nextNav {
 	right: 20px;
