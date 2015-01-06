@@ -3,7 +3,7 @@
 	height: 176px;
 	overflow: hidden;
 	position: absolute;
-	background: url("../images/colorpicker_background.png");
+	background: url("/img/templines/colorpicker/images/colorpicker_background.png");
 	font-family: Arial, Helvetica, sans-serif;
 	display: none;
 	z-index: 9999;
