@@ -23,6 +23,7 @@ gulp = require "gulp"
 html_build = require "gulp-build"
 cache = require "gulp-cached"
 static_server = require "gulp-connect"
+watch = require "gulp-watch"
 
 
 # *********************
@@ -104,14 +105,17 @@ gulp.task "static_server", ["fill_dev_folder"], ->
     # *****************
     #    LIVERELOAD
     # *****************
-    gulp.watch "./layouts/**", ["build_html"]
-    gulp.watch ["./assets/**/*.js", "./assets/**/*.css"], ["copy_text_assets"]
-    gulp.watch ["./assets/**", "!./assets/**/*.js", "!./assets/**/*.css"], ["copy_assets"]
+    watch "layouts/**/*.html", ->
+        gulp.start ["build_html"]
+    watch ["assets/**/*.js", "./assets/**/*.css"], ->
+        gulp.start ["copy_text_assets"]
+    watch ["assets/**/*", "!assets/**/*.js", "!assets/**/*.css"], ->
+        gulp.start ["copy_assets"]
 
-    gulp.watch "./@dev/**/*.html", (event)->
+    watch "@dev/**/*.html", (event)->
         gulp.src event.path
         .pipe static_server.reload()
-    gulp.watch ["./@dev/css/**/*.css", "./@dev/js/**/*.js"], (event)->
+    watch ["@dev/css/**/*.css", "@dev/js/**/*.js"], (event)->
         gulp.src event.path
         .pipe static_server.reload()
 

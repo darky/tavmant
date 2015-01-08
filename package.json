@@ -8,6 +8,7 @@
         "gulp-build"    : "0.5.3",
         "gulp-cached"   : "1.0.1",
         "gulp-connect"  : "2.2.0",
+        "gulp-watch"    : "3.0.0",
         "lodash"        : "2.4.1",
         "node-dir"      : "0.1.6",
         "thunkify"      : "2.1.2"
