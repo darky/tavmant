@@ -107,14 +107,17 @@ gulp.task "static_server", ["fill_dev_folder"], ->
     # *****************
     watch "layouts/**/*.html", ->
         gulp.start ["build_html"]
+        watcher = watch "@dev/**/*.html", (event)->
+            gulp.src event.path
+            .pipe static_server.reload()
+            watcher.close()
+    watch ["partials/**/*.html", "pages/**/*.html"], ->
+        gulp.start ["build_html"]
     watch ["assets/**/*.js", "./assets/**/*.css"], ->
         gulp.start ["copy_text_assets"]
     watch ["assets/**/*", "!assets/**/*.js", "!assets/**/*.css"], ->
         gulp.start ["copy_assets"]
 
-    watch "@dev/**/*.html", (event)->
-        gulp.src event.path
-        .pipe static_server.reload()
     watch ["@dev/css/**/*.css", "@dev/js/**/*.js"], (event)->
         gulp.src event.path
         .pipe static_server.reload()
