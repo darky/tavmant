@@ -731,8 +731,12 @@ var file = this.files[0];
 
 <!-- MERCURY --start-- -->
 <link rel="stylesheet" href="/css/mercury/mercury.css" type="text/css" media="all" />
+<link rel="stylesheet" href="/css/mercury/codemirror.css" type="text/css" media="all" />
 <script type="text/javascript" src="/js/mercury/mercury.js"></script>
 <script type="text/javascript" src="/js/mercury/mercury_dialogs.js"></script>
+<script type="text/javascript" src="/js/mercury/codemirror.js"></script>
+<script type="text/javascript" src="/js/mercury/xml.js"></script>
+<script type="text/javascript" src="/js/mercury/htmlmixed.js"></script>
 <script>
     $(function(){
         if (window.parent.mercuryInstance == null) {
@@ -741,6 +745,16 @@ var file = this.files[0];
             $("#mercury_iframe").css("height", "inherit");
             $("#mercury_iframe").load(function(){
                 this.contentWindow.$("#page").css("padding-top", "85px");
+            });
+            Mercury.on("action", function(event, options){
+                if (options.action === "htmlEditor") {
+                    setTimeout(function(){
+                        CodeMirror.fromTextArea(
+                            $(".mercury-display-pane-container")[0],
+                            {mode : "htmlmixed"}
+                        );
+                    }, 1000);
+                }
             });
         }
     });
