@@ -735,10 +735,14 @@ var file = this.files[0];
 <script type="text/javascript" src="/js/mercury/mercury_dialogs.js"></script>
 <script>
     $(function(){
-        $("body").prepend("<style>#page { padding-top : 85px; }</style>");
-        setTimeout(function(){
+        if (window.parent.mercuryInstance == null) {
             new Mercury.PageEditor();
-        }, 3000);
+            $("#page").hide();
+            $("#mercury_iframe").css("height", "inherit");
+            $("#mercury_iframe").load(function(){
+                this.contentWindow.$("#page").css("padding-top", "85px");
+            });
+        }
     });
 </script>
 <!-- MERCURY --end-- -->
