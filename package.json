@@ -1,16 +1,23 @@
 {
     "dependencies" : {
-        "async"         : "0.9.0",
-        "body-parser"   : "1.10.1",
-        "co"            : "4.1.0",
-        "coffee-script" : "git://github.com/jashkenas/coffeescript#c478f283f4c5da1ca643b9d4c8721007c3bf0c8e",
-        "gulp"          : "3.8.10",
-        "gulp-build"    : "0.5.3",
-        "gulp-cached"   : "1.0.1",
-        "gulp-connect"  : "2.2.0",
-        "gulp-watch"    : "3.0.0",
-        "lodash"        : "2.4.1",
-        "node-dir"      : "0.1.6",
-        "thunkify"      : "2.1.2"
+        "async"            : "0.9.0",
+        "body-parser"      : "1.10.1",
+        "co"               : "4.1.0",
+        "coffee-script"    : "git://github.com/jashkenas/coffeescript#c478f283f4c5da1ca643b9d4c8721007c3bf0c8e",
+        "del"              : "1.1.1",
+        "es6-shim"         : "0.22.2",
+        "gulp"             : "3.8.10",
+        "gulp-build"       : "0.5.3",
+        "gulp-cached"      : "1.0.1",
+        "gulp-coffee"      : "2.1.2",
+        "gulp-connect"     : "2.2.0",
+        "gulp-regenerator" : "3.0.0",
+        "gulp-watch"       : "3.0.0",
+        "lodash"           : "2.4.1",
+        "node-dir"         : "0.1.6",
+        "thunkify"         : "2.1.2"
+    },
+    "scripts" : {
+        "postinstall" : "cd node_modules/gulp-coffee; npm install git://github.com/jashkenas/coffeescript#c478f283f4c5da1ca643b9d4c8721007c3bf0c8e;"
     }
 }
