@@ -753,6 +753,13 @@ var file = this.files[0];
                             $(".mercury-display-pane-container")[0],
                             {mode : "htmlmixed"}
                         );
+
+                        $("#mercury_html_editor [type=submit]").one(
+                            "click.codemirror",
+                            function(){
+                                $('.CodeMirror')[0].CodeMirror.save();
+                            }
+                        );
                     }, 1000);
                 }
             });
