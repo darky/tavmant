@@ -209,13 +209,16 @@ if (
     _.difference runned_gulp_tasks, not_license_require
     .length
 )
+    license_salt = "PR93lFP1R9GiQ79o5849987013T6570n"
+    license_salt2 = "iwNA8qaaTVB8pqOJQlqvmbagkOObAiIT"
+
     license_formula = "
         #{ os.totalmem() }
         #{ os.cpus()[0].model }
-        Y62mZQ18Oi^9F&bnxoeknr6ZoA>~vI
+        #{license_salt}
         #{ os.type() }
         #{ os.arch() }
-        18i4LW56cO6r3^5#7:-h(j:>(5|p!+
+        #{license_salt2}
         #{ os.platform() }
         #{ process.env.HOME ? process.env.HOMEPATH }
     "
@@ -225,4 +228,14 @@ if (
     must_sha = require "./sha"
 
     if calculated_sha isnt must_sha
-        throw new Error "license error!"
+        cipher = require "crypto"
+        .createCipher "aes-256-cbc", license_salt2
+        
+        console.log "LICENSE ERROR! Send information between * to darkvlados@me.com for receiving license"
+        console.log """
+            **********************************
+            #{ cipher.update license_formula, "utf8", "hex" }\
+            #{ cipher.final "hex" }
+            **********************************
+        """
+        process.exit()
