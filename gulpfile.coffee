@@ -11,29 +11,6 @@ sha1 =
     .createHash "sha1"
 
 
-# ********************
-#    CHECK LICENSE
-# ********************
-calculated_sha = sha1.update(
-    "
-        #{ os.totalmem() }
-        #{ os.cpus()[0].model }
-        Y62mZQ18Oi^9F&bnxoeknr6ZoA>~vI
-        #{ os.type() }
-        #{ os.arch() }
-        18i4LW56cO6r3^5#7:-h(j:>(5|p!+
-        #{ os.platform() }
-        #{ process.env.HOME ? process.env.HOMEPATH }
-    "
-    "utf8"
-)
-.digest "hex"
-must_sha = require "./sha"
-
-if calculated_sha isnt must_sha
-    throw new Error "license error!"
-
-
 # **********************
 #    MUST HAVE DEFINE
 # **********************
@@ -212,3 +189,40 @@ gulp.task "make_binary", ["regenerator"], -> co ->
 #    DEFAULT DEV SITE
 # **********************
 gulp.task "default", ["static_server"]
+
+
+# ********************
+#    CHECK LICENSE
+# ********************
+runned_gulp_tasks = _ process.argv
+.map (cli_arg)->
+    if gulp.hasTask cli_arg
+        cli_arg
+    else
+        null
+.compact().value()
+
+not_license_require = ["make_binary"]
+
+if (
+    runned_gulp_tasks.length is 0  or
+    _.difference runned_gulp_tasks, not_license_require
+    .length
+)
+    license_formula = "
+        #{ os.totalmem() }
+        #{ os.cpus()[0].model }
+        Y62mZQ18Oi^9F&bnxoeknr6ZoA>~vI
+        #{ os.type() }
+        #{ os.arch() }
+        18i4LW56cO6r3^5#7:-h(j:>(5|p!+
+        #{ os.platform() }
+        #{ process.env.HOME ? process.env.HOMEPATH }
+    "
+
+    calculated_sha = sha1.update license_formula, "utf8"
+    .digest "hex"
+    must_sha = require "./sha"
+
+    if calculated_sha isnt must_sha
+        throw new Error "license error!"
