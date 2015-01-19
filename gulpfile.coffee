@@ -35,13 +35,16 @@ mercury_save = require "./connect_middleware/mercury_save"
 #    GULP & KO DEFINE
 # **********************
 gulp = require "gulp"
-del = require "del"
-html_build = require "gulp-build"
 cache = require "gulp-cached"
 coffee = require "gulp-coffee"
+concat = require "gulp-concat"
+del = require "del"
+html_build = require "gulp-build"
+minify_css = require "gulp-minify-css"
 static_server = require "gulp-connect"
 # TODO temporary while jx node version < 0.11
 regenerator = require "gulp-regenerator"
+uglify = require "gulp-uglify"
 watch = require "gulp-watch"
 
 
@@ -215,6 +218,64 @@ gulp.task "make_binary", ["regenerator"], -> co ->
     )(
         ["*.js", "*.jxp", "connect_middleware/**/*.js"]
     )
+
+
+# ******************
+#    MAKE TAVMANT
+# ******************
+gulp.task "make_tavmant", -> co ->
+    if_jx_bye()
+    html_content = yield thunkify(
+        fs.readFile
+    )(
+        "./tavmant_assets/dev.html"
+        encoding : "utf8"
+    )
+
+    [js_paths, css_paths] = _.map ["src", "href"], (link_attr)->
+        html_content.match ///
+            #{link_attr}=
+            [/\w\.\-]+
+        ///g
+        .map (str)->
+            str.replace "#{link_attr}=", "tavmant_assets"
+            .replace "tavmant/", ""
+
+    coffee_paths = js_paths.filter (path)->
+        !!path.match /\.coffee$/
+
+    yield new Promise (resolve)->
+        gulp.src coffee_paths
+        .pipe coffee()
+        .pipe gulp.dest "./tavmant_assets/js"
+        .on "finish", resolve
+
+    js_paths = _ js_paths
+    .map (path)->
+        if path.match /coffee-script\.js$/
+            null
+        else if path.match /\.coffee$/
+            path.replace ".coffee", ".js"
+        else
+            path
+    .compact().value()
+
+    yield new Promise (resolve)->
+        try_resolve = _.after 2, resolve
+
+        gulp.src js_paths
+        .pipe concat "main.js"
+        .pipe uglify()
+        .pipe gulp.dest "@tavmant"
+        .on "finish", try_resolve
+
+        gulp.src css_paths
+        .pipe concat "main.css"
+        .pipe minify_css keepSpecialComments : 0
+        .pipe gulp.dest "@tavmant"
+        .on "finish", try_resolve
+
+    del coffee_paths.map (path)-> path.replace ".coffee", ".js"
 
 
 # **********************
