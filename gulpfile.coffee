@@ -98,10 +98,23 @@ gulp.task "copy_assets", ->
     gulp.src ["./assets/**", "!./assets/**/*.js", "!./assets/**/*.css"]
     .pipe gulp.dest "./@dev/"
 
+gulp.task "copy_tavmant_assets", ["copy_text_assets"], (cb)->
+    if_jx_bye()
+    async.each ["js", "css"], (folder, next)->
+        gulp.src ["./tavmant_assets/#{folder}/**/*"]
+        .pipe cache "tavmant_assets"
+        .pipe gulp.dest "./@dev/#{folder}/tavmant/"
+        .on "finish", next
+    ,
+        cb
+
 gulp.task "fill_dev_folder", [
     "build_html"
     "copy_assets"
-    "copy_text_assets"
+    if process.jxversion
+        "copy_text_assets"
+    else
+        "copy_tavmant_assets"
 ]
 
 
@@ -136,6 +149,9 @@ gulp.task "static_server", ["fill_dev_folder"], ->
         gulp.start ["copy_text_assets"]
     watch ["assets/**/*", "!assets/**/*.js", "!assets/**/*.css"], ->
         gulp.start ["copy_assets"]
+    unless process.jxversion
+        watch ["tavmant_assets/**/*"], ->
+            gulp.start ["copy_tavmant_assets"]
 
     watch ["@dev/css/**/*.css", "@dev/js/**/*.js"], (event)->
         gulp.src event.path
