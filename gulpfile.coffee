@@ -81,6 +81,14 @@ gulp.task "build_html", ["predefine_partials"], -> co ->
         )
     )
 
+    partials.unshift "tavmant"
+    contents.unshift yield thunkify(
+        fs.readFile
+    )(
+        "./tavmant_assets/#{ if process.jxversion then "prod.html" else "dev.html" }"
+        encoding : "utf8"
+    )
+
     gulp.src "./pages/*.html"
     .pipe html_build {},
         layout   : _.last contents
@@ -137,12 +145,19 @@ gulp.task "static_server", ["fill_dev_folder"], ->
     # *****************
     #    LIVERELOAD
     # *****************
-    watch "layouts/**/*.html", ->
-        gulp.start ["build_html"]
-        watcher = watch "@dev/**/*.html", (event)->
-            gulp.src event.path
-            .pipe static_server.reload()
-            watcher.close()
+    watch(
+        _.compact [
+            "layouts/**/*.html"
+            unless process.jxversion
+                "tavmant_assets/**/*.html"
+        ]
+        ->
+            gulp.start ["build_html"]
+            watcher = watch "@dev/**/*.html", (event)->
+                gulp.src event.path
+                .pipe static_server.reload()
+                watcher.close()
+    )
     watch ["partials/**/*.html", "pages/**/*.html"], ->
         gulp.start ["build_html"]
     watch ["assets/**/*.js", "./assets/**/*.css"], ->
