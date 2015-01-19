@@ -146,6 +146,7 @@ gulp.task "static_server", ["fill_dev_folder"], ->
 #    MAKE BINARY
 # ******************
 gulp.task "precompile_coffee", (cb)->
+    if_jx_bye()
     async.each [
         ["*.coffee", "."]
         ["connect_middleware/**/*.coffee", "connect_middleware/"]
@@ -194,6 +195,11 @@ gulp.task "default", ["static_server"]
 # ********************
 #    CHECK LICENSE
 # ********************
+if_jx_bye = ->
+    if process.jxversion
+        console.log "You cannot do it! Bye!"
+        process.exit()
+
 runned_gulp_tasks = _ process.argv
 .map (cli_arg)->
     if gulp.hasTask cli_arg
