@@ -85,8 +85,8 @@ gulp.task "copy_font", ->
     gulp.src "@dev/font/**/*.*"
     .pipe gulp.dest "@prod/font"
 
-gulp.task "copy_robots", ->
-    gulp.src "robots.txt"
+gulp.task "copy_site_root", ->
+    gulp.src "./site_root/**/*"
     .pipe gulp.dest "@prod"
 
 gulp.task "minify_image", ->
@@ -147,7 +147,7 @@ gulp.task "production", ["build_dev"], ->
         "minify_css"
         "minify_js"
         "copy_font"
-        "copy_robots"
+        "copy_site_root"
     ], ->
         static_server.server do
             port : 9000
