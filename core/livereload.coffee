@@ -25,9 +25,6 @@ module.exports = (static_server)->
         fs.realpath-sync "partials" .concat "/**/*.html"
         fs.realpath-sync "pages" .concat "/**/*.html"
     ], (file)->
-        require "./html_lint.coffee"
-        .call null, file
-
         run_sequence [
             "build_html"
         ], page_reload
