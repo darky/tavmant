@@ -1,1 +1,0 @@
-window.CONTENT_CONTAINER_SELECTOR = "#page";
