@@ -50,7 +50,7 @@ gulp.task "copy_text_assets", ->
     .pipe gulp.dest "./@dev/"
 
 gulp.task "copy_assets", ->
-    gulp.src ["./assets/**", "!./assets/**/*.js", "!./assets/**/*.css", "!./assets/img/projects/**/*.jpg"]
+    gulp.src ["./assets/**/*", "!./assets/**/*.js", "!./assets/**/*.css", "!./assets/img/projects/**/*.jpg"]
     .pipe gulp.dest "./@dev/"
 
 gulp.task "build_dev", ["clear_dev_prod"], (cb)->
