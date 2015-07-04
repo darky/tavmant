@@ -2,9 +2,9 @@
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
-if process.title is "jx"
-  require "es6-promise"
-  .polyfill()
+if process.jxversion
+    require "es6-promise"
+    .polyfill()
 
 
 # **********************
