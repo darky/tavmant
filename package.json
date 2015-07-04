@@ -5,6 +5,7 @@
         "backbone.radio"    : "1.0.0",
         "co"                : "4.5.4",
         "del"               : "1.2.0",
+        "es6-promise"       : "2.3.0",
         "gm"                : "1.18.1",
         "gulp"              : "3.9.0",
         "gulp-build"        : "0.5.3",
