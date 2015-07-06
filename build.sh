@@ -1,0 +1,1 @@
+jx node_modules/gulp/bin/gulp.js --gulpfile tavmant.jx production
