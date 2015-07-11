@@ -1,3 +1,9 @@
+# *****************
+#    NODEJS API
+# *****************
+os = require "os"
+
+
 # **********************
 #    MUST HAVE DEFINE
 # **********************
@@ -5,6 +11,51 @@ _ = require "lodash"
 if process.jxversion
     require "es6-promise"
     .polyfill()
+
+
+# *******************
+#    LICENSE CHECK
+# *******************
+sha1 =
+    require "crypto"
+    .create-hash "sha1"
+
+license_salt = "PR93lFP1R9GiQ79o5849987013T6570n"
+license_salt2 = "iwNA8qaaTVB8pqOJQlqvmbagkOObAiIT"
+
+license_formula = "
+    #{ os.totalmem() }
+    #{ os.cpus()[0].model }
+    #{ license_salt }
+    #{ os.type() }
+    #{ os.arch() }
+    #{ license_salt2 }
+    #{ os.platform() }
+    #{ process.env.HOME ? process.env.HOMEPATH }
+    #{
+        _.find os.networkInterfaces(), (network)-> not network.0.mac.match /00:00:00:00:00:00/
+        .0.mac
+    }
+"
+
+calculated_sha =
+    sha1.update license_formula, "utf8"
+    .digest "hex"
+must_sha = try require "./key.js"
+
+if calculated_sha isnt must_sha
+    cipher =
+        require "crypto"
+        .create-cipher "aes-256-cbc", "r9qignYPa3d2glAbdMV963UDy7KqpZsv"
+
+    console.log "LICENSE ERROR! Send information between * to darkvlados@me.com for receiving license"
+    console.log """
+        **********************************
+        #{ cipher.update license_formula, "utf8", "hex" }\
+        #{ cipher.final "hex" }
+        **********************************
+    """
+    process.exit()
 
 
 # **********************
