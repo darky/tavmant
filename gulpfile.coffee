@@ -32,12 +32,6 @@ license_formula = "
     #{ license_salt2 }
     #{ os.platform() }
     #{ process.env.HOME ? process.env.HOMEPATH }
-    #{
-        _.find os.networkInterfaces(), (network)->
-            unless network.0.mac then return
-            not network.0.mac.match /00:00:00:00:00:00/
-        .0.mac
-    }
 "
 
 calculated_sha =
