@@ -10,6 +10,6 @@ rm *.jxp
 rm core/*.js
 rm core/.module-cache/*.js
 rm core/.module-cache/manifest/*.json
-zip tavmant-$(git tag).zip package.json server.sh build.sh reinstall.sh tavmant.jx
+zip tavmant-$(git describe).zip package.json server.sh build.sh reinstall.sh tavmant.jx
 rm tavmant.jx
 
