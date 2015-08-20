@@ -163,13 +163,13 @@ module.exports =
 
                 yield new Promise (resolve)->
                     async.map-series [1 to length], (i, cb)->
-                        try_resolve = _.after 3, cb
-                        _.each _res_to_px, (px, res)->
+                        async.for-each-of-series _res_to_px, (px, res, cb)->
                             _image_process settings_item,
                                 i
                                 parse-int px
                                 res
-                                try_resolve
+                                cb
+                        , cb
                     , resolve
 
         _image_process = ([project_name, settings], i, size, res, cb)-> co ->*
