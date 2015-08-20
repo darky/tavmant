@@ -1,3 +1,3 @@
 rm -r node_modules
-npm cache clean
+jx npm cache clean
 jx install
