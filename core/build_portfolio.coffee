@@ -8,6 +8,7 @@ fs = require "fs"
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
+async = require "async"
 co = require "co"
 dir_helper = require "node-dir"
 thunkify = require "thunkify"
@@ -160,14 +161,16 @@ module.exports =
                 length = _.find projects, (project)-> project.0 is settings_item.0
                 .1.length
 
-                yield _.map [1 to length], (i)-> new Promise (resolve)->
-                    try_resolve = _.after 3, resolve
-                    _.each _res_to_px, (px, res)->
-                        _image_process settings_item,
-                            i
-                            parse-int px
-                            res
-                            try_resolve
+                yield new Promise (resolve)->
+                    async.map-series [1 to length], (i, cb)->
+                        try_resolve = _.after 3, cb
+                        _.each _res_to_px, (px, res)->
+                            _image_process settings_item,
+                                i
+                                parse-int px
+                                res
+                                try_resolve
+                    , resolve
 
         _image_process = ([project_name, settings], i, size, res, cb)-> co ->*
             vertical_offset = settings[i-1][res][3]
