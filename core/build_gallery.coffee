@@ -22,26 +22,28 @@ module.exports =
         #    PRIVATE
         # *************
         _generate_html = (self)-> co ->*
-            image_paths = yield thunkify(
-                dir_helper.paths
-            )(
-                "./assets/img/portfolio"
-                true
-            )
+            try
+                image_paths = yield thunkify(
+                    dir_helper.paths
+                )(
+                    "./assets/img/portfolio"
+                    true
+                )
 
-            image_names = _.map image_paths, (path)->
-                path.match(
-                    //
-                        / (
-                            \w+ \.(jpg|jpeg|png|gif) 
-                        )$
-                    //
-                )[1]
+                image_names = _.map image_paths, (path)->
+                    path.match(
+                        //
+                            / (
+                                \w+ \.(jpg|jpeg|png|gif) 
+                            )$
+                        //
+                    )[1]
 
             ->
-                _.map _.shuffle(image_names), (name)->
-                    self.template.replace "__image__", name
-                .join ""
+                if image_names
+                    _.map _.shuffle(image_names), (name)->
+                        self.template.replace "__image__", name
+                    .join ""
 
 
         # ************

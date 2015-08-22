@@ -198,7 +198,11 @@ module.exports =
         #    PUBLIC
         # ************
         start : -> co ~>*
-            projects = yield _get_projects!
+            try
+                projects = yield _get_projects!
+            catch
+                return
+
             if global.radio.request "current:portfolio:project"
                 projects = _.filter projects, (project)->
                     project.0 is that
