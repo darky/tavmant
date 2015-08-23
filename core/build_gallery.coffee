@@ -1,3 +1,9 @@
+# ***********************
+#    NODEJS API DEFINE
+# ***********************
+fs = require "fs"
+
+
 # **********************
 #    MUST HAVE DEFINE
 # **********************
@@ -11,22 +17,15 @@ module.exports =
 
     class Gallery_Build
 
-        # **********
-        #    INIT
-        # **********
-        (options)->
-            {@template} = options
-
-
         # *************
         #    PRIVATE
         # *************
-        _generate_html = (self)-> co ->*
+        _generate_html = -> co ->*
             try
                 image_paths = yield thunkify(
                     dir_helper.paths
                 )(
-                    "./assets/img/portfolio"
+                    "./assets/img/tavmant-gallery"
                     true
                 )
 
@@ -39,11 +38,17 @@ module.exports =
                         //
                     )[1]
 
+                template = yield thunkify(
+                    fs.read-file
+                )(
+                    "./templates/gallery.html"
+                    encoding : "utf8"
+                )
+
             ->
-                if image_names
-                    _.map _.shuffle(image_names), (name)->
-                        self.template.replace "__image__", name
-                    .join ""
+                _.map _.shuffle(image_names or []), (name)->
+                    template.replace "__image__", name
+                .join ""
 
 
         # ************

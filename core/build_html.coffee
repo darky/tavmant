@@ -36,12 +36,7 @@ module.exports =
         # *************
         _get_helpers = -> co ->*
             Gallery_Build = require "./build_gallery.coffee"
-            gallery_build = new Gallery_Build do
-                template : """
-                    <div class="item hover_colour">
-                        <img src="/img/portfolio/__image__">
-                    </div>
-                """
+            gallery_build = new Gallery_Build
             [].concat <| yield gallery_build.start()
 
         _get_layout_content = ->

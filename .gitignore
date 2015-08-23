@@ -8,5 +8,6 @@ pages
 partials
 settings
 site_root
+templates
 
 key.js
