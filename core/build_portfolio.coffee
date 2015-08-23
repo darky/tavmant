@@ -45,62 +45,10 @@ module.exports =
             med  : "1400px"
             high : "1920px"
 
-        _get_js = (image_setting, project_name, i, length)->
-            _.identity do ->
-                if i is 1
-                    """
-                        $(function(){var width = $("body").width();
-                    """
-                else
-                    ""
-            .concat """
-
-                    if (width < parseInt("#{_res_to_px.low}")) {
-                        $(".parallax-project-#{project_name}-#{i}").parallax(null, #{image_setting.low.1});
-                    } else if (width > parseInt("#{_res_to_px.med}")) {
-                        $(".parallax-project-#{project_name}-#{i}").parallax(null, #{image_setting.high.1});
-                    } else {
-                        $(".parallax-project-#{project_name}-#{i}").parallax(null, #{image_setting.med.1});
-                    }
-
-            """
-            .concat do ->
-                if i is length
-                    """
-                        });
-                    """
-                else
-                    ""
-
-        _get_css = (image_setting, project_name, i)->
-            """
-                @media (max-width: #{_res_to_px.low}) {
-                    .parallax-project-#{project_name}-#{i} {
-                        background : url(/img/projects/#{project_name}/#{i}-low.jpg);
-                        height : #{image_setting.low.0}px;
-                    }
-                }
-                @media (max-width: #{_res_to_px.med}) {
-                    @media (min-width: #{_res_to_px.low}) {
-                        .parallax-project-#{project_name}-#{i} {
-                            background : url(/img/projects/#{project_name}/#{i}-med.jpg);
-                            height : #{image_setting.med.0}px;
-                        }
-                    }
-                }
-                @media (min-width: #{_res_to_px.med}) {
-                    .parallax-project-#{project_name}-#{i} {
-                        background : url(/img/projects/#{project_name}/#{i}-high.jpg);
-                        height : #{image_setting.high.0}px;
-                    }  
-                }
-
-            """
-
         _get_projects = -> co ->*
             paths = yield do
                 thunkify dir_helper.paths
-                .call dir_helper, "./assets/img/projects"
+                .call dir_helper, "./assets/img/tavmant-portfolio"
 
             _ paths.dirs
             .map (dir_path)->
@@ -121,7 +69,7 @@ module.exports =
             read_file = thunkify fs.read-file 
 
             contents = yield _.map projects, ([project])-> co ->*
-                content = yield read_file "./settings/projects/#{project}.txt",
+                content = yield read_file "./settings/portfolio/#{project}.txt",
                     encoding : "utf8"
                 [project, content]
 
@@ -142,6 +90,8 @@ module.exports =
             write_file = thunkify fs.write-file
             mkdir = thunkify fs.mkdir  
             try yield mkdir "#{process.cwd()}/@dev/#{type}/custom/portfolio"
+            css_generator = require "#{process.cwd()}/javascript/portfolio/get_css.js"
+            js_generator = require "#{process.cwd()}/javascript/portfolio/get_js.js"
 
             yield _.map settings, (settings_item)-> co ->*
                 yield write_file do
@@ -151,8 +101,8 @@ module.exports =
                         (accum, image_setting, i)->
                             accum +=
                                 switch type
-                                | "css" => _get_css image_setting, settings_item.0, i + 1
-                                | "js" => _get_js image_setting, settings_item.0, i + 1, settings_item.1.length
+                                | "css" => css_generator image_setting, settings_item.0, i + 1
+                                | "js" => js_generator image_setting, settings_item.0, i + 1, settings_item.1.length
                         ""
                     encoding : "utf8"
 
@@ -180,15 +130,15 @@ module.exports =
             horizontal_offset = "+0" if horizontal_offset is "0"
 
             {width, height} = yield new Promise (resolve)->
-                gm "#{process.cwd()}/assets/img/projects/#{project_name}/#{i}.jpg"
+                gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg"
                 .size (err, size)-> resolve size
 
             yield new Promise (resolve)->
-                gm "#{process.cwd()}/assets/img/projects/#{project_name}/#{i}.jpg"
+                gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg"
                 .resize size
                 .page size, height / (width / size), "#{horizontal_offset}#{vertical_offset}"
                 .flatten()
-                .write "#{process.cwd()}/@dev/img/projects/#{project_name}/#{i}-#{res}.jpg",
+                .write "#{process.cwd()}/@dev/img/tavmant-portfolio/#{project_name}/#{i}-#{res}.jpg",
                     resolve
 
             cb()

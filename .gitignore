@@ -3,6 +3,7 @@ node_modules
 @dev
 @prod
 assets
+javascript
 layouts
 pages
 partials

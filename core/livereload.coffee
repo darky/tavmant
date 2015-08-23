@@ -42,15 +42,15 @@ module.exports = (static_server)->
         fs.realpath-sync "assets" .concat "/**/*"
         "!" + fs.realpath-sync "assets" .concat "/**/*.js"
         "!" + fs.realpath-sync "assets" .concat "/**/*.css"
-        "!" + fs.realpath-sync "assets" .concat "/img/projects/**/*.jpg"
+        "!" + fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
     ], ->
         run_sequence [
             "copy_assets"
         ], page_reload
 
     watch [
-        fs.realpath-sync "settings" .concat "/**/*.txt"
-        fs.realpath-sync "assets" .concat "/img/projects/**/*.jpg"
+        fs.realpath-sync "settings" .concat "/portfolio/*.txt"
+        fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
     ], (file)->
         switch true
         | !!file.path.match /\.txt$/ =>
