@@ -24,6 +24,7 @@ module.exports = (static_server)->
         fs.realpath-sync "layouts" .concat "/**/*.html"
         fs.realpath-sync "partials" .concat "/**/*.html"
         fs.realpath-sync "pages" .concat "/**/*.html"
+        fs.realpath-sync "templates" .concat "/**/*.html"
     ], (file)->
         run_sequence [
             "build_html"
