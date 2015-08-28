@@ -4,6 +4,7 @@
         "backbone"          : "1.2.2",
         "backbone.radio"    : "1.0.1",
         "co"                : "4.6.0",
+        "csv-parse"         : "1.0.0",
         "del"               : "1.2.1",
         "es6-promise"       : "3.0.2",
         "gm"                : "1.18.1",
