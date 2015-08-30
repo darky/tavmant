@@ -37,7 +37,11 @@ module.exports =
         _get_helpers = -> co ->*
             Gallery_Build = require "./build_gallery.coffee"
             gallery_build = new Gallery_Build
-            [].concat <| yield gallery_build.start()
+            Categories_Build = require "./build_categories.coffee"
+            categories_build = new Categories_Build
+            []
+            .concat yield categories_build.get_helpers()
+            .concat yield gallery_build.start()
 
         _get_layout_content = ->
             thunkify(

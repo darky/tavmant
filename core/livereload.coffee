@@ -72,3 +72,8 @@ module.exports = (static_server)->
         run_sequence [
             "build_portfolio"
         ], page_reload
+
+    watch [
+        fs.realpath-sync "categories" .concat "/tavmant-list.csv"
+    ], ->
+        run_sequence ["build_html"], page_reload
