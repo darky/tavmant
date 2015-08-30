@@ -42,9 +42,14 @@ module.exports =
                 "#{process.cwd()}/templates/categories/list.html"
                 encoding : "utf8"
 
-            _.map parsed, (item)->
-                html_content.replace /__name__/g, item.0
-                .replace /__locale__/g, item.1
+            (options)->
+                _ parsed
+                .filter (item)-> item.2 is options.data.root.file_name
+                .map (item)->
+                    html_content.replace /__name__/g, item.0
+                    .replace /__locale__/g, item.1
+                    .replace /__link__/g, "/#{item.2}/#{item.0}"
+                .value!.join ""
 
         _get_menu = (parsed)-> co ->*
             [html_category, html_subcategory] = yield [
