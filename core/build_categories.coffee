@@ -31,8 +31,10 @@ module.exports =
             _ parsed
             .filter (item)-> !!item.3
             .map (item)->
-                html_content.replace "__name__", item.0
-                .replace "__locale__", item.1
+                html_content.replace /__name__/g, item.0
+                .replace /__locale__/g, item.1
+                .replace /__link__/g, if item.2 then "/#{item.2}/#{item.0}" else item.0
+            .join ""
 
         _get_list = (parsed)-> co ->*
             html_content = yield thunkify fs.read-file
@@ -41,8 +43,8 @@ module.exports =
                 encoding : "utf8"
 
             _.map parsed, (item)->
-                html_content.replace "__name__", item.0
-                .replace "__locale__", item.1
+                html_content.replace /__name__/g, item.0
+                .replace /__locale__/g, item.1
 
         _get_menu = (parsed)-> co ->*
             [html_category, html_subcategory] = yield [
@@ -60,14 +62,14 @@ module.exports =
             .group-by (item)-> item.2
             .map-values (items, name)->
                 if name is "" then return null
-                html_category.replace "__content__",
+                html_category.replace /__content__/g,
                     _.map items, (item)->
-                        html_subcategory.replace "__name__", item.0
-                        .replace "__locale__", item.1
-                        .replace "__link__", "/#{name}/#{item.0}"
+                        html_subcategory.replace /__name__/g, item.0
+                        .replace /__locale__/g, item.1
+                        .replace /__link__/g, "/#{name}/#{item.0}"
                     .join ""
-                .replace "__name__", name
-                .replace "__locale__",
+                .replace /__name__/g, name
+                .replace /__locale__/g,
                     _.find parsed, (item)-> item.0 is name
                     .1
             .values!.compact!.value!.join ""
