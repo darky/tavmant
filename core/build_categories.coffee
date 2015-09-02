@@ -46,12 +46,15 @@ module.exports =
             .call fs, "#{process.cwd()}/templates/categories/list-wrapper.html",
                 encoding : "utf8"
 
+            {title} = JSON.parse item.4
+
             new HTML_Categories_Build do
                 html : list_wrapper_content.replace "__content__",
                     if item.2
                         yield _get_html_subcategory_item item
                     else
                         yield _get_html_subcategory item, parsed
+                .replace "__title__", title
                 name : "#{item.2}/#{item.0}"
 
         _get_favorites = (parsed)-> co ->*
