@@ -37,19 +37,26 @@ module.exports =
             .join ""
 
         _get_list = (parsed)-> co ->*
-            html_content = yield thunkify fs.read-file
-            .call fs,
-                "#{process.cwd()}/templates/categories/list.html"
-                encoding : "utf8"
+            [list_content, list_wrapper_content] = yield [
+                thunkify fs.read-file
+                .call fs,
+                    "#{process.cwd()}/templates/categories/list.html"
+                    encoding : "utf8"
+                thunkify fs.read-file
+                .call fs,
+                    "#{process.cwd()}/templates/categories/list-wrapper.html"
+                    encoding : "utf8"
+            ]
 
             (options)->
-                _ parsed
-                .filter (item)-> item.2 is options.data.root.file_name
-                .map (item)->
-                    html_content.replace /__name__/g, item.0
-                    .replace /__locale__/g, item.1
-                    .replace /__link__/g, "/#{item.2}/#{item.0}"
-                .value!.join ""
+                list_wrapper_content.replace "__content__",
+                    _ parsed
+                    .filter (item)-> item.2 is options.data.root.file_name
+                    .map (item)->
+                        html_content.replace /__name__/g, item.0
+                        .replace /__locale__/g, item.1
+                        .replace /__link__/g, "/#{item.2}/#{item.0}"
+                    .value!.join ""
 
         _get_menu = (parsed)-> co ->*
             [html_category, html_subcategory] = yield [
