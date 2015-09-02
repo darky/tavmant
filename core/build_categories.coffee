@@ -52,7 +52,7 @@ module.exports =
                         yield _get_html_subcategory_item item
                     else
                         yield _get_html_subcategory item, parsed
-                name : item.0
+                name : "#{item.2}/#{item.0}"
 
         _get_favorites = (parsed)-> co ->*
             html_content = yield thunkify fs.read-file
