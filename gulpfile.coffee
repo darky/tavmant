@@ -81,6 +81,11 @@ global.radio = require "backbone.radio" .channel "global"
 gulp.task "clear_dev_prod", (cb)->
     del ["@dev/**/*.*", "@prod/**/*.*"], cb
 
+gulp.task "build_categories", ["build_html"], ->
+    Categories_Build = require "./core/build_categories.coffee"
+    categories_builder = new Categories_Build
+    categories_builder.start!
+
 gulp.task "build_html", ->
     HTML_Build = require "./core/build_html.coffee"
     html_builder = new HTML_Build
@@ -105,6 +110,7 @@ gulp.task "copy_assets", ->
 
 gulp.task "build_dev", ["clear_dev_prod"], (cb)->
     run_sequence [
+        "build_categories"
         "build_html"
         "build_portfolio"
         "copy_assets"
