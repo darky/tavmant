@@ -55,6 +55,8 @@ module.exports =
                     else
                         yield _get_html_subcategory item, parsed
                 .replace "__title__", title
+                .replace "__text__", item.5
+                .replace "__name__", item.0
                 name : "#{item.2}/#{item.0}"
 
         _get_favorites = (parsed)-> co ->*
