@@ -100,9 +100,12 @@ module.exports =
 
             _ parsed_subcategory
             .map (subitem)->
-                subcategory_template.replace /__name__/g, subitem.0
-                .replace /__locale__/g, subitem.1
-                .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
+                subcategory_template.replace /__locale__/g, subitem.1
+                .replace /__link__/g, "#{item.0}/#{subitem.0}"
+                .replace /__price__/g, subitem.2
+                .replace /__4__/g, subitem.4
+                .replace /__5__/g, subitem.5
+                .replace /__6__/g, subitem.6
             .value!.join ""
 
         _get_menu = (parsed)-> co ->*
