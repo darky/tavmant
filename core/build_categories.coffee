@@ -50,19 +50,24 @@ module.exports =
                     if item.2
                         return next!
                     else
-                        builder = new HTML_Categories_Build do
-                            html : list_wrapper_content.replace "__content__",
-                                _ parsed
-                                .filter (subitem)-> subitem.2 is item.0
-                                .map (subitem)->
-                                    list_content.replace /__name__/g, subitem.0
-                                    .replace /__locale__/g, subitem.1
-                                    .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
-                                .value!.join ""
-                            name : item.0
+                        builder = _get_builder item, parsed,
+                            [list_content, list_wrapper_content]
                     yield builder.start!
                     next!
             )
+
+        _get_builder = (item, parsed, templates)->
+            [list_content, list_wrapper_content] = templates
+            new HTML_Categories_Build do
+                html : list_wrapper_content.replace "__content__",
+                    _ parsed
+                    .filter (subitem)-> subitem.2 is item.0
+                    .map (subitem)->
+                        list_content.replace /__name__/g, subitem.0
+                        .replace /__locale__/g, subitem.1
+                        .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
+                    .value!.join ""
+                name : item.0
 
         _get_favorites = (parsed)-> co ->*
             html_content = yield thunkify fs.read-file
