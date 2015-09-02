@@ -74,6 +74,6 @@ module.exports = (static_server)->
         ], page_reload
 
     watch [
-        fs.realpath-sync "categories" .concat "/tavmant-list.csv"
+        fs.realpath-sync "categories" .concat "/*.csv"
     ], ->
-        run_sequence ["build_html"], page_reload
+        run_sequence ["build_categories"], page_reload
