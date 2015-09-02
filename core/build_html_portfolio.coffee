@@ -6,12 +6,6 @@ path = require "path"
 
 
 # **********************
-#    MUST HAVE DEFINE
-# **********************
-_ = require "lodash"
-
-
-# **********************
 #    GULP & KO DEFINE
 # **********************
 gulp = require "gulp"
