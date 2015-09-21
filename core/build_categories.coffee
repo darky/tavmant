@@ -73,6 +73,48 @@ module.exports =
                 .replace /__link__/g, if item.2 then "/#{item.2}/#{item.0}" else item.0
             .join ""
 
+        _get_categories_items_favorites = -> co ->*
+            files_names = _.filter do
+                yield thunkify fs.readdir
+                .call fs, "#{process.cwd()}/categories"
+                (file_name)-> file_name isnt "tavmant-list.csv"
+
+            file_contents = yield new Promise (resolve)->
+                async.map do
+                    files_names
+                    (item, cb)->
+                        fs.read-file "#{process.cwd()}/categories/#{item}",
+                            encoding : "utf8"
+                            (err, content)-> cb null, content
+                    (err, results)-> resolve results
+
+            all_items = yield new Promise (resolve)->
+                async.map do
+                    file_contents
+                    (item, cb)->
+                        csv_parse item, delimiter : ";", (err, result)->
+                            cb null, result
+                    (err, results)-> resolve results
+
+            favorites_template = yield thunkify fs.read-file
+            .call fs,
+                "#{process.cwd()}/templates/categories/subcategory-list-favorites.html"
+                encoding : "utf8"
+
+            _ all_items
+            .map (items, i)->
+                _ items
+                .filter (subitem)-> !!subitem.3
+                .map (subitem)->
+                    favorites_template.replace /__locale__/g, subitem.1
+                    .replace /__link__/g, "#{files_names[i].replace /\.csv/, ""}/#{subitem.0}"
+                    .replace /__price__/g, subitem.2
+                    .replace /__4__/g, subitem.4
+                    .replace /__5__/g, subitem.5
+                    .replace /__6__/g, subitem.6
+                .value!.join ""
+            .value!.join ""
+
         _get_html_subcategory = (item, parsed)-> co ->*
             list_content = yield thunkify fs.read-file
             .call fs, "#{process.cwd()}/templates/categories/list.html",
@@ -159,6 +201,9 @@ module.exports =
             ,
                 fn   : yield _get_favorites parsed
                 name : "categories_favorites"
+            ,
+                fn   : yield _get_categories_items_favorites!
+                name : "categories_items_favorites"
             ]
 
         start : -> co ->*
