@@ -193,7 +193,10 @@ module.exports =
         #    PUBLIC
         # ************
         get_helpers : -> co ->*
-            parsed = yield _get_parsed()
+            try
+                parsed = yield _get_parsed()
+            catch
+                return []
 
             [
                 fn   : yield _get_menu parsed
@@ -207,5 +210,8 @@ module.exports =
             ]
 
         start : -> co ->*
-            parsed = yield _get_parsed!
+            try
+                parsed = yield _get_parsed!
+            catch
+                return
             yield _generate parsed
