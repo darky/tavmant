@@ -67,7 +67,7 @@ module.exports = (static_server)->
                 \d+\.jpg$
             // .1 
 
-        global.radio.reply "current:portfolio:project", -> project
+        global["current:portfolio:project"] = project
 
         run_sequence [
             "build_portfolio"

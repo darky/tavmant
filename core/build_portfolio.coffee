@@ -153,7 +153,7 @@ module.exports =
             catch
                 return
 
-            if global.radio.request "current:portfolio:project"
+            if global["current:portfolio:project"]
                 projects = _.filter projects, (project)->
                     project.0 is that
 
