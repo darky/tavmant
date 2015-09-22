@@ -69,12 +69,6 @@ uglify = require "gulp-uglify"
 useref = require "gulp-useref"
 
 
-# ****************
-#    EVENT-BUS
-# ****************
-global.radio = require "backbone.radio" .channel "global"
-
-
 # ***************
 #    BUILD DEV
 # ***************
