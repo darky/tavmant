@@ -8,9 +8,6 @@ os = require "os"
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
-if process.jxversion
-    require "es6-promise"
-    .polyfill()
 
 
 # *******************
