@@ -1,1 +1,2 @@
-jx node_modules/gulp/bin/gulp.js --gulpfile tavmant.jx
+export TAVMANT_PACKAGE=default
+./tavmant

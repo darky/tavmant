@@ -208,3 +208,66 @@ gulp.task "production", ["build_dev"], ->
 #    DEFAULT DEV SITE
 # **********************
 gulp.task "default", ["static_server"]
+
+
+# ******************
+#    RUN PACKAGED
+# ******************
+if process.env.TAVMANT_PACKAGE
+    # from gulp 3.9.0
+    chalk = require "chalk"
+    gutil = require "gulp-util"
+    prettyTime = require "pretty-hrtime"
+
+    formatError = (e)->
+      unless e.err
+        return e.message;
+
+      # PluginError
+      if typeof e.err.showStack is "boolean"
+        return e.err.toString()
+
+      # Normal error
+      if e.err.stack
+        return e.err.stack
+
+      # Unknown (string, number, etc.)
+      return new Error(String(e.err)).stack
+
+    logEvents = (gulpInst)->
+
+      # Total hack due to poor error management in orchestrator
+      gulpInst.on "err", ->
+        failed = true
+
+      gulpInst.on "task_start", (e)->
+        # TODO: batch these
+        # so when 5 tasks start at once it only logs one time with all 5
+        gutil.log("Starting", "\'" + chalk.cyan(e.task) + "\'...")
+
+      gulpInst.on "task_stop", (e)->
+        time = prettyTime(e.hrDuration)
+        gutil.log(
+          "Finished", "\'" + chalk.cyan(e.task) + "\'",
+          "after", chalk.magenta(time)
+        )
+
+      gulpInst.on "task_err", (e)->
+        msg = formatError(e)
+        time = prettyTime(e.hrDuration)
+        gutil.log(
+          "\'" + chalk.cyan(e.task) + "\'",
+          chalk.red("errored after"),
+          chalk.magenta(time)
+        )
+        gutil.log(msg)
+
+      gulpInst.on "task_not_found", (err)->
+        gutil.log(
+          chalk.red("Task \'" + err.task + "\' is not in your gulpfile")
+        )
+        gutil.log("Please check the documentation for proper gulpfile formatting")
+        process.exit(1)
+
+    logEvents gulp
+    gulp.start [that]
