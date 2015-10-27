@@ -2,6 +2,7 @@
 #    NODEJS API DEFINE
 # ***********************
 fs = require "fs"
+path = require "path"
 
 
 # **********************
@@ -53,14 +54,13 @@ module.exports =
             _ paths.dirs
             .map (dir_path)->
                 result = []
-                result.push do
-                    dir_path.match // / ([\w-]+) $ // .1
+                result.push path.basename dir_path
                 result.push do
                     _ paths.files
                     .filter (file_path)->
                         !!file_path.match dir_path
                     .map (file_path)->
-                        file_path.match // / ([\w.]+) $ // .1
+                        path.basename file_path
                     .value!
                 result
             .value!
