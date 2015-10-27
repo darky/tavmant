@@ -2,6 +2,7 @@
 #    NODEJS API DEFINE
 # ***********************
 fs = require "fs"
+path = require "path"
 
 
 # **********************
@@ -59,12 +60,8 @@ module.exports =
                 true
             )
 
-            partial_names = _.map partial_paths, (path)->
-                path.match(
-                    //
-                        / (\w+) \.html$
-                    //
-                )[1]
+            partial_names = _.map partial_paths, (partial_path)->
+                path.basename partial_path, ".html"
 
             partial_contents = yield thunkify(
                 async.map
@@ -107,11 +104,10 @@ module.exports =
 
         _build_transform : (build_options)->
             through.obj (file, enc, cb)->
-                file_name = file.path.match(
-                    //
-                        #{ file.cwd }/pages/ ([\w\/-]+) \.html$
-                    //
-                )[1]
+                file_name =
+                    _ file.path.split path.sep
+                    .drop-while (dir)-> dir isnt "pages"
+                    .value!.join "/"
 
                 html_build(
                     _.extend file.frontMatter,
