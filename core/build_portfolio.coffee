@@ -58,7 +58,7 @@ module.exports =
                 result.push do
                     _ paths.files
                     .filter (file_path)->
-                        !!file_path.match dir_path
+                        !!file_path.replace(/\\/g, "").match dir_path.replace(/\\/g, "")
                     .map (file_path)->
                         path.basename file_path
                     .value!
