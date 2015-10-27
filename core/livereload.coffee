@@ -2,6 +2,13 @@
 #    NODEJS API DEFINE
 # ***********************
 fs = require "fs"
+path = require "path"
+
+
+# **********************
+#    MUST HAVE DEFINE
+# **********************
+_ = require "lodash"
 
 
 # **********************
@@ -54,18 +61,12 @@ module.exports = (static_server)->
     ], (file)->
         switch true
         | !!file.path.match /\.txt$/ =>
-            project = file.path.match //
-                /
-                ([\w-]+)
-                .txt$
-             // .1 
+            project = path.basename file.path, ".txt"
         | !!file.path.match /\.jpg$/ =>
-            project = file.path.match //
-                /
-                ([\w-]+)
-                /
-                \d+\.jpg$
-            // .1 
+            project =
+                _ file.path.split path.sep
+                .take-right 2
+                .first!
 
         global["current:portfolio:project"] = project
 
