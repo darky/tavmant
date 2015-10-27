@@ -106,8 +106,8 @@ module.exports =
             through.obj (file, enc, cb)->
                 file_name =
                     _ file.path.split path.sep
-                    .drop-while (dir)-> dir isnt "pages"
-                    .value!.join "/"
+                    .drop-while (dir, i, arr)-> arr[i-1] isnt "pages"
+                    .value!.join "/" .replace /\.html$/, ""
 
                 html_build(
                     _.extend file.frontMatter,
