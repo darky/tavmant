@@ -162,16 +162,17 @@ module.exports =
                 projects = _.filter projects, (project)->
                     project.0 is that
 
-            yield _.map projects, (project)->
-                html_portfolio_builder =
-                    new HTML_Portfolio_Build project : project
-                html_portfolio_builder.start!
+            if projects.length
+                yield _.map projects, (project)->
+                    html_portfolio_builder =
+                        new HTML_Portfolio_Build project : project
+                    html_portfolio_builder.start!
 
-            settings = yield _get_settings projects
+                settings = yield _get_settings projects
 
-            yield [
-                _generate_text_assets settings, "css"
-                _generate_text_assets settings, "js"
-                _generate_images settings, projects
-            ]
+                yield [
+                    _generate_text_assets settings, "css"
+                    _generate_text_assets settings, "js"
+                    _generate_images settings, projects
+                ]
         .catch (e)-> console.error e
