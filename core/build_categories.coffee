@@ -187,10 +187,11 @@ module.exports =
         .catch (e)-> console.error e
 
         _get_parsed = -> co ->*
-            content = yield thunkify fs.read-file
-            .call fs,
-                "#{process.cwd()}/categories/tavmant-list.csv"
-                encoding : "utf8"
+            content = yield new Promise (resolve)->
+                fs.read-file "#{process.cwd()}/categories/tavmant-list.csv",
+                    encoding : "utf8", (err, data)->
+                        resolve if err then "" else data
+
 
             yield new Promise (resolve)->
                 csv_parse content, delimiter : ";", (err, result)->
@@ -202,21 +203,21 @@ module.exports =
         #    PUBLIC
         # ************
         get_helpers : -> co ->*
-            try
-                parsed = yield _get_parsed()
-            catch
-                return []
+            parsed = yield _get_parsed()
 
-            [
-                fn   : yield _get_menu parsed
-                name : "categories_menu"
-            ,
-                fn   : yield _get_favorites parsed
-                name : "categories_favorites"
-            ,
-                fn   : yield _get_categories_items_favorites!
-                name : "categories_items_favorites"
-            ]
+            if parsed.length
+                [
+                    fn   : yield _get_menu parsed
+                    name : "categories_menu"
+                ,
+                    fn   : yield _get_favorites parsed
+                    name : "categories_favorites"
+                ,
+                    fn   : yield _get_categories_items_favorites!
+                    name : "categories_items_favorites"
+                ]
+            else
+                []
         .catch (e)-> console.error e
 
         start : -> co ->*
