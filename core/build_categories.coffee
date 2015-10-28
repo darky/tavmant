@@ -39,7 +39,9 @@ module.exports =
                     builder = yield _get_builder item, parsed
                     yield builder.start!
                     next!
+                .catch (e)-> console.error e
             )
+        .catch (e)-> console.error e
 
         _get_builder = (item, parsed)-> co ->*
             list_wrapper_content = yield thunkify fs.read-file
@@ -58,6 +60,7 @@ module.exports =
                 .replace "__text__", item.5
                 .replace "__name__", item.0
                 name : "#{item.2}/#{item.0}"
+        .catch (e)-> console.error e
 
         _get_favorites = (parsed)-> co ->*
             html_content = yield thunkify fs.read-file
@@ -72,6 +75,7 @@ module.exports =
                 .replace /__locale__/g, item.1
                 .replace /__link__/g, if item.2 then "/#{item.2}/#{item.0}" else item.0
             .join ""
+        .catch (e)-> console.error e
 
         _get_categories_items_favorites = -> co ->*
             files_names = _.filter do
@@ -114,6 +118,7 @@ module.exports =
                     .replace /__6__/g, subitem.6
                 .value!.join ""
             .value!.join ""
+        .catch (e)-> console.error e
 
         _get_html_subcategory = (item, parsed)-> co ->*
             list_content = yield thunkify fs.read-file
@@ -127,6 +132,7 @@ module.exports =
                 .replace /__locale__/g, subitem.1
                 .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
             .value!.join ""
+        .catch (e)-> console.error e
 
         _get_html_subcategory_item = (item)-> co ->*
             [subcategory_content, subcategory_template] = yield [
@@ -149,6 +155,7 @@ module.exports =
                 .replace /__5__/g, subitem.5
                 .replace /__6__/g, subitem.6
             .value!.join ""
+        .catch (e)-> console.error e
 
         _get_menu = (parsed)-> co ->*
             [html_category, html_subcategory] = yield [
@@ -177,6 +184,7 @@ module.exports =
                     _.find parsed, (item)-> item.0 is name
                     .1
             .values!.compact!.value!.join ""
+        .catch (e)-> console.error e
 
         _get_parsed = -> co ->*
             content = yield thunkify fs.read-file
@@ -187,6 +195,7 @@ module.exports =
             yield new Promise (resolve)->
                 csv_parse content, delimiter : ";", (err, result)->
                     resolve result
+        .catch (e)-> console.error e
 
 
         # ************
@@ -208,6 +217,7 @@ module.exports =
                 fn   : yield _get_categories_items_favorites!
                 name : "categories_items_favorites"
             ]
+        .catch (e)-> console.error e
 
         start : -> co ->*
             try
@@ -215,3 +225,4 @@ module.exports =
             catch
                 return
             yield _generate parsed
+        .catch (e)-> console.error e

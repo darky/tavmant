@@ -43,6 +43,7 @@ module.exports =
             []
             .concat yield categories_build.get_helpers()
             .concat yield gallery_build.start()
+        .catch (e)-> console.error e
 
         _get_layout_content = ->
             thunkify(
@@ -77,6 +78,7 @@ module.exports =
             _.map partial_names, (partial, i)->
                 name : partial
                 tpl  : partial_contents[i]
+        .catch (e)-> console.error e
 
         _rename_file_to_index = (path)->
             if path.basename isnt "index"  and  path.basename isnt "404"
@@ -88,6 +90,7 @@ module.exports =
             helpers  : yield _get_helpers()
             layout   : yield _get_layout_content()
             partials : yield _get_partials()
+        .catch (e)-> console.error e
 
 
         # ***************
@@ -125,3 +128,4 @@ module.exports =
         # ************
         start : -> co ~>*
             yield @_build <| yield _setup()
+        .catch (e)-> console.error e

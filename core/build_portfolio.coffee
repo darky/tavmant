@@ -64,6 +64,7 @@ module.exports =
                     .value!
                 result
             .value!
+        .catch (e)-> console.error e
 
         _get_settings = (projects)-> co ->*
             read_file = thunkify fs.read-file 
@@ -72,6 +73,7 @@ module.exports =
                 content = yield read_file "./settings/portfolio/#{project}.txt",
                     encoding : "utf8"
                 [project, content]
+            .catch (e)-> console.error e
 
             _.map contents, ([project, content])->
                 per_image_str = content.split "\n"
@@ -85,6 +87,7 @@ module.exports =
                         accum["#res"] = _.compact res_str_arr[i].split " "
                         accum
                 ]
+        .catch (e)-> console.error e
 
         _generate_text_assets = (settings, type)-> co ->*
             write_file = thunkify fs.write-file
@@ -105,6 +108,8 @@ module.exports =
                                 | "js" => js_generator image_setting, settings_item.0, i + 1, settings_item.1.length
                         ""
                     encoding : "utf8"
+            .catch (e)-> console.error e
+        .catch (e)-> console.error e
 
         _generate_images = (settings, projects)-> co ->*
             yield _.map settings, (settings_item)-> co ->*
@@ -121,6 +126,8 @@ module.exports =
                                 cb
                         , cb
                     , resolve
+            .catch (e)-> console.error e
+        .catch (e)-> console.error e
 
         _image_process = ([project_name, settings], i, size, res, cb)-> co ->*
             vertical_offset = settings[i-1][res][3]
@@ -142,6 +149,7 @@ module.exports =
                     resolve
 
             cb()
+        .catch (e)-> console.error e
 
 
         # ************
@@ -169,3 +177,4 @@ module.exports =
                 _generate_text_assets settings, "js"
                 _generate_images settings, projects
             ]
+        .catch (e)-> console.error e

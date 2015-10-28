@@ -49,6 +49,7 @@ module.exports =
                 _.map _.shuffle(image_names or []), (name)->
                     template.replace "__image__", name
                 .join ""
+        .catch (e)-> console.error e
 
 
         # ************
@@ -59,3 +60,4 @@ module.exports =
                 fn   : yield _generate_html @
                 name : "gallery"
             ]
+        .catch (e)-> console.error e
