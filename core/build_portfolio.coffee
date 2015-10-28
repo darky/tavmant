@@ -47,9 +47,12 @@ module.exports =
             high : "1920px"
 
         _get_projects = -> co ->*
-            paths = yield do
-                thunkify dir_helper.paths
-                .call dir_helper, "./assets/img/tavmant-portfolio"
+            paths = yield new Promise (resolve)->
+                try 
+                    dir_helper.paths "./assets/img/tavmant-portfolio", (err, data)->
+                        resolve if err then dirs : [] else data
+                catch e
+                    resolve dirs : []
 
             _ paths.dirs
             .map (dir_path)->
