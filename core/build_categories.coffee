@@ -151,9 +151,9 @@ module.exports =
                 subcategory_template.replace /__locale__/g, subitem.1
                 .replace /__link__/g, "#{item.0}/#{subitem.0}"
                 .replace /__price__/g, subitem.2
-                .replace /__4__/g, subitem.4
-                .replace /__5__/g, subitem.5
-                .replace /__6__/g, subitem.6
+                .replace /__4__/g, _.identity -> subitem.4 or ""
+                .replace /__5__/g, _.identity -> subitem.5 or ""
+                .replace /__6__/g, _.identity -> subitem.6 or ""
             .value!.join ""
         .catch (e)-> console.error e
 
