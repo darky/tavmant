@@ -156,10 +156,7 @@ module.exports =
         #    PUBLIC
         # ************
         start : -> co ~>*
-            try
-                projects = yield _get_projects!
-            catch
-                return
+            projects = yield _get_projects!
 
             if global["current:portfolio:project"]
                 projects = _.filter projects, (project)->
