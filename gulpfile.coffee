@@ -17,8 +17,8 @@ sha1 =
     require "crypto"
     .create-hash "sha1"
 
-license_salt = "PR93lFP1R9GiQ79o5849987013T6570n"
-license_salt2 = "iwNA8qaaTVB8pqOJQlqvmbagkOObAiIT"
+license_salt = "t1RANgvoC3lKeNHUJbRDxr06RggWYwmT"
+license_salt2 = "7nJY9Pgx39pIqB7XDu74ounx97d9444b"
 
 license_formula = "
     #{ os.totalmem() }
@@ -40,7 +40,7 @@ must_sha = try require "./key.js"
 if calculated_sha isnt must_sha
     cipher =
         require "crypto"
-        .create-cipher "aes-256-cbc", "r9qignYPa3d2glAbdMV963UDy7KqpZsv"
+        .create-cipher "aes-256-cbc", "1WRhJ4ApQLDQu6GxZOHiPYPCZbsn9Jvq"
 
     console.log "LICENSE ERROR! Send information between * to darkvlados@me.com for receiving license"
     console.log """

@@ -1,5 +1,5 @@
 var sha1 = require("crypto").createHash("sha1"),
-  decipher = require("crypto").createDecipher("aes-256-cbc", "r9qignYPa3d2glAbdMV963UDy7KqpZsv");
+  decipher = require("crypto").createDecipher("aes-256-cbc", "1WRhJ4ApQLDQu6GxZOHiPYPCZbsn9Jvq");
 
 console.log(
   sha1.update(
