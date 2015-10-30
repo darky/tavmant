@@ -29,6 +29,7 @@ license_formula = "
     #{ license_salt2 }
     #{ os.platform() }
     #{ os.homedir() }
+    #{ os.networkInterfaces().en0[0].mac }
 "
 
 calculated_sha =
