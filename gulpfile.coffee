@@ -28,7 +28,7 @@ license_formula = "
     #{ os.arch() }
     #{ license_salt2 }
     #{ os.platform() }
-    #{ process.env.HOME ? process.env.HOMEPATH }
+    #{ os.homedir() }
 "
 
 calculated_sha =
