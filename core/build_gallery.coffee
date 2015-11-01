@@ -10,7 +10,7 @@ fs = require "fs"
 _ = require "lodash"
 co = require "co"
 dir_helper = require "node-dir"
-thunkify = require "thunkify"
+promisify = require "promisify-node"
 
 
 module.exports =
@@ -22,7 +22,7 @@ module.exports =
         # *************
         _generate_html = -> co ->*
             try
-                image_paths = yield thunkify(
+                image_paths = yield promisify(
                     dir_helper.paths
                 )(
                     "./assets/img/tavmant-gallery"
@@ -38,7 +38,7 @@ module.exports =
                         //
                     )[1]
 
-                template = yield thunkify(
+                template = yield promisify(
                     fs.read-file
                 )(
                     "./templates/gallery.html"

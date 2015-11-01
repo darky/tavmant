@@ -12,7 +12,7 @@ _ = require "lodash"
 async = require "async"
 co = require "co"
 dir_helper = require "node-dir"
-thunkify = require "thunkify"
+promisify = require "promisify-node"
 
 
 # **********************
@@ -70,7 +70,7 @@ module.exports =
         .catch (e)-> console.error e
 
         _get_settings = (projects)-> co ->*
-            read_file = thunkify fs.read-file 
+            read_file = promisify fs.read-file 
 
             contents = yield _.map projects, ([project])-> co ->*
                 content = yield read_file "./settings/portfolio/#{project}.txt",
@@ -93,8 +93,8 @@ module.exports =
         .catch (e)-> console.error e
 
         _generate_text_assets = (settings, type)-> co ->*
-            write_file = thunkify fs.write-file
-            mkdir = thunkify fs.mkdir  
+            write_file = promisify fs.write-file
+            mkdir = promisify fs.mkdir  
             try yield mkdir "#{process.cwd()}/@dev/#{type}/custom/portfolio"
             css_generator = require "#{process.cwd()}/javascript/portfolio/get_css.js"
             js_generator = require "#{process.cwd()}/javascript/portfolio/get_js.js"

@@ -13,7 +13,7 @@ async = require "async"
 co = require "co"
 dir_helper = require "node-dir"
 through = require "through2"
-thunkify = require "thunkify"
+promisify = require "promisify-node"
 
 
 # **********************
@@ -46,7 +46,7 @@ module.exports =
         .catch (e)-> console.error e
 
         _get_layout_content = ->
-            thunkify(
+            promisify(
                 fs.readFile
             )(
                 "./layouts/main.html"
@@ -54,7 +54,7 @@ module.exports =
             )
 
         _get_partials = -> co ->*
-            partial_paths = yield thunkify(
+            partial_paths = yield promisify(
                 dir_helper.paths
             )(
                 "./partials"
@@ -64,7 +64,7 @@ module.exports =
             partial_names = _.map partial_paths, (partial_path)->
                 path.basename partial_path, ".html"
 
-            partial_contents = yield thunkify(
+            partial_contents = yield promisify(
                 async.map
             )(
                 partial_paths

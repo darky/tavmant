@@ -10,7 +10,7 @@ fs = require "fs"
 _ = require "lodash"
 async = require "async"
 co = require "co"
-thunkify = require "thunkify"
+promisify = require "promisify-node"
 
 
 # *********
@@ -33,7 +33,7 @@ module.exports =
         #    PRIVATE
         # *************
         _generate = (parsed)-> co ->*
-            yield thunkify(async.each)(
+            yield promisify(async.each)(
                 parsed
                 (item, next)-> co ->*
                     builder = yield _get_builder item, parsed
@@ -44,7 +44,7 @@ module.exports =
         .catch (e)-> console.error e
 
         _get_builder = (item, parsed)-> co ->*
-            list_wrapper_content = yield thunkify fs.read-file
+            list_wrapper_content = yield promisify fs.read-file
             .call fs, "#{process.cwd()}/templates/categories/list-wrapper.html",
                 encoding : "utf8"
 
@@ -63,7 +63,7 @@ module.exports =
         .catch (e)-> console.error e
 
         _get_favorites = (parsed)-> co ->*
-            html_content = yield thunkify fs.read-file
+            html_content = yield promisify fs.read-file
             .call fs,
                 "#{process.cwd()}/templates/categories/favorites.html"
                 encoding : "utf8"
@@ -79,7 +79,7 @@ module.exports =
 
         _get_categories_items_favorites = -> co ->*
             files_names = _.filter do
-                yield thunkify fs.readdir
+                yield promisify fs.readdir
                 .call fs, "#{process.cwd()}/categories"
                 (file_name)-> file_name isnt "tavmant-list.csv"
 
@@ -100,7 +100,7 @@ module.exports =
                             cb null, result
                     (err, results)-> resolve results
 
-            favorites_template = yield thunkify fs.read-file
+            favorites_template = yield promisify fs.read-file
             .call fs,
                 "#{process.cwd()}/templates/categories/subcategory-list-favorites.html"
                 encoding : "utf8"
@@ -121,7 +121,7 @@ module.exports =
         .catch (e)-> console.error e
 
         _get_html_subcategory = (item, parsed)-> co ->*
-            list_content = yield thunkify fs.read-file
+            list_content = yield promisify fs.read-file
             .call fs, "#{process.cwd()}/templates/categories/list.html",
                 encoding : "utf8"
 
@@ -136,9 +136,9 @@ module.exports =
 
         _get_html_subcategory_item = (item)-> co ->*
             [subcategory_content, subcategory_template] = yield [
-                thunkify fs.read-file
+                promisify fs.read-file
                 .call fs, "#{process.cwd()}/categories/#{item.0}.csv", encoding : "utf8"
-                thunkify fs.read-file
+                promisify fs.read-file
                 .call fs, "#{process.cwd()}/templates/categories/subcategory-list.html", encoding : "utf8"
             ]
 
@@ -159,11 +159,11 @@ module.exports =
 
         _get_menu = (parsed)-> co ->*
             [html_category, html_subcategory] = yield [
-                thunkify fs.read-file
+                promisify fs.read-file
                 .call fs,
                     "#{process.cwd()}/templates/categories/menu-category.html"
                     encoding : "utf8"
-                thunkify fs.read-file
+                promisify fs.read-file
                 .call fs,
                     "#{process.cwd()}/templates/categories/menu-subcategory.html"
                     encoding : "utf8"
