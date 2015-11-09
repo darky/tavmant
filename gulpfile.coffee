@@ -173,29 +173,28 @@ gulp.task "minify_html", ["ref_production_css_js"], ->
         removeComments     : true
     .pipe gulp.dest "@prod"
 
-minify_js_css = (type)->
-    new Promise (resolve)->
-        try_resolve = _.after 2, resolve
-        if type is "js"
-            minificator = uglify
-        else if type is "css"
-            minificator = minify_css
+minify_js_css = !(type, cb)->
+    try_resolve = _.after 2, cb
+    if type is "js"
+        minificator = uglify
+    else if type is "css"
+        minificator = minify_css
 
-        gulp.src "@prod/**/*.#type"
-        .pipe minificator()
-        .pipe gulp.dest "@prod"
-        .on "finish", try_resolve
+    gulp.src "@prod/**/*.#type"
+    .pipe minificator()
+    .pipe gulp.dest "@prod"
+    .on "finish", try_resolve
 
-        gulp.src "@dev/#type/custom/**/*.#type"
-        .pipe minificator()
-        .pipe gulp.dest "@prod/#type/custom"
-        .on "finish", try_resolve
+    gulp.src "@dev/#type/custom/**/*.#type"
+    .pipe minificator()
+    .pipe gulp.dest "@prod/#type/custom"
+    .on "finish", try_resolve
 
-gulp.task "minify_js", ["ref_production_css_js"], ->
-    minify_js_css "js"
+gulp.task "minify_js", ["ref_production_css_js"], (cb)->
+    minify_js_css "js", cb
 
-gulp.task "minify_css", ["ref_production_css_js"], ->
-    minify_js_css "css"
+gulp.task "minify_css", ["ref_production_css_js"], (cb)->
+    minify_js_css "css", cb
 
 gulp.task "production", ["build_dev"], ->
     run_sequence [
