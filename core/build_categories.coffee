@@ -151,8 +151,7 @@ module.exports =
 
         _get_parsed = (cb)->
             err, data <- fs.read-file "#{process.cwd()}/categories/tavmant-list.csv", encoding : "utf8"
-            content = if err then "" else data
-            err, result <- csv_parse content, delimiter : ";"
+            err, result <- csv_parse data, delimiter : ";"
             cb result
 
 
