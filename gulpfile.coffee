@@ -1,6 +1,7 @@
 # *****************
 #    NODEJS API
 # *****************
+fs = require "fs"
 os = require "os"
 
 
@@ -52,6 +53,13 @@ if calculated_sha isnt must_sha
     process.exit()
 
 
+# ********************
+#    MODULES DEFINE
+# ********************
+modules = fs.read-file-sync "settings/modules.json", encoding : "utf8"
+global["tavmant:modules"] = JSON.parse modules
+
+
 # **********************
 #    GULP & KO DEFINE
 # **********************
@@ -101,13 +109,14 @@ gulp.task "copy_assets", ->
     .pipe gulp.dest "./@dev/"
 
 gulp.task "build_dev", ["clear_dev_prod"], (cb)->
-    run_sequence [
-        "build_categories"
-        "build_html"
-        "build_portfolio"
-        "copy_assets"
-        "copy_text_assets"
-    ], cb
+    run_sequence do
+        [
+            "build_html"
+            "copy_assets"
+            "copy_text_assets"
+        ].concat if global["tavmant:modules"].category then "build_categories" else []
+        .concat if global["tavmant:modules"].portfolio then "build_portfolio" else []
+        cb
 
 
 # ************************

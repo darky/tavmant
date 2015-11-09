@@ -160,25 +160,22 @@ module.exports =
         get_helpers : (cb)->
             parsed <- _get_parsed!
 
-            if parsed.length
-                err, result <- async.parallel [
-                    async.apply _get_menu, parsed
-                    async.apply _get_favorites, parsed
-                    async.apply _get_categories_items_favorites
-                ]
-                if err then throw err
-                cb [
-                    fn   : result.0
-                    name : "categories_menu"
-                ,
-                    fn   : result.1
-                    name : "categories_favorites"
-                ,
-                    fn   : result.2
-                    name : "categories_items_favorites"
-                ]
-            else
-                cb []
+            err, result <- async.parallel [
+                async.apply _get_menu, parsed
+                async.apply _get_favorites, parsed
+                async.apply _get_categories_items_favorites
+            ]
+            if err then throw err
+            cb [
+                fn   : result.0
+                name : "categories_menu"
+            ,
+                fn   : result.1
+                name : "categories_favorites"
+            ,
+                fn   : result.2
+                name : "categories_items_favorites"
+            ]
 
         start : (cb)->
             parsed <- _get_parsed!

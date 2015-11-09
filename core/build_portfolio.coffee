@@ -45,25 +45,21 @@ module.exports =
             high : "1920px"
 
         _get_projects = (cb)->
-            try
-                err, data <- dir_helper.paths "./assets/img/tavmant-portfolio"
-                paths = if err then dirs : [] else data
-                cb do
-                    _ paths.dirs
-                    .map (dir_path)->
-                        result = []
-                        result.push path.basename dir_path
-                        result.push do
-                            _ paths.files
-                            .filter (file_path)->
-                                !!file_path.replace(/\\/g, "").match dir_path.replace(/\\/g, "")
-                            .map (file_path)->
-                                path.basename file_path
-                            .value!
-                        result
-                    .value!
-            catch
-                cb dirs : []
+            err, data <- dir_helper.paths "./assets/img/tavmant-portfolio"
+            cb do
+                _ data.dirs
+                .map (dir_path)->
+                    result = []
+                    result.push path.basename dir_path
+                    result.push do
+                        _ data.files
+                        .filter (file_path)->
+                            !!file_path.replace(/\\/g, "").match dir_path.replace(/\\/g, "")
+                        .map (file_path)->
+                            path.basename file_path
+                        .value!
+                    result
+                .value!
 
         _get_settings = (projects, cb)->
             err, contents <- async.map projects, ([project], next)->
@@ -145,18 +141,15 @@ module.exports =
                 projects = _.filter projects, (project)->
                     project.0 is that
 
-            if projects.length
-                <- async.each projects, (project, next)->
-                    html_portfolio_builder =
-                        new HTML_Portfolio_Build project : project
-                    html_portfolio_builder.start next
+            <- async.each projects, (project, next)->
+                html_portfolio_builder =
+                    new HTML_Portfolio_Build project : project
+                html_portfolio_builder.start next
 
-                settings <- _get_settings projects
-                err <- async.parallel [
-                    async.apply _generate_text_assets, settings, "css"
-                    async.apply _generate_text_assets, settings, "js"
-                    async.apply _generate_images, settings, projects
-                ]
-                if err then throw err else cb!
-            else
-                cb!
+            settings <- _get_settings projects
+            err <- async.parallel [
+                async.apply _generate_text_assets, settings, "css"
+                async.apply _generate_text_assets, settings, "js"
+                async.apply _generate_images, settings, projects
+            ]
+            if err then throw err else cb!

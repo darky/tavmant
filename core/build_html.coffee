@@ -34,15 +34,20 @@ module.exports =
         #    PRIVATE
         # *************
         _get_helpers = (cb)->
-            Gallery_Build = require "./build_gallery.coffee"
-            gallery_build = new Gallery_Build
-            Categories_Build = require "./build_categories.coffee"
-            categories_build = new Categories_Build
-            category_helpers <- categories_build.get_helpers!
-            gallery_helpers <- gallery_build.start!
-            cb null,
-                [].concat category_helpers
-                .concat gallery_helpers
+            err, extra_helpers <- async.map [
+                module_class : require "./build_gallery.coffee"
+                module_name : "gallery"
+            ,
+                module_class : require "./build_categories.coffee"
+                module_name : "category"
+            ], (item, next)->
+                if global["tavmant:modules"][item.module_name]
+                    obj = new item.module_class
+                    helpers <- obj.get_helpers!
+                    next null, helpers
+                else
+                    next null, []
+            cb null, _.flatten extra_helpers
 
         _get_layout_content =
             async.apply fs.read-file, "./layouts/main.html", encoding : "utf8"

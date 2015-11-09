@@ -55,26 +55,28 @@ module.exports = (static_server)->
             "copy_assets"
         ], page_reload
 
-    watch [
-        fs.realpath-sync "settings" .concat "/portfolio/*.txt"
-        fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
-    ], (file)->
-        switch true
-        | !!file.path.match /\.txt$/ =>
-            project = path.basename file.path, ".txt"
-        | !!file.path.match /\.jpg$/ =>
-            project =
-                _ file.path.split path.sep
-                .take-right 2
-                .first!
+    if global["tavmant:modules"].portfolio
+        watch [
+            fs.realpath-sync "settings" .concat "/portfolio/*.txt"
+            fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
+        ], (file)->
+            switch true
+            | !!file.path.match /\.txt$/ =>
+                project = path.basename file.path, ".txt"
+            | !!file.path.match /\.jpg$/ =>
+                project =
+                    _ file.path.split path.sep
+                    .take-right 2
+                    .first!
 
-        global["current:portfolio:project"] = project
+            global["current:portfolio:project"] = project
 
-        run_sequence [
-            "build_portfolio"
-        ], page_reload
+            run_sequence [
+                "build_portfolio"
+            ], page_reload
 
-    watch [
-        fs.realpath-sync "categories" .concat "/*.csv"
-    ], ->
-        run_sequence ["build_categories"], page_reload
+    if global["tavmant:modules"].category
+        watch [
+            fs.realpath-sync "categories" .concat "/*.csv"
+        ], ->
+            run_sequence ["build_categories"], page_reload
