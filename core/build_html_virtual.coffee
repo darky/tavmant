@@ -20,7 +20,7 @@ HTML_Builder = require "./build_html.coffee"
 
 module.exports =
 
-    class HTML_Builder_Categories extends HTML_Builder
+    class HTML_Builder_Virtual extends HTML_Builder
 
         # **********
         #    INIT
@@ -34,14 +34,15 @@ module.exports =
         #    PROTECTED
         # ***************
         _get_html_stream : ->
-            {html, name} = @options
+            content = @options.content
+            path_option = @options.path
 
             stream = Stream.Readable object-mode : true
             stream._read = ->
                 @push new gulp_util.File do
                     base     : path.join process.env.PWD, "pages/"
-                    contents : new Buffer html
+                    contents : content
                     cwd      : process.env.PWD
-                    path     : path.join process.env.PWD, "pages/", "#{name}.html"
+                    path     : path_option
                 @push null
             stream

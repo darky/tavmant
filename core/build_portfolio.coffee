@@ -28,7 +28,7 @@ gm = require "gm" .sub-class image-magick : true
 # *******************
 #    CORE CLASSES
 # *******************
-HTML_Portfolio_Build = require "./build_html_portfolio.coffee"
+HTML_Virtual_Build = require "./build_html_virtual.coffee"
 
 
 module.exports =
@@ -135,6 +135,7 @@ module.exports =
         #    PUBLIC
         # ************
         start : (cb)->
+            html_generator = require "#{process.cwd()}/javascript/portfolio/get_html.js"
             projects <- _get_projects!
 
             if global["current:portfolio:project"]
@@ -142,8 +143,9 @@ module.exports =
                     project.0 is that
 
             <- async.each projects, (project, next)->
-                html_portfolio_builder =
-                    new HTML_Portfolio_Build project : project
+                html_portfolio_builder = new HTML_Virtual_Build do
+                    content : new Buffer html_generator project.0, project.1
+                    path : path.join process.env.PWD, "pages/portfolio", "#{project.0}.html"
                 html_portfolio_builder.start next
 
             settings <- _get_settings projects

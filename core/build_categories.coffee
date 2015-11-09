@@ -2,6 +2,7 @@
 #    NODEJS API DEFINE
 # ***********************
 fs = require "fs"
+path = require "path"
 
 
 # **********************
@@ -20,7 +21,7 @@ csv_parse = require "csv-parse"
 # *******************
 #    CORE CLASSES
 # *******************
-HTML_Categories_Build = require "./build_html_categories.coffee"
+HTML_Virtual_Build = require "./build_html_virtual.coffee"
 
 
 module.exports =
@@ -45,12 +46,13 @@ module.exports =
             else
                 _.partial _get_html_subcategory, item, parsed
             html_content <- get_html_fn
-            cb new HTML_Categories_Build do
-                html : list_wrapper_content.replace "__content__", html_content
-                .replace "__title__", title
-                .replace "__text__", item.5
-                .replace "__name__", item.0
-                name : "#{item.2}/#{item.0}"
+            cb new HTML_Virtual_Build do
+                content : new Buffer do
+                    list_wrapper_content.replace "__content__", html_content
+                    .replace "__title__", title
+                    .replace "__text__", item.5
+                    .replace "__name__", item.0
+                path : path.join process.env.PWD, "pages/", "#{item.2}/#{item.0}.html"
 
         _get_favorites = (parsed, cb)->
             err, html_content <- fs.read-file "#{process.cwd()}/templates/categories/favorites.html" encoding : "utf8"
