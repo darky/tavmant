@@ -10,9 +10,7 @@ path = require "path"
 # **********************
 _ = require "lodash"
 async = require "async"
-co = require "co"
 dir_helper = require "node-dir"
-promisify = require "promisify-node"
 
 
 # **********************
@@ -46,39 +44,33 @@ module.exports =
             med  : "1400px"
             high : "1920px"
 
-        _get_projects = -> co ->*
-            paths = yield new Promise (resolve)->
-                try 
-                    dir_helper.paths "./assets/img/tavmant-portfolio", (err, data)->
-                        resolve if err then dirs : [] else data
-                catch e
-                    resolve dirs : []
-
-            _ paths.dirs
-            .map (dir_path)->
-                result = []
-                result.push path.basename dir_path
-                result.push do
-                    _ paths.files
-                    .filter (file_path)->
-                        !!file_path.replace(/\\/g, "").match dir_path.replace(/\\/g, "")
-                    .map (file_path)->
-                        path.basename file_path
+        _get_projects = (cb)->
+            try
+                err, data <- dir_helper.paths "./assets/img/tavmant-portfolio"
+                paths = if err then dirs : [] else data
+                cb do
+                    _ paths.dirs
+                    .map (dir_path)->
+                        result = []
+                        result.push path.basename dir_path
+                        result.push do
+                            _ paths.files
+                            .filter (file_path)->
+                                !!file_path.replace(/\\/g, "").match dir_path.replace(/\\/g, "")
+                            .map (file_path)->
+                                path.basename file_path
+                            .value!
+                        result
                     .value!
-                result
-            .value!
-        .catch (e)-> console.error e
+            catch
+                cb dirs : []
 
-        _get_settings = (projects)-> co ->*
-            read_file = promisify fs.read-file 
+        _get_settings = (projects, cb)->
+            err, contents <- async.map projects, ([project], next)->
+                err, content <- fs.read-file "./settings/portfolio/#{project}.txt" encoding : "utf8"
+                next null, [project, content]
 
-            contents = yield _.map projects, ([project])-> co ->*
-                content = yield read_file "./settings/portfolio/#{project}.txt",
-                    encoding : "utf8"
-                [project, content]
-            .catch (e)-> console.error e
-
-            _.map contents, ([project, content])->
+            cb _.map contents, ([project, content])->
                 per_image_str = content.split "\n"
                 per_res_str = _.map per_image_str, (str)->
                     str.split "|"
@@ -90,18 +82,14 @@ module.exports =
                         accum["#res"] = _.compact res_str_arr[i].split " "
                         accum
                 ]
-        .catch (e)-> console.error e
 
-        _generate_text_assets = (settings, type)-> co ->*
-            write_file = promisify fs.write-file
-            mkdir = promisify fs.mkdir  
-            try yield mkdir "#{process.cwd()}/@dev/#{type}/custom/portfolio"
+        _generate_text_assets = (settings, type, cb)->
+            <- fs.mkdir "#{process.cwd()}/@dev/#{type}/custom/portfolio"
             css_generator = require "#{process.cwd()}/javascript/portfolio/get_css.js"
             js_generator = require "#{process.cwd()}/javascript/portfolio/get_js.js"
 
-            yield _.map settings, (settings_item)-> co ->*
-                yield write_file do
-                    "#{process.cwd()}/@dev/#{type}/custom/portfolio/#{settings_item.0}.html.#{type}"
+            <- async.map settings, (settings_item, next)->
+                fs.write-file "#{process.cwd()}/@dev/#{type}/custom/portfolio/#{settings_item.0}.html.#{type}",
                     _.reduce do
                         settings_item.1
                         (accum, image_setting, i)->
@@ -110,72 +98,65 @@ module.exports =
                                 | "css" => css_generator image_setting, settings_item.0, i + 1
                                 | "js" => js_generator image_setting, settings_item.0, i + 1, settings_item.1.length
                         ""
-                    encoding : "utf8"
-            .catch (e)-> console.error e
-        .catch (e)-> console.error e
+                    next
+            cb!
 
-        _generate_images = (settings, projects)-> co ->*
-            yield _.map settings, (settings_item)-> co ->*
+        _generate_images = (settings, projects, cb)->
+            <- async.map settings, (settings_item, next)->
                 length = _.find projects, (project)-> project.0 is settings_item.0
                 .1.length
 
-                yield new Promise (resolve)->
-                    async.map-series [1 to length], (i, cb)->
-                        async.for-each-of-series _res_to_px, (px, res, cb)->
-                            _image_process settings_item,
-                                i
-                                parse-int px
-                                res
-                                cb
-                        , cb
-                    , resolve
-            .catch (e)-> console.error e
-        .catch (e)-> console.error e
+                async.map-series [1 to length], (i, cb)->
+                    async.for-each-of-series _res_to_px, (px, res, cb)->
+                        _image_process settings_item,
+                            i
+                            parse-int px
+                            res
+                            cb
+                    , cb
+                , next
+            cb!
 
-        _image_process = ([project_name, settings], i, size, res, cb)-> co ->*
+        _image_process = ([project_name, settings], i, size, res, cb)->
             vertical_offset = settings[i-1][res][3]
             vertical_offset = "+0" if vertical_offset is "0"
 
             horizontal_offset = settings[i-1][res][2]
             horizontal_offset = "+0" if horizontal_offset is "0"
 
-            {width, height} = yield new Promise (resolve)->
-                gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg"
-                .size (err, size)-> resolve size
+            err, {width, height} <- gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg" .size
 
-            yield new Promise (resolve)->
-                gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg"
+            <- gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg"
                 .resize size
                 .page size, height / (width / size), "#{horizontal_offset}#{vertical_offset}"
                 .flatten()
-                .write "#{process.cwd()}/@dev/img/tavmant-portfolio/#{project_name}/#{i}-#{res}.jpg",
-                    resolve
+                .write "#{process.cwd()}/@dev/img/tavmant-portfolio/#{project_name}/#{i}-#{res}.jpg"
 
-            cb()
-        .catch (e)-> console.error e
+            cb!
 
 
         # ************
         #    PUBLIC
         # ************
-        start : -> co ~>*
-            projects = yield _get_projects!
+        start : (cb)->
+            projects <- _get_projects!
 
             if global["current:portfolio:project"]
                 projects = _.filter projects, (project)->
                     project.0 is that
 
             if projects.length
-                yield _.map projects, (project)->
+                <- async.each projects, (project, next)->
                     html_portfolio_builder =
                         new HTML_Portfolio_Build project : project
-                    html_portfolio_builder.start!
+                    html_portfolio_builder.start next
 
-                settings = yield _get_settings projects
-
-                yield [
-                    _generate_text_assets settings, "css"
-                    _generate_text_assets settings, "js"
-                    _generate_images settings, projects
+                settings <- _get_settings projects
+                err <- async.parallel [
+                    async.apply _generate_text_assets, settings, "css"
+                    async.apply _generate_text_assets, settings, "js"
+                    async.apply _generate_images, settings, projects
                 ]
-        .catch (e)-> console.error e
+                if err then throw err else cb!
+            else
+                cb!

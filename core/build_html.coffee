@@ -10,10 +10,8 @@ path = require "path"
 # **********************
 _ = require "lodash"
 async = require "async"
-co = require "co"
 dir_helper = require "node-dir"
 through = require "through2"
-promisify = require "promisify-node"
 
 
 # **********************
@@ -35,75 +33,57 @@ module.exports =
         # *************
         #    PRIVATE
         # *************
-        _get_helpers = -> co ->*
+        _get_helpers = (cb)->
             Gallery_Build = require "./build_gallery.coffee"
             gallery_build = new Gallery_Build
             Categories_Build = require "./build_categories.coffee"
             categories_build = new Categories_Build
-            []
-            .concat yield categories_build.get_helpers()
-            .concat yield gallery_build.start()
-        .catch (e)-> console.error e
+            category_helpers <- categories_build.get_helpers!
+            gallery_helpers <- gallery_build.start!
+            cb null,
+                [].concat category_helpers
+                .concat gallery_helpers
 
-        _get_layout_content = ->
-            promisify(
-                fs.readFile
-            )(
-                "./layouts/main.html"
-                encoding : "utf8"
-            )
+        _get_layout_content =
+            async.apply fs.read-file, "./layouts/main.html", encoding : "utf8"
 
-        _get_partials = -> co ->*
-            partial_paths = yield promisify(
-                dir_helper.paths
-            )(
-                "./partials"
-                true
-            )
+        _get_partials = (cb)->
+            err, partial_paths <- dir_helper.paths "./partials" true
 
             partial_names = _.map partial_paths, (partial_path)->
                 path.basename partial_path, ".html"
 
-            partial_contents = yield promisify(
-                async.map
-            )(
-                partial_paths
-                (path, next)-> fs.readFile(
-                    path
-                    encoding : "utf8"
-                    next
-                )
-            )
+            err, partial_contents <- async.map partial_paths, (path, next)->
+                fs.read-file path, encoding : "utf8", next
 
-            _.map partial_names, (partial, i)->
+            cb null, _.map partial_names, (partial, i)->
                 name : partial
                 tpl  : partial_contents[i]
-        .catch (e)-> console.error e
 
-        _rename_file_to_index = (path)->
+        _rename_file_to_index = !(path)->
             if path.basename isnt "index"  and  path.basename isnt "404"
                 path.dirname += "/#{path.basename}"
                 path.basename = "index"
-                undefined
 
-        _setup = -> co ->*
-            helpers  : yield _get_helpers()
-            layout   : yield _get_layout_content()
-            partials : yield _get_partials()
-        .catch (e)-> console.error e
+        _setup = (cb)->
+            err, res <- async.parallel do
+                helpers  : _get_helpers
+                layout   : _get_layout_content
+                partials : _get_partials
+            if err then throw err
+            cb res
 
 
         # ***************
         #    PROTECTED
         # ***************
-        _build : (build_options)->
-            new Promise (resolve)~>
-                @_get_html_stream!
-                .pipe front_matter()
-                .pipe @_build_transform build_options
-                .pipe rename _rename_file_to_index
-                .pipe gulp.dest "./@dev/"
-                .on "finish", resolve
+        _build : (build_options, cb)->
+            @_get_html_stream!
+            .pipe front_matter()
+            .pipe @_build_transform build_options
+            .pipe rename _rename_file_to_index
+            .pipe gulp.dest "./@dev/"
+            .on "finish", cb
 
         _build_transform : (build_options)->
             through.obj (file, enc, cb)->
@@ -126,6 +106,7 @@ module.exports =
         # ************
         #    PUBLIC
         # ************
-        start : -> co ~>*
-            yield @_build <| yield _setup()
-        .catch (e)-> console.error e
+        start : (cb)->
+            options <~ _setup
+            <- @_build options
+            cb!

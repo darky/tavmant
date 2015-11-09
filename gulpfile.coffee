@@ -73,20 +73,20 @@ useref = require "gulp-useref"
 gulp.task "clear_dev_prod", (cb)->
     del ["@dev/**/*.*", "@prod/**/*.*"], cb
 
-gulp.task "build_categories", ["build_html"], ->
+gulp.task "build_categories", ["build_html"], (cb)->
     Categories_Build = require "./core/build_categories.coffee"
     categories_builder = new Categories_Build
-    categories_builder.start!
+    categories_builder.start cb
 
-gulp.task "build_html", ->
+gulp.task "build_html", (cb)->
     HTML_Build = require "./core/build_html.coffee"
     html_builder = new HTML_Build
-    html_builder.start()
+    html_builder.start cb
 
-gulp.task "build_portfolio", ->
+gulp.task "build_portfolio", (cb)->
     Portfolio_Build = require "./core/build_portfolio.coffee"
     portfolio_builder = new Portfolio_Build
-    portfolio_builder.start()
+    portfolio_builder.start cb
 
 gulp.task "copy_text_assets", ->
     gulp.src [
