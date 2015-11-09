@@ -19,7 +19,6 @@
         "gulp-useref"       : "2.0.0",
         "gulp-util"         : "3.0.7",
         "gulp-watch"        : "4.3.5",
-        "html5-lint"        : "0.2.5",
         "livescript"        : "1.4.0",
         "lodash"            : "3.10.1",
         "node-dir"          : "0.1.10",
