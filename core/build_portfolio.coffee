@@ -46,6 +46,7 @@ module.exports =
 
         _get_projects = (cb)->
             err, data <- dir_helper.paths "./assets/img/tavmant-portfolio"
+            if err then console.log err; return
             cb do
                 _ data.dirs
                 .map (dir_path)->
@@ -64,8 +65,8 @@ module.exports =
         _get_settings = (projects, cb)->
             err, contents <- async.map projects, ([project], next)->
                 err, content <- fs.read-file "./settings/portfolio/#{project}.txt" encoding : "utf8"
-                next null, [project, content]
-
+                next err, [project, content]
+            if err then console.log err; return
             cb _.map contents, ([project, content])->
                 per_image_str = content.split "\n"
                 per_res_str = _.map per_image_str, (str)->
@@ -84,7 +85,7 @@ module.exports =
             css_generator = require "#{process.cwd()}/javascript/portfolio/get_css.js"
             js_generator = require "#{process.cwd()}/javascript/portfolio/get_js.js"
 
-            <- async.map settings, (settings_item, next)->
+            err <- async.map settings, (settings_item, next)->
                 fs.write-file "#{process.cwd()}/@dev/#{type}/custom/portfolio/#{settings_item.0}.html.#{type}",
                     _.reduce do
                         settings_item.1
@@ -95,10 +96,10 @@ module.exports =
                                 | "js" => js_generator image_setting, settings_item.0, i + 1, settings_item.1.length
                         ""
                     next
-            cb!
+            cb err
 
         _generate_images = (settings, projects, cb)->
-            <- async.map settings, (settings_item, next)->
+            err <- async.map settings, (settings_item, next)->
                 length = _.find projects, (project)-> project.0 is settings_item.0
                 .1.length
 
@@ -111,7 +112,7 @@ module.exports =
                             cb
                     , cb
                 , next
-            cb!
+            cb err
 
         _image_process = ([project_name, settings], i, size, res, cb)->
             vertical_offset = settings[i-1][res][3]
@@ -120,15 +121,17 @@ module.exports =
             horizontal_offset = settings[i-1][res][2]
             horizontal_offset = "+0" if horizontal_offset is "0"
 
-            err, {width, height} <- gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg" .size
+            err <- async.waterfall [
+                (next)-> gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg" .size next
+                ({width, height}, next)->
+                    gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg"
+                    .resize size
+                    .page size, height / (width / size), "#{horizontal_offset}#{vertical_offset}"
+                    .flatten()
+                    .write "#{process.cwd()}/@dev/img/tavmant-portfolio/#{project_name}/#{i}-#{res}.jpg", next
+            ]
 
-            <- gm "#{process.cwd()}/assets/img/tavmant-portfolio/#{project_name}/#{i}.jpg"
-                .resize size
-                .page size, height / (width / size), "#{horizontal_offset}#{vertical_offset}"
-                .flatten()
-                .write "#{process.cwd()}/@dev/img/tavmant-portfolio/#{project_name}/#{i}-#{res}.jpg"
-
-            cb!
+            cb err
 
 
         # ************
@@ -154,4 +157,4 @@ module.exports =
                 async.apply _generate_text_assets, settings, "js"
                 async.apply _generate_images, settings, projects
             ]
-            if err then throw err else cb!
+            if err then console.log err else cb!
