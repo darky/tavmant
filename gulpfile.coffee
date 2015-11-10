@@ -54,10 +54,12 @@ if calculated_sha isnt must_sha
 
 
 # ********************
-#    MODULES DEFINE
+#    GLOBAL DEFINE
 # ********************
+global.tavmant = {}
+global.tavmant.radio = {}
 modules = fs.read-file-sync "settings/modules.json", encoding : "utf8"
-global["tavmant:modules"] = JSON.parse modules
+global.tavmant.modules = JSON.parse modules
 
 
 # **********************
@@ -114,8 +116,8 @@ gulp.task "build_dev", ["clear_dev_prod"], (cb)->
             "build_html"
             "copy_assets"
             "copy_text_assets"
-        ].concat if global["tavmant:modules"].category then "build_categories" else []
-        .concat if global["tavmant:modules"].portfolio then "build_portfolio" else []
+        ].concat if global.tavmant.modules.category then "build_categories" else []
+        .concat if global.tavmant.modules.portfolio then "build_portfolio" else []
         cb
 
 

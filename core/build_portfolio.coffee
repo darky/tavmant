@@ -141,7 +141,7 @@ module.exports =
             html_generator = require "#{process.cwd()}/javascript/portfolio/get_html.js"
             projects <- _get_projects!
 
-            if global["current:portfolio:project"]
+            if global.tavmant.radio["current:portfolio:project"]
                 projects = _.filter projects, (project)->
                     project.0 is that
 

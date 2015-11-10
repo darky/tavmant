@@ -55,7 +55,7 @@ module.exports = (static_server)->
             "copy_assets"
         ], page_reload
 
-    if global["tavmant:modules"].portfolio
+    if global.tavmant.modules.portfolio
         watch [
             fs.realpath-sync "settings" .concat "/portfolio/*.txt"
             fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
@@ -69,13 +69,13 @@ module.exports = (static_server)->
                     .take-right 2
                     .first!
 
-            global["current:portfolio:project"] = project
+            global.tavmant.radio["current:portfolio:project"] = project
 
             run_sequence [
                 "build_portfolio"
             ], page_reload
 
-    if global["tavmant:modules"].category
+    if global.tavmant.modules.category
         watch [
             fs.realpath-sync "categories" .concat "/*.csv"
         ], ->
