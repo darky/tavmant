@@ -32,15 +32,22 @@ module.exports =
         #    PRIVATE
         # *************
         _generate = (parsed, cb)->
-            err <- async.each parsed, (item, next)->
+            <- async.each parsed, (item, next)->
                 builder <- _get_builder item, parsed
                 <- builder.start!
                 next!
-            if err then throw err else cb!
+            cb!
 
         _get_builder = (item, parsed, cb)->
-            err, list_wrapper_content <- fs.read-file "#{process.cwd()}/templates/categories/list-wrapper.html" encoding : "utf8"
-            {title} = JSON.parse item.4
+            err, [list_wrapper_content, meta] <- async.parallel [
+                async.apply fs.read-file, "#{process.cwd()}/templates/categories/list-wrapper.html", encoding : "utf8"
+                (next)->
+                    if _.is-error meta = _try_parse_json item.4
+                        next "Ошибка парсинга 5-ого столбца"
+                    else
+                        next null, meta
+            ]
+            if err then console.log err; return
             get_html_fn = if item.2
                 _.partial _get_html_subcategory_item, item
             else
@@ -49,14 +56,14 @@ module.exports =
             cb new HTML_Virtual_Build do
                 content : new Buffer do
                     list_wrapper_content.replace "__content__", html_content
-                    .replace "__title__", title
+                    .replace "__title__", meta.title
                     .replace "__text__", item.5
                     .replace "__name__", item.0
                 path : path.join process.env.PWD, "pages/", "#{item.2}/#{item.0}.html"
 
         _get_favorites = (parsed, cb)->
             err, html_content <- fs.read-file "#{process.cwd()}/templates/categories/favorites.html" encoding : "utf8"
-            cb err, 
+            if err then cb err else cb null, 
                 _ parsed
                 .filter (item)-> !!item.3
                 .map (item)->
@@ -66,21 +73,25 @@ module.exports =
                 .join ""
 
         _get_categories_items_favorites = (cb)->
-            err, files_names <- fs.readdir "#{process.cwd()}/categories"
-            files_names = _.filter files_names, (file_name)-> file_name isnt "tavmant-list.csv"
-
-            err, file_contents <- async.map files_names, (item, cb)->
-                fs.read-file "#{process.cwd()}/categories/#{item}",
-                    encoding : "utf8"
-                    (err, content)-> cb null, content
-
-            err, all_items <- async.map file_contents, (item, cb)->
-                csv_parse item, delimiter : ";", (err, result)-> cb null, result
-
             err, favorites_template <- fs.read-file "#{process.cwd()}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
-
-            cb err,
+            if err then console.log err; return
+            err, files_names <- async.waterfall [
+                async.apply fs.readdir, "#{process.cwd()}/categories"
+                (files_names, next)-> next null, _.filter files_names, (file_name)-> file_name isnt "tavmant-list.csv"
+            ]
+            if err then console.log err; return
+            err, all_items <- async.waterfall [
+                (next)->
+                    err, file_contents <- async.map files_names, (item, cb)->
+                        fs.read-file "#{process.cwd()}/categories/#{item}", encoding : "utf8", (err, content)-> cb err, content
+                    if err then next err else next null, file_contents
+                (file_contents, next)->
+                    async.map file_contents, (item, cb)->
+                        csv_parse item, delimiter : ";", (err, result)-> cb err, result
+                    , next
+            ]
+            if err then cb err else cb null,
                 _ all_items
                 .map (items, i)->
                     _ items
@@ -97,7 +108,7 @@ module.exports =
 
         _get_html_subcategory = (item, parsed, cb)->
             err, list_content <- fs.read-file "#{process.cwd()}/templates/categories/list.html" encoding : "utf8"
-
+            if err then console.log err; return
             cb do
                 _ parsed
                 .filter (subitem)-> subitem.2 is item.0
@@ -112,9 +123,9 @@ module.exports =
                 async.apply fs.read-file, "#{process.cwd()}/categories/#{item.0}.csv", encoding : "utf8"
                 async.apply fs.read-file, "#{process.cwd()}/templates/categories/subcategory-list.html", encoding : "utf8"
             ]
-
+            if err then console.log err; return
             err, parsed_subcategory <- csv_parse subcategory_content, delimiter : ";"
-
+            if err then console.log err; return
             cb do
                 _ parsed_subcategory
                 .map (subitem)->
@@ -131,8 +142,7 @@ module.exports =
                 async.apply fs.read-file, "#{process.cwd()}/templates/categories/menu-category.html", encoding : "utf8"  
                 async.apply fs.read-file, "#{process.cwd()}/templates/categories/menu-subcategory.html", encoding : "utf8"
             ]
-
-            cb err,
+            if err then cb err else cb null,
                 _ parsed
                 .group-by (item)-> item.2
                 .map-values (items, name)->
@@ -150,9 +160,14 @@ module.exports =
                 .values!.compact!.value!.join ""
 
         _get_parsed = (cb)->
-            err, data <- fs.read-file "#{process.cwd()}/categories/tavmant-list.csv", encoding : "utf8"
-            err, result <- csv_parse data, delimiter : ";"
-            cb result
+            err, result <- async.waterfall [
+                async.apply fs.read-file, "#{process.cwd()}/categories/tavmant-list.csv", encoding : "utf8"
+                (data, next)-> csv_parse data, delimiter : ";", next
+            ]
+            if err then console.log err else cb result
+
+        _try_parse_json = (item)->
+            _.attempt -> JSON.parse item
 
 
         # ************
@@ -160,13 +175,12 @@ module.exports =
         # ************
         get_helpers : (cb)->
             parsed <- _get_parsed!
-
             err, result <- async.parallel [
                 async.apply _get_menu, parsed
                 async.apply _get_favorites, parsed
                 async.apply _get_categories_items_favorites
             ]
-            if err then throw err
+            if err then console.log err; return
             cb [
                 fn   : result.0
                 name : "categories_menu"
