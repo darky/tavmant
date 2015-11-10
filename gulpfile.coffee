@@ -60,6 +60,7 @@ global.tavmant = {}
 global.tavmant.radio = {}
 modules = fs.read-file-sync "settings/modules.json", encoding : "utf8"
 global.tavmant.modules = JSON.parse modules
+global.tavmant.helpers = require "./core/helpers.coffee"
 
 
 # **********************

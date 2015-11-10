@@ -54,7 +54,7 @@ module.exports =
 
         _get_partials = (cb)->
             err, partial_paths <- dir_helper.paths "./partials" true
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             partial_names = _.map partial_paths, (partial_path)->
                 path.basename partial_path, ".html"
             err, partial_contents <- async.map partial_paths, (path, next)->
@@ -73,7 +73,7 @@ module.exports =
                 helpers  : _get_helpers
                 layout   : _get_layout_content
                 partials : _get_partials
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             cb res
 
 

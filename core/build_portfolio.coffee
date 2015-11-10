@@ -46,7 +46,7 @@ module.exports =
 
         _get_projects = (cb)->
             err, data <- dir_helper.paths "./assets/img/tavmant-portfolio"
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             cb do
                 _ data.dirs
                 .map (dir_path)->
@@ -66,7 +66,7 @@ module.exports =
             err, contents <- async.map projects, ([project], next)->
                 err, content <- fs.read-file "./settings/portfolio/#{project}.txt" encoding : "utf8"
                 next err, [project, content]
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             cb _.map contents, ([project, content])->
                 per_image_str = content.split "\n"
                 per_res_str = _.map per_image_str, (str)->
@@ -157,4 +157,4 @@ module.exports =
                 async.apply _generate_text_assets, settings, "js"
                 async.apply _generate_images, settings, projects
             ]
-            if err then console.log err else cb!
+            unless tavmant.helpers.is_error err then cb!

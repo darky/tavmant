@@ -47,7 +47,7 @@ module.exports =
                     else
                         next null, meta
             ]
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             get_html_fn = if item.2
                 _.partial _get_html_subcategory_item, item
             else
@@ -75,12 +75,12 @@ module.exports =
         _get_categories_items_favorites = (cb)->
             err, favorites_template <- fs.read-file "#{process.cwd()}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             err, files_names <- async.waterfall [
                 async.apply fs.readdir, "#{process.cwd()}/categories"
                 (files_names, next)-> next null, _.filter files_names, (file_name)-> file_name isnt "tavmant-list.csv"
             ]
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             err, all_items <- async.waterfall [
                 (next)->
                     err, file_contents <- async.map files_names, (item, cb)->
@@ -108,7 +108,7 @@ module.exports =
 
         _get_html_subcategory = (item, parsed, cb)->
             err, list_content <- fs.read-file "#{process.cwd()}/templates/categories/list.html" encoding : "utf8"
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             cb do
                 _ parsed
                 .filter (subitem)-> subitem.2 is item.0
@@ -123,9 +123,9 @@ module.exports =
                 async.apply fs.read-file, "#{process.cwd()}/categories/#{item.0}.csv", encoding : "utf8"
                 async.apply fs.read-file, "#{process.cwd()}/templates/categories/subcategory-list.html", encoding : "utf8"
             ]
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             err, parsed_subcategory <- csv_parse subcategory_content, delimiter : ";"
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             cb do
                 _ parsed_subcategory
                 .map (subitem)->
@@ -164,7 +164,7 @@ module.exports =
                 async.apply fs.read-file, "#{process.cwd()}/categories/tavmant-list.csv", encoding : "utf8"
                 (data, next)-> csv_parse data, delimiter : ";", next
             ]
-            if err then console.log err else cb result
+            unless tavmant.helpers.is_error err then cb result
 
         _try_parse_json = (item)->
             _.attempt -> JSON.parse item
@@ -180,7 +180,7 @@ module.exports =
                 async.apply _get_favorites, parsed
                 async.apply _get_categories_items_favorites
             ]
-            if err then console.log err; return
+            if tavmant.helpers.is_error err then return
             cb [
                 fn   : result.0
                 name : "categories_menu"
