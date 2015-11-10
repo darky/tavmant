@@ -159,10 +159,7 @@ gulp.task "minify_image", ->
     .pipe gulp.dest "@prod"
 
 gulp.task "ref_production_css_js", ->
-    assets = useref.assets()
     gulp.src "@dev/**/*.html"
-    .pipe assets
-    .pipe assets.restore()
     .pipe useref()
     .pipe gulp.dest "@prod"
 
