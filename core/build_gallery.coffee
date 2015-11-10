@@ -19,7 +19,11 @@ module.exports =
         #    PRIVATE
         # *************
         _generate_html = (cb)->
-            err, image_paths <- dir_helper.paths "./assets/img/tavmant-gallery" true
+            err, [image_paths, template] <- async.parallel [
+                async.apply dir_helper.paths, "./assets/img/tavmant-gallery", true
+                async.apply fs.read-file, "./templates/gallery.html", encoding : "utf8"
+            ]
+            if err then console.log err; return
             image_names = _.map image_paths, (path)->
                 path.match(
                     //
@@ -28,7 +32,6 @@ module.exports =
                         )$
                     //
                 ).1
-            template <- fs.read-file "./templates/gallery.html" encoding : "utf8"
             cb ->
                 _.map _.shuffle(image_names), (name)->
                     template.replace "__image__", name
