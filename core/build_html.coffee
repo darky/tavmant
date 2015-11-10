@@ -47,21 +47,19 @@ module.exports =
                     next null, helpers
                 else
                     next null, []
-            cb null, _.flatten extra_helpers
+            cb err, _.flatten extra_helpers
 
         _get_layout_content =
             async.apply fs.read-file, "./layouts/main.html", encoding : "utf8"
 
         _get_partials = (cb)->
             err, partial_paths <- dir_helper.paths "./partials" true
-
+            if err then console.log err; return
             partial_names = _.map partial_paths, (partial_path)->
                 path.basename partial_path, ".html"
-
             err, partial_contents <- async.map partial_paths, (path, next)->
                 fs.read-file path, encoding : "utf8", next
-
-            cb null, _.map partial_names, (partial, i)->
+            cb err, _.map partial_names, (partial, i)->
                 name : partial
                 tpl  : partial_contents[i]
 
@@ -75,7 +73,7 @@ module.exports =
                 helpers  : _get_helpers
                 layout   : _get_layout_content
                 partials : _get_partials
-            if err then throw err
+            if err then console.log err; return
             cb res
 
 
