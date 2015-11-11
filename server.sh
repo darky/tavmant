@@ -1,2 +1,2 @@
 export TAVMANT_PACKAGE=default
-./tavmant
+node tavmant.js
