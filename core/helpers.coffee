@@ -5,4 +5,5 @@ module.exports = {
         if err
             console.log err
             beep 3
+            true
 }
