@@ -9,6 +9,7 @@ path = require "path"
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
+diff = require "diff"
 
 
 # **********************
@@ -56,6 +57,7 @@ module.exports = (static_server)->
         ], page_reload
 
     if tavmant.modules.portfolio
+        prev_project_settings = {}
         watch [
             fs.realpath-sync "settings" .concat "/portfolio/*.txt"
             fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
@@ -63,13 +65,31 @@ module.exports = (static_server)->
             switch true
             | !!file.path.match /\.txt$/ =>
                 project = path.basename file.path, ".txt"
+                content = file.contents.to-string()
+                if prev_project_settings[file.path]
+                    content_arr = content.split "\n"
+                    changes = diff.diff-lines prev_project_settings[file.path], content
+                    search_index = 0
+                    project_item_i = []
+                    _ changes
+                    .map (change)->
+                        if change.added then change.value.split "\n"
+                    .flatten!.compact!
+                    .each (change)->
+                        index = _.index-of content_arr, change, search_index
+                        search_index := index
+                        project_item_i.push index + 1
+                    .value!
+                prev_project_settings[file.path] = content
             | !!file.path.match /\.jpg$/ =>
                 project =
                     _ file.path.split path.sep
                     .take-right 2
                     .first!
+                project_item_i = [path.basename file.path, ".jpg"]
 
             global.tavmant.radio["current:portfolio:project"] = project
+            global.tavmant.radio["current:portfolio:project:item:index"] = project_item_i
 
             run_sequence [
                 "build_portfolio"
