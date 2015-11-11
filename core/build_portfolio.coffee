@@ -22,7 +22,7 @@ gulp = require "gulp"
 # **************
 #    GRAPHICS
 # **************
-gm = require "gm" .sub-class image-magick : true
+gm = require "gm"
 
 
 # *******************
