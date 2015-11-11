@@ -55,6 +55,8 @@ module.exports =
                     result.push do
                         _ data.files
                         .filter (file_path)->
+                            !!file_path.match /\.jpg$/
+                        .filter (file_path)->
                             !!file_path.replace(/\\/g, "").match dir_path.replace(/\\/g, "")
                         .map (file_path)->
                             path.basename file_path
