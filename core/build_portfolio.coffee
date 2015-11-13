@@ -106,6 +106,7 @@ module.exports =
                 .1.length
 
                 async.map-series [1 to length], (i, cb)->
+                    unless settings_item.1[i-1] then cb!; return
                     async.for-each-of-series _res_to_px, (px, res, cb)->
                         _image_process settings_item,
                             i
@@ -154,9 +155,18 @@ module.exports =
                 html_portfolio_builder.start next
 
             settings <- _get_settings projects
+            if tavmant.radio["current:portfolio:project:item:index"]
+                filtered_settings = _.map settings, ([project_name, project_settings])->
+                    [
+                        project_name
+                        _.map project_settings, (project_setting, i)->
+                            if _.contains that, i then project_setting else null
+                    ]
             err <- async.parallel [
                 async.apply _generate_text_assets, settings, "css"
                 async.apply _generate_text_assets, settings, "js"
-                async.apply _generate_images, settings, projects
+                async.apply _generate_images,
+                    filtered_settings or settings
+                    projects
             ]
             unless tavmant.helpers.is_error err then cb!

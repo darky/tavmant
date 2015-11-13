@@ -78,7 +78,7 @@ module.exports = (static_server)->
                     .each (change)->
                         index = _.index-of content_arr, change, search_index
                         search_index := index
-                        project_item_i.push index + 1
+                        project_item_i.push index
                     .value!
                 prev_project_settings[file.path] = content
             | !!file.path.match /\.jpg$/ =>
