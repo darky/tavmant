@@ -13,12 +13,6 @@ async = require "async"
 dir_helper = require "node-dir"
 
 
-# **********************
-#    GULP & KO DEFINE
-# **********************
-gulp = require "gulp"
-
-
 # **************
 #    GRAPHICS
 # **************
