@@ -99,6 +99,11 @@ gulp.task "build_portfolio", (cb)->
     portfolio_builder = new Portfolio_Build
     portfolio_builder.start cb
 
+gulp.task "resize_images", ["clear_dev_prod"], (cb)->
+    Resize_Images = require "./core/resize_images.coffee"
+    resize_images = new Resize_Images
+    resize_images.start cb
+
 gulp.task "copy_text_assets", ->
     gulp.src [
         "./assets/**/*.js"
@@ -119,6 +124,7 @@ gulp.task "build_dev", ["clear_dev_prod"], (cb)->
             "copy_text_assets"
         ].concat if tavmant.modules.category then "build_categories" else []
         .concat if tavmant.modules.portfolio then "build_portfolio" else []
+        .concat if tavmant.modules.resize_images then "resize_images" else []
         cb
 
 
