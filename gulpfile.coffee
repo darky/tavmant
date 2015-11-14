@@ -99,7 +99,7 @@ gulp.task "build_portfolio", (cb)->
     portfolio_builder = new Portfolio_Build
     portfolio_builder.start cb
 
-gulp.task "resize_images", ["clear_dev_prod"], (cb)->
+gulp.task "resize_images", (cb)->
     Resize_Images = require "./core/resize_images.coffee"
     resize_images = new Resize_Images
     resize_images.start cb
