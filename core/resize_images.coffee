@@ -48,6 +48,9 @@ module.exports =
         #    PUBLIC
         # ************
         start : (cb)->
+            if global.tavmant.radio["current:resize:image"]
+                err <- _resize [that]
+                return
             err, files <- _get_files
             if tavmant.helpers.is_error err then return
             err <- _resize _.filter files, (file)-> !!file.match /\.jpg$/

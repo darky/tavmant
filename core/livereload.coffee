@@ -46,15 +46,23 @@ module.exports = (static_server)->
             "copy_text_assets"
         ], page_reload
 
-    watch [
-        fs.realpath-sync "assets" .concat "/**/*"
-        "!" + fs.realpath-sync "assets" .concat "/**/*.js"
-        "!" + fs.realpath-sync "assets" .concat "/**/*.css"
-        "!" + fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
-    ], ->
-        run_sequence [
-            "copy_assets"
-        ], page_reload
+    watch do
+        [
+            fs.realpath-sync "assets" .concat "/**/*"
+            "!" + fs.realpath-sync "assets" .concat "/**/*.js"
+            "!" + fs.realpath-sync "assets" .concat "/**/*.css"
+            "!" + fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
+        ].concat if tavmant.modules.resize_images
+            _.map tavmant.modules.resize_images.paths, (pth)->
+                "!" + fs.realpath-sync pth.split("/").0
+                .concat "/"
+                .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
+        else
+            []
+        ->
+            run_sequence [
+                "copy_assets"
+            ], page_reload
 
     if tavmant.modules.portfolio
         prev_project_settings = {}
@@ -100,3 +108,15 @@ module.exports = (static_server)->
             fs.realpath-sync "categories" .concat "/*.csv"
         ], ->
             run_sequence ["build_categories"], page_reload
+
+    if tavmant.modules.resize_images
+        watch do
+            _.map tavmant.modules.resize_images.paths, (pth)->
+                fs.realpath-sync pth.split("/").0
+                .concat "/"
+                .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
+            (file)->
+                global.tavmant.radio["current:resize:image"] = file.path
+                run_sequence [
+                    "resize_images"
+                ], page_reload
