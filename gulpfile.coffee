@@ -94,11 +94,6 @@ gulp.task "build_html", (cb)->
     html_builder = new HTML_Build
     html_builder.start cb
 
-gulp.task "build_portfolio", (cb)->
-    Portfolio_Build = require "./core/build_portfolio.coffee"
-    portfolio_builder = new Portfolio_Build
-    portfolio_builder.start cb
-
 gulp.task "resize_images", (cb)->
     Resize_Images = require "./core/resize_images.coffee"
     resize_images = new Resize_Images
@@ -123,7 +118,6 @@ gulp.task "build_dev", ["clear_dev_prod"], (cb)->
             "copy_assets"
             "copy_text_assets"
         ].concat if tavmant.modules.category then "build_categories" else []
-        .concat if tavmant.modules.portfolio then "build_portfolio" else []
         .concat if tavmant.modules.resize_images then "resize_images" else []
         cb
 
