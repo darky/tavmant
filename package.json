@@ -19,6 +19,7 @@
         "gulp-useref"       : "2.1.0",
         "gulp-util"         : "3.0.7",
         "gulp-watch"        : "4.3.5",
+        "js-yaml"           : "3.4.3",
         "livescript"        : "gkz/LiveScript#da5191db2e30fc7e3a2f716d026a9a38fc5d2d8c",
         "lodash"            : "3.10.1",
         "node-dir"          : "0.1.11",
