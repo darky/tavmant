@@ -9,6 +9,7 @@ os = require "os"
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
+yaml = require "js-yaml"
 
 
 # *******************
@@ -58,8 +59,8 @@ if calculated_sha isnt must_sha
 # ********************
 global.tavmant = {}
 global.tavmant.radio = {}
-modules = fs.read-file-sync "settings/modules.json", encoding : "utf8"
-global.tavmant.modules = JSON.parse modules
+modules = fs.read-file-sync "settings/modules.yaml", encoding : "utf8"
+global.tavmant.modules = yaml.safe-load modules
 global.tavmant.helpers = require "./core/helpers.coffee"
 
 

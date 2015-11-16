@@ -12,10 +12,11 @@ _ = require "lodash"
 async = require "async"
 
 
-# *********
-#    CSV
-# *********
+# ***********
+#    PARSE
+# ***********
 csv_parse = require "csv-parse"
+yaml = require "js-yaml"
 
 
 # *******************
@@ -42,8 +43,8 @@ module.exports =
             err, [list_wrapper_content, meta] <- async.parallel [
                 async.apply fs.read-file, "#{process.cwd()}/templates/categories/list-wrapper.html", encoding : "utf8"
                 (next)->
-                    if _.is-error meta = _try_parse_json item.4
-                        next "Ошибка парсинга 5-ого столбца"
+                    if _.is-error meta = yaml.safe-load item.4
+                        next meta
                     else
                         next null, meta
             ]
@@ -165,9 +166,6 @@ module.exports =
                 (data, next)-> csv_parse data, delimiter : ";", next
             ]
             unless tavmant.helpers.is_error err then cb result
-
-        _try_parse_json = (item)->
-            _.attempt -> JSON.parse item
 
 
         # ************
