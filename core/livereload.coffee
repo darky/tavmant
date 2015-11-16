@@ -52,7 +52,6 @@ module.exports = (static_server)->
             "!" + fs.realpath-sync "assets" .concat "/**/*.css"
             "!" + fs.realpath-sync "assets" .concat "/**/.DS_Store"
             "!" + fs.realpath-sync "assets" .concat "/**/Thumbs.db"
-            "!" + fs.realpath-sync "assets" .concat "/img/tavmant-portfolio/**/*.jpg"
         ].concat if tavmant.modules.resize_images
             _.map tavmant.modules.resize_images.paths, (pth)->
                 "!" + fs.realpath-sync pth.split("/").0
