@@ -146,7 +146,7 @@ module.exports =
             ]
             if err then cb err else cb null,
                 _ parsed
-                .group-by (item)-> item.2
+                .group-by (item)-> if item.6 then item.0 else item.2
                 .map-values (items, name)->
                     if name is "" then return null
                     html_category.replace /__content__/g,
