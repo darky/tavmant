@@ -24,7 +24,7 @@
         "lodash"            : "3.10.1",
         "node-dir"          : "0.1.11",
         "pretty-hrtime"     : "1.0.1",
-        "run-sequence"      : "1.1.4",
+        "run-sequence"      : "1.1.5",
         "through2"          : "2.0.0"
     }
 }
