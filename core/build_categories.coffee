@@ -16,6 +16,7 @@ async = require "async"
 #    PARSE
 # ***********
 csv_parse = require "csv-parse"
+sjs = require "searchjs"
 yaml = require "js-yaml"
 
 
@@ -111,8 +112,8 @@ module.exports =
             err, list_content <- fs.read-file "#{process.cwd()}/templates/categories/list.html" encoding : "utf8"
             if tavmant.helpers.is_error err then return
             cb do
-                _ parsed
-                .filter (subitem)-> subitem.2 is item.0
+                _ if item.6 then _transform_parsed parsed, item.6 else parsed
+                .filter (subitem)-> if item.6 then true else subitem.2 is item.0
                 .map (subitem)->
                     list_content.replace /__name__/g, subitem.0
                     .replace /__locale__/g, subitem.1
@@ -165,7 +166,18 @@ module.exports =
                 async.apply fs.read-file, "#{process.cwd()}/categories/tavmant-list.csv", encoding : "utf8"
                 (data, next)-> csv_parse data, delimiter : ";", next
             ]
-            unless tavmant.helpers.is_error err then cb result
+            if tavmant.helpers.is_error err then return
+            cb _.map result, (item)-> _.to-plain-object item
+
+        _transform_parsed = (data, meta)->
+            action = meta.split "---" .0 .trim!
+            query =
+                _(meta.split "---" .1 .trim!)
+                .thru yaml.safe-load .map-keys (val, key)->
+                    if _.is-NaN parse-int key then key else key - 1
+                .value!
+            switch action
+            | "filter" => sjs.match-array data, query
 
 
         # ************
