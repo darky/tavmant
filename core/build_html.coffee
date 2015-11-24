@@ -40,6 +40,9 @@ module.exports =
             ,
                 module_class : require "./build_categories.coffee"
                 module_name : "category"
+            ,
+                module_class : require "./build_yakubovich.coffee"
+                module_name : "yakubovich"
             ], (item, next)->
                 if tavmant.modules[item.module_name]
                     obj = new item.module_class
