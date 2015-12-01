@@ -15,6 +15,8 @@ _ = require "lodash"
 #    GULP & KO DEFINE
 # **********************
 gulp = require "gulp"
+livereload = require "livereload2"
+request = require "request"
 run_sequence = require "run-sequence"
 watch = require "gulp-watch"
 
@@ -23,6 +25,11 @@ watch = require "gulp-watch"
 #    LIVERELOAD DEFINE
 # ***********************
 module.exports = ->
+    livereload.create-server!
+
+    reload = ->
+        request.post "http://localhost:35729/reload"
+
     watch [
         fs.realpath-sync "layouts" .concat "/**/*.html"
         fs.realpath-sync "partials" .concat "/**/*.html"
@@ -30,16 +37,16 @@ module.exports = ->
         fs.realpath-sync "templates" .concat "/**/*.html"
     ], (file)->
         run_sequence [
-            "build_html"
-        ]
+            "построение HTML"
+        ], reload
 
     watch [
         fs.realpath-sync "assets" .concat "/**/*.js"
         fs.realpath-sync "assets" .concat "/**/*.css"
     ], ->
         run_sequence [
-            "copy_text_assets"
-        ]
+            "копирование CSS JS"
+        ], reload
 
     watch do
         [
@@ -57,14 +64,14 @@ module.exports = ->
             []
         ->
             run_sequence [
-                "copy_assets"
-            ]
+                "копирование изображений и других бинарных файлов"
+            ], reload
 
     if tavmant.modules.category
         watch [
             fs.realpath-sync "categories" .concat "/*.csv"
         ], ->
-            run_sequence ["build_categories"]
+            run_sequence ["построение категорий"], reload
 
     if tavmant.modules.resize_images
         watch do
@@ -75,5 +82,5 @@ module.exports = ->
             (file)->
                 global.tavmant.radio["current:resize:image"] = file.path
                 run_sequence [
-                    "resize_images"
-                ]
+                    "резка изображений"
+                ], reload
