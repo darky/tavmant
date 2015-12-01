@@ -15,8 +15,7 @@ _ = require "lodash"
 #    GULP & KO DEFINE
 # **********************
 gulp = require "gulp"
-livereload = require "livereload2"
-request = require "request"
+livereload = require "livereload"
 run_sequence = require "run-sequence"
 watch = require "gulp-watch"
 
@@ -25,10 +24,10 @@ watch = require "gulp-watch"
 #    LIVERELOAD DEFINE
 # ***********************
 module.exports = ->
-    livereload.create-server!
+    server = livereload.create-server!
 
     reload = ->
-        request.post "http://localhost:35729/reload"
+        server.refresh ""
 
     watch [
         fs.realpath-sync "layouts" .concat "/**/*.html"
