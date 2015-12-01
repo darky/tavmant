@@ -74,9 +74,20 @@ image_min = require "gulp-imagemin"
 minify_css = require "gulp-minify-css"
 minify_html = require "gulp-htmlmin"
 run_sequence = require "run-sequence"
-static_server = require "gulp-connect"
+static_server = require "node-static"
 uglify = require "gulp-uglify"
 useref = require "gulp-useref"
+
+
+# ******************
+#    LOCAL SERVER
+# ******************
+up_server = (dir)->
+    file = new static_server.Server dir
+    require "http" .create-server (req, res)->
+        req.add-listener "end", -> file.serve req, res
+        .resume!
+    .listen 9000, -> console.log "Server ready on localhost:9000"
 
 
 # ***************
@@ -122,22 +133,9 @@ gulp.task "build_dev", ["clear_dev_prod"], (cb)->
         .concat if tavmant.modules.resize_images then "resize_images" else []
         cb
 
-
-# ************************
-#    STANDUP DEV SERVER
-# ************************
 gulp.task "static_server", ["build_dev"], ->
-    static_server.server do
-        port : 9000
-        root : "./@dev"
-
-
-    # *****************
-    #    LIVERELOAD
-    # *****************
-    require "./core/livereload.coffee"
-    .call null, static_server
-
+    up_server "./@dev"
+    require "./core/livereload.coffee" .call!
 
 # *****************
 #    PRODUCTION
@@ -209,9 +207,7 @@ gulp.task "production", ["build_dev"], ->
         "copy_font"
         "copy_site_root"
     ], ->
-        static_server.server do
-            port : 9000
-            root : "./@prod"
+        up_server "./@prod"
 
 
 # **********************

@@ -22,11 +22,7 @@ watch = require "gulp-watch"
 # ***********************
 #    LIVERELOAD DEFINE
 # ***********************
-module.exports = (static_server)->
-    page_reload = ->
-        gulp.src "@dev/**/*.html"
-        .pipe static_server.reload()
-
+module.exports = ->
     watch [
         fs.realpath-sync "layouts" .concat "/**/*.html"
         fs.realpath-sync "partials" .concat "/**/*.html"
@@ -35,7 +31,7 @@ module.exports = (static_server)->
     ], (file)->
         run_sequence [
             "build_html"
-        ], page_reload
+        ]
 
     watch [
         fs.realpath-sync "assets" .concat "/**/*.js"
@@ -43,7 +39,7 @@ module.exports = (static_server)->
     ], ->
         run_sequence [
             "copy_text_assets"
-        ], page_reload
+        ]
 
     watch do
         [
@@ -62,13 +58,13 @@ module.exports = (static_server)->
         ->
             run_sequence [
                 "copy_assets"
-            ], page_reload
+            ]
 
     if tavmant.modules.category
         watch [
             fs.realpath-sync "categories" .concat "/*.csv"
         ], ->
-            run_sequence ["build_categories"], page_reload
+            run_sequence ["build_categories"]
 
     if tavmant.modules.resize_images
         watch do
@@ -80,4 +76,4 @@ module.exports = (static_server)->
                 global.tavmant.radio["current:resize:image"] = file.path
                 run_sequence [
                     "resize_images"
-                ], page_reload
+                ]
