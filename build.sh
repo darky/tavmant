@@ -1,2 +1,2 @@
-export TAVMANT_PACKAGE=production
+export TAVMANT_PACKAGE="боевая сборка"
 node tavmant.js

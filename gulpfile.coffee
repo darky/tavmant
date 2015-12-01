@@ -87,31 +87,31 @@ up_server = (dir)->
     require "http" .create-server (req, res)->
         req.add-listener "end", -> file.serve req, res
         .resume!
-    .listen 9000, -> console.log "Server ready on localhost:9000"
+    .listen 9000, -> console.log "Сервер поднят по адресу localhost:9000"
 
 
 # ***************
 #    BUILD DEV
 # ***************
-gulp.task "clear_dev_prod", (cb)->
+gulp.task "очистка", (cb)->
     del ["@dev/**/*.*", "@prod/**/*.*"], cb
 
-gulp.task "build_categories", ["build_html"], (cb)->
+gulp.task "построение категорий", ["построение HTML"], (cb)->
     Categories_Build = require "./core/build_categories.coffee"
     categories_builder = new Categories_Build
     categories_builder.start cb
 
-gulp.task "build_html", (cb)->
+gulp.task "построение HTML", (cb)->
     HTML_Build = require "./core/build_html.coffee"
     html_builder = new HTML_Build
     html_builder.start cb
 
-gulp.task "resize_images", (cb)->
+gulp.task "резка изображений", (cb)->
     Resize_Images = require "./core/resize_images.coffee"
     resize_images = new Resize_Images
     resize_images.start cb
 
-gulp.task "copy_text_assets", ->
+gulp.task "копирование CSS JS", ->
     gulp.src [
         "./assets/**/*.js"
         "./assets/**/*.css"
@@ -119,36 +119,36 @@ gulp.task "copy_text_assets", ->
     .pipe cache "text_assets"
     .pipe gulp.dest "./@dev/"
 
-gulp.task "copy_assets", ->
+gulp.task "копирование изображений и других бинарных файлов", ->
     gulp.src ["./assets/**/*", "!./assets/**/*.js", "!./assets/**/*.css", "!./assets/img/tavmant-portfolio/**/*.jpg"]
     .pipe gulp.dest "./@dev/"
 
-gulp.task "build_dev", ["clear_dev_prod"], (cb)->
+gulp.task "базовая сборка", ["очистка"], (cb)->
     run_sequence do
         [
-            "build_html"
-            "copy_assets"
-            "copy_text_assets"
-        ].concat if tavmant.modules.category then "build_categories" else []
-        .concat if tavmant.modules.resize_images then "resize_images" else []
+            "построение HTML"
+            "копирование изображений и других бинарных файлов"
+            "копирование CSS JS"
+        ].concat if tavmant.modules.category then "построение категорий" else []
+        .concat if tavmant.modules.resize_images then "резка изображений" else []
         cb
 
-gulp.task "static_server", ["build_dev"], ->
+gulp.task "сервер", ["базовая сборка"], ->
     up_server "./@dev"
     require "./core/livereload.coffee" .call!
 
 # *****************
 #    PRODUCTION
 # *****************
-gulp.task "copy_font", ->
+gulp.task "копирование шрифтов", ->
     gulp.src "@dev/font/**/*.*"
     .pipe gulp.dest "@prod/font"
 
-gulp.task "copy_site_root", ->
+gulp.task "копирование файлов в корень сайта", ->
     gulp.src "./site_root/**/*"
     .pipe gulp.dest "@prod"
 
-gulp.task "minify_image", ->
+gulp.task "сжатие изображений", ->
     gulp.src [
         "@dev/**/*.jpg"
         "@dev/**/*.jpeg"
@@ -160,7 +160,7 @@ gulp.task "minify_image", ->
     .pipe image_min()
     .pipe gulp.dest "@prod"
 
-gulp.task "ref_production_css_js", ->
+gulp.task "объединение CSS JS", ->
     assets = useref.assets()
     gulp.src "@dev/**/*.html"
     .pipe assets
@@ -168,7 +168,7 @@ gulp.task "ref_production_css_js", ->
     .pipe useref()
     .pipe gulp.dest "@prod"
 
-gulp.task "minify_html", ["ref_production_css_js"], ->
+gulp.task "сжатие HTML", ["объединение CSS JS"], ->
     gulp.src "@prod/**/*.html"
     .pipe minify_html do
         collapseWhitespace : true
@@ -192,20 +192,20 @@ minify_js_css = !(type, cb)->
     .pipe gulp.dest "@prod/#type/custom"
     .on "finish", try_resolve
 
-gulp.task "minify_js", ["ref_production_css_js"], (cb)->
+gulp.task "сжатие JS", ["объединение CSS JS"], (cb)->
     minify_js_css "js", cb
 
-gulp.task "minify_css", ["ref_production_css_js"], (cb)->
+gulp.task "сжатие CSS", ["объединение CSS JS"], (cb)->
     minify_js_css "css", cb
 
-gulp.task "production", ["build_dev"], ->
+gulp.task "боевая сборка", ["базовая сборка"], ->
     run_sequence [
-        "minify_image"
-        "minify_html"
-        "minify_css"
-        "minify_js"
-        "copy_font"
-        "copy_site_root"
+        "сжатие изображений"
+        "сжатие HTML"
+        "сжатие CSS"
+        "сжатие JS"
+        "копирование шрифтов"
+        "копирование файлов в корень сайта"
     ], ->
         up_server "./@prod"
 
@@ -213,7 +213,7 @@ gulp.task "production", ["build_dev"], ->
 # **********************
 #    DEFAULT DEV SITE
 # **********************
-gulp.task "default", ["static_server"]
+gulp.task "сборка для разработчика", ["сервер"]
 
 
 # ******************
@@ -249,13 +249,13 @@ if process.env.TAVMANT_PACKAGE
       gulpInst.on "task_start", (e)->
         # TODO: batch these
         # so when 5 tasks start at once it only logs one time with all 5
-        gutil.log("Starting", "\'" + chalk.cyan(e.task) + "\'...")
+        gutil.log("Стартовало", "\'" + chalk.cyan(e.task) + "\'...")
 
       gulpInst.on "task_stop", (e)->
         time = prettyTime(e.hrDuration)
         gutil.log(
-          "Finished", "\'" + chalk.cyan(e.task) + "\'",
-          "after", chalk.magenta(time)
+          "Завершилось", "\'" + chalk.cyan(e.task) + "\'",
+          "после", chalk.magenta(time)
         )
 
       gulpInst.on "task_err", (e)->
@@ -263,16 +263,15 @@ if process.env.TAVMANT_PACKAGE
         time = prettyTime(e.hrDuration)
         gutil.log(
           "\'" + chalk.cyan(e.task) + "\'",
-          chalk.red("errored after"),
+          chalk.red("завершилось с ошибкой после"),
           chalk.magenta(time)
         )
         gutil.log(msg)
 
       gulpInst.on "task_not_found", (err)->
         gutil.log(
-          chalk.red("Task \'" + err.task + "\' is not in your gulpfile")
+          chalk.red("Задача \'" + err.task + "\' отсутствует")
         )
-        gutil.log("Please check the documentation for proper gulpfile formatting")
         process.exit(1)
 
     logEvents gulp

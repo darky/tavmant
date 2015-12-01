@@ -1,2 +1,2 @@
-export TAVMANT_PACKAGE=default
+export TAVMANT_PACKAGE="сборка для разработчика"
 node tavmant.js
