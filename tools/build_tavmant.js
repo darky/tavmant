@@ -1,4 +1,5 @@
-var browserify = require("browserify"),
+var brfs = require("brfs"),
+  browserify = require("browserify"),
   fs = require("fs"),
   path = require("path"),
   through = require("through2");
@@ -22,4 +23,14 @@ browserify({
         return JSON.stringify(dir);
     }
   }
-}).exclude("key.js").bundle().pipe(fs.createWriteStream("tavmant.js"))
+}).exclude("key.js").transform(function (file, opts) {
+  if (file.match(/node_modules\/gm\/index\.js/)) {
+    return brfs(file, opts);
+  }
+  if (file.match(/node_modules\/livereload\/lib\/livereload\.js/)) {
+    return brfs(file, opts);
+  }
+  return through();
+}, {
+  global : true
+}).bundle().pipe(fs.createWriteStream("tavmant.js"))
