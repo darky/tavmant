@@ -1,6 +1,7 @@
 fs = require "fs"
 http = require "http"
 querystring = require "querystring"
+zlib = require "zlib"
 server = http.create-server (req, res)->
   query = req.url.replace /^\/\?/, ""
   params = querystring.parse query
@@ -29,14 +30,16 @@ server = http.create-server (req, res)->
     else
       cb "tavmant-#{params.version}"
 
-  err, data <- fs.read-file file_name, encoding : "utf8"
+  err, buf <- fs.read-file file_name
   if err
     res.write-head 404
     res.end "#{params.version} не найдена"
   else
+    err, data <- zlib.unzip buf
+    hex = data.to-string!
     res.write-head 200
     res.end JSON.stringify do
       version : file_name.match /tavmant-(.+)$/ .1
       expire : new Date users["#{params.login}$expire"]
-      data : data
+      data : hex
 server.listen process.env.PORT
