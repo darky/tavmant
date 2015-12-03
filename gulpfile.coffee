@@ -12,48 +12,6 @@ _ = require "lodash"
 yaml = require "js-yaml"
 
 
-# *******************
-#    LICENSE CHECK
-# *******************
-sha1 =
-    require "crypto"
-    .create-hash "sha1"
-
-license_salt = "t1RANgvoC3lKeNHUJbRDxr06RggWYwmT"
-license_salt2 = "7nJY9Pgx39pIqB7XDu74ounx97d9444b"
-
-license_formula = "
-    #{ os.totalmem() }
-    #{ os.cpus()[0].model }
-    #{ license_salt }
-    #{ os.type() }
-    #{ os.arch() }
-    #{ license_salt2 }
-    #{ os.platform() }
-    #{ os.homedir() }
-    #{ os.networkInterfaces().en0?.0.mac or os.networkInterfaces().eth0?.0.mac or os.networkInterfaces().Ethernet?.0.mac }
-"
-
-calculated_sha =
-    sha1.update license_formula, "utf8"
-    .digest "hex"
-must_sha = try require "./key.js"
-
-if calculated_sha isnt must_sha
-    cipher =
-        require "crypto"
-        .create-cipher "aes-256-cbc", "1WRhJ4ApQLDQu6GxZOHiPYPCZbsn9Jvq"
-
-    console.log "LICENSE ERROR! Send information between * to darkvlados@me.com for receiving license"
-    console.log """
-        **********************************
-        #{ cipher.update license_formula, "utf8", "hex" }\
-        #{ cipher.final "hex" }
-        **********************************
-    """
-    process.exit()
-
-
 # ********************
 #    GLOBAL DEFINE
 # ********************
