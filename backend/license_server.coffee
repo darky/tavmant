@@ -37,6 +37,6 @@ server = http.create-server (req, res)->
     res.write-head 200
     res.end JSON.stringify do
       version : file_name.match /tavmant-(.+)$/ .1
-      expire : (new Date users["#{params.login}$expire"]).to-locale-string!
+      expire : new Date users["#{params.login}$expire"]
       data : data
 server.listen process.env.PORT
