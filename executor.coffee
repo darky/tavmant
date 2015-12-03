@@ -33,9 +33,9 @@ try
       auth += cipher.final "hex"
 
       http.request do
-        host : "localhost"
+        host : "tavmant-license.herokuapp.com"
         path : "/?login=#{login}&version=#{version}&auth=#{auth}"
-        port : 9001
+        port : 80
         (res)->
           try
             encrypted = ""
