@@ -2,15 +2,16 @@ fs = require "fs"
 http = require "http"
 querystring = require "querystring"
 zlib = require "zlib"
+
+err, users_str <- fs.read-file "users.json", encoding : "utf8"
+users = JSON.parse users_str
+
 server = http.create-server (req, res)->
   query = req.url.replace /^\/\?/, ""
   params = querystring.parse query
 
   if not params.login or not params.auth or not params.version
     res.write-head 418; res.end "<====3"; return
-
-  err, users_str <- fs.read-file "users.json", encoding : "utf8"
-  users = JSON.parse users_str
 
   if users[params.login] isnt params.auth
     res.write-head 401
