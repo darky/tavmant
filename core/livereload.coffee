@@ -29,15 +29,19 @@ module.exports = ->
     reload = ->
         server.refresh ""
 
-    watch [
-        fs.realpath-sync "layouts" .concat "/**/*.html"
-        fs.realpath-sync "partials" .concat "/**/*.html"
-        fs.realpath-sync "pages" .concat "/**/*.html"
-        fs.realpath-sync "templates" .concat "/**/*.html"
-    ], (file)->
-        run_sequence [
-            "построение HTML"
-        ], reload
+    watch do
+        [
+            fs.realpath-sync "layouts" .concat "/**/*.html"
+            fs.realpath-sync "partials" .concat "/**/*.html"
+            fs.realpath-sync "pages" .concat "/**/*.html"
+        ].concat if tavmant.modules.category or tavmant.modules.gallery
+            fs.realpath-sync "templates" .concat "/**/*.html"
+        else
+            []
+        (file)->
+            run_sequence [
+                "построение HTML"
+            ], reload
 
     watch [
         fs.realpath-sync "assets" .concat "/**/*.js"
