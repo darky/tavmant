@@ -38,6 +38,10 @@ module.exports = ->
             fs.realpath-sync "templates" .concat "/**/*.html"
         else
             []
+        .concat if tavmant.modules.yakubovich
+            fs.realpath-sync "api" .concat "/**/*.js"
+        else
+            []
         (file)->
             run_sequence [
                 "построение HTML"
