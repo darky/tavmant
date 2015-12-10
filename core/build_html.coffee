@@ -98,12 +98,14 @@ module.exports =
                     .drop-while (dir, i, arr)-> arr[i-1] isnt "pages"
                     .value!.join "/" .replace /\.html$/, ""
 
-                html_build(
-                    _.extend file.frontMatter,
-                        file_name : file_name
-                    build_options
-                )
-                ._transform ...
+                try
+                    stream = html_build do
+                        _.extend file.frontMatter, file_name : file_name
+                        build_options
+                    stream._transform ...
+                catch e
+                    console.log e
+                    cb!
 
         _get_html_stream : ->
             gulp.src "./pages/**/*.html"
