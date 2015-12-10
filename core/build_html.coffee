@@ -19,8 +19,12 @@ through = require "through2"
 # **********************
 gulp = require "gulp"
 front_matter = require "gulp-front-matter"
+hbs_layouts = require "handlebars-layouts"
 html_build = require "gulp-build"
 rename = require "gulp-rename"
+
+
+hbs_layouts.register html_build.hbs
 
 
 # ***********
