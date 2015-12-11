@@ -33,6 +33,22 @@ module.exports =
         # *************
         #    PRIVATE
         # *************
+        _build_transform = (build_options)->
+            through.obj (file, enc, cb)->
+                file_name =
+                    _ file.path.split path.sep
+                    .drop-while (dir, i, arr)-> arr[i-1] isnt "pages"
+                    .value!.join "/" .replace /\.html$/, ""
+
+                try
+                    stream = html_build do
+                        _.extend file.frontMatter, file_name : file_name
+                        build_options
+                    stream._transform ...
+                catch e
+                    console.log e
+                    cb!
+
         _get_helpers = (cb)->
             err, extra_helpers <- async.map [
                 module_class : require "./build_gallery.coffee"
@@ -85,27 +101,14 @@ module.exports =
         # ***************
         _build : (build_options, cb)->
             @_get_html_stream!
-            .pipe front_matter()
-            .pipe @_build_transform build_options
+            .pipe front_matter!
+            .on "error", (e)->
+                console.log "Ошибка в написании мета-информации для страницы #{e.file-name}"
+                cb!
+            .pipe _build_transform build_options
             .pipe rename _rename_file_to_index
             .pipe gulp.dest "./@dev/"
             .on "finish", cb
-
-        _build_transform : (build_options)->
-            through.obj (file, enc, cb)->
-                file_name =
-                    _ file.path.split path.sep
-                    .drop-while (dir, i, arr)-> arr[i-1] isnt "pages"
-                    .value!.join "/" .replace /\.html$/, ""
-
-                try
-                    stream = html_build do
-                        _.extend file.frontMatter, file_name : file_name
-                        build_options
-                    stream._transform ...
-                catch e
-                    console.log e
-                    cb!
 
         _get_html_stream : ->
             gulp.src "./pages/**/*.html"
