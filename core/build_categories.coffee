@@ -118,6 +118,7 @@ module.exports =
                     list_content.replace /__name__/g, subitem.0
                     .replace /__locale__/g, subitem.1
                     .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
+                    .replace /__parent__/g, subitem.2
                 .value!.join ""
 
         _get_html_subcategory_item = (item, cb)->
