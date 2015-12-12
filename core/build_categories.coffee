@@ -42,7 +42,9 @@ module.exports =
 
         _get_builder = (item, parsed, cb)->
             err, [list_wrapper_content, meta] <- async.parallel [
-                async.apply fs.read-file, "#{process.cwd()}/templates/categories/list-wrapper.html", encoding : "utf8"
+                (next)->
+                    template_name = if item.2 then "subcategory-list-wrapper.html" else "list-wrapper.html"
+                    fs.read-file "#{process.cwd()}/templates/categories/#{template_name}", encoding : "utf8", next
                 (next)->
                     if _.is-error meta = yaml.safe-load item.4
                         next meta
