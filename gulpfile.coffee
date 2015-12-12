@@ -54,7 +54,7 @@ up_server = (dir)->
 gulp.task "очистка", (cb)->
     del ["@dev/**/*.*", "@prod/**/*.*"], cb
 
-gulp.task "построение категорий", ["построение HTML"], (cb)->
+gulp.task "построение категорий", (cb)->
     Categories_Build = require "./core/build_categories.coffee"
     categories_builder = new Categories_Build
     categories_builder.start cb
