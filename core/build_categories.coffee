@@ -10,6 +10,7 @@ path = require "path"
 # **********************
 _ = require "lodash"
 async = require "async"
+dir_helper = require "node-dir"
 
 
 # ***********
@@ -124,12 +125,24 @@ module.exports =
                 .value!.join ""
 
         _get_html_subcategory_item = (item, cb)->
-            err, [subcategory_content, subcategory_template] <- async.parallel [
-                async.apply fs.read-file, "#{process.cwd()}/categories/#{item.0}.csv", encoding : "utf8"
-                async.apply fs.read-file, "#{process.cwd()}/templates/categories/subcategory-list.html", encoding : "utf8"
-            ]
+            err, subcategory_template <- fs.read-file "#{process.cwd()}/templates/categories/subcategory-list.html", encoding : "utf8"
             if tavmant.helpers.is_error err then return
-            err, parsed_subcategory <- csv_parse subcategory_content, delimiter : ";"
+            err, parsed_subcategory <- (next)->
+                if tavmant.modules.category.portfolio
+                    err, paths <- dir_helper.paths "#{process.cwd!}/assets/img/tavmant-categories/#{item.0}", true
+                    if err
+                        next err
+                    else
+                        next null,
+                            _ paths
+                            .filter (path_item)-> !!path_item.match(/\.jpg$/)
+                            .map (path_item)-> path.basename path_item, ".jpg"
+                            .sort-by (item)-> parse-int item
+                            .map (name)-> [name, name]
+                            .value!
+                else
+                    err, subcategory_content <- fs.read-file "#{process.cwd()}/categories/#{item.0}.csv", encoding : "utf8"
+                    if err then next err else csv_parse subcategory_content, delimiter : ";", next
             if tavmant.helpers.is_error err then return
             cb do
                 _ parsed_subcategory
