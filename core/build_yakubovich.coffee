@@ -1,3 +1,9 @@
+# ***********************
+#    NODEJS API DEFINE
+# ***********************
+fs = require "fs"
+
+
 # **********************
 #    MUST HAVE DEFINE
 # **********************
@@ -67,5 +73,5 @@ module.exports =
         #    PUBLIC
         # ************
         get_helpers : (cb)->
-            require.cache[require.resolve "#{process.cwd!}/api/yakubovich.js"] = null
+            require.cache[fs.realpath-sync "./api/yakubovich.js"] = null
             cb _extend _get_built_in!, require "#{process.cwd!}/api/yakubovich.js"
