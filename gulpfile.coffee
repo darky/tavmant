@@ -185,7 +185,6 @@ gulp.task "сборка для разработчика", ["сервер"]
 #    RUN PACKAGED
 # ******************
 # from gulp 3.9.0
-chalk = require "chalk"
 gutil = require "gulp-util"
 prettyTime = require "pretty-hrtime"
 
@@ -213,28 +212,28 @@ logEvents = (gulpInst)->
   gulpInst.on "task_start", (e)->
     # TODO: batch these
     # so when 5 tasks start at once it only logs one time with all 5
-    gutil.log("Стартовало", "\'" + chalk.cyan(e.task) + "\'...")
+    gutil.log("Стартовало", "\'" + e.task + "\'...")
 
   gulpInst.on "task_stop", (e)->
     time = prettyTime(e.hrDuration)
     gutil.log(
-      "Завершилось", "\'" + chalk.cyan(e.task) + "\'",
-      "после", chalk.magenta(time)
+      "Завершилось", "\'" + e.task + "\'",
+      "после", time
     )
 
   gulpInst.on "task_err", (e)->
     msg = formatError(e)
     time = prettyTime(e.hrDuration)
     gutil.log(
-      "\'" + chalk.cyan(e.task) + "\'",
-      chalk.red("завершилось с ошибкой после"),
-      chalk.magenta(time)
+      "\'" + e.task + "\'",
+      "завершилось с ошибкой после",
+      time
     )
     gutil.log(msg)
 
   gulpInst.on "task_not_found", (err)->
     gutil.log(
-      chalk.red("Задача \'" + err.task + "\' отсутствует")
+      "Задача \'" + err.task + "\' отсутствует"
     )
     process.exit(1)
 
