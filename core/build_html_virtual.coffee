@@ -40,7 +40,7 @@ module.exports =
             stream = Stream.Readable object-mode : true
             stream._read = ->
                 @push new gulp_util.File do
-                    base     : path.join process.env.PWD, "pages/"
+                    base     : path.join tavmant.path, "pages/"
                     contents : content
                     cwd      : process.env.PWD
                     path     : path_option

@@ -69,10 +69,10 @@ module.exports =
             cb err, _.flatten extra_helpers
 
         _get_layout_content =
-            async.apply fs.read-file, "./layouts/main.html", encoding : "utf8"
+            async.apply fs.read-file, "#{tavmant.path}/layouts/main.html", encoding : "utf8"
 
         _get_partials = (cb)->
-            err, partial_paths <- dir_helper.paths "./partials" true
+            err, partial_paths <- dir_helper.paths "#{tavmant.path}/partials" true
             if tavmant.helpers.is_error err then return
             partial_names = _.map partial_paths, (partial_path)->
                 path.basename partial_path, ".html"
@@ -107,11 +107,11 @@ module.exports =
                 cb!
             .pipe _build_transform build_options
             .pipe rename _rename_file_to_index
-            .pipe gulp.dest "./@dev/"
+            .pipe gulp.dest "#{tavmant.path}/@dev/"
             .on "finish", cb
 
         _get_html_stream : ->
-            gulp.src "./pages/**/*.html"
+            gulp.src "#{tavmant.path}/pages/**/*.html"
 
 
         # ************

@@ -74,5 +74,5 @@ module.exports =
         # ************
         get_helpers : (cb)->
             require.cache ?= {}
-            require.cache[fs.realpath-sync "./api/yakubovich.js"] = null
-            cb _extend _get_built_in!, require "#{process.cwd!}/api/yakubovich.js"
+            require.cache[fs.realpath-sync "#{tavmant.path}/api/yakubovich.js"] = null
+            cb _extend _get_built_in!, require "#{tavmant.path}/api/yakubovich.js"

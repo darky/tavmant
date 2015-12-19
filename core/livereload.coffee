@@ -31,15 +31,15 @@ module.exports = ->
 
     watch do
         [
-            fs.realpath-sync "layouts" .concat "/**/*.html"
-            fs.realpath-sync "partials" .concat "/**/*.html"
-            fs.realpath-sync "pages" .concat "/**/*.html"
+            fs.realpath-sync "#{tavmant.path}/layouts" .concat "/**/*.html"
+            fs.realpath-sync "#{tavmant.path}/partials" .concat "/**/*.html"
+            fs.realpath-sync "#{tavmant.path}/pages" .concat "/**/*.html"
         ].concat if tavmant.modules.category or tavmant.modules.gallery
-            fs.realpath-sync "templates" .concat "/**/*.html"
+            fs.realpath-sync "#{tavmant.path}/templates" .concat "/**/*.html"
         else
             []
         .concat if tavmant.modules.yakubovich
-            fs.realpath-sync "api" .concat "/**/*.js"
+            fs.realpath-sync "#{tavmant.path}/api" .concat "/**/*.js"
         else
             []
         (file)->
@@ -48,8 +48,8 @@ module.exports = ->
             ], reload
 
     watch [
-        fs.realpath-sync "assets" .concat "/**/*.js"
-        fs.realpath-sync "assets" .concat "/**/*.css"
+        fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/*.js"
+        fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/*.css"
     ], ->
         run_sequence [
             "копирование CSS JS"
@@ -57,14 +57,14 @@ module.exports = ->
 
     watch do
         [
-            fs.realpath-sync "assets" .concat "/**/*"
-            "!" + fs.realpath-sync "assets" .concat "/**/*.js"
-            "!" + fs.realpath-sync "assets" .concat "/**/*.css"
-            "!" + fs.realpath-sync "assets" .concat "/**/.DS_Store"
-            "!" + fs.realpath-sync "assets" .concat "/**/Thumbs.db"
+            fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/*"
+            "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/*.js"
+            "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/*.css"
+            "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/.DS_Store"
+            "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/Thumbs.db"
         ].concat if tavmant.modules.resize_images
             _.map tavmant.modules.resize_images.paths, (pth)->
-                "!" + fs.realpath-sync pth.split("/").0
+                "!" + fs.realpath-sync "#{tavmant.path}/" + pth.split("/").0
                 .concat "/"
                 .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
         else
@@ -76,14 +76,14 @@ module.exports = ->
 
     if tavmant.modules.category
         watch [
-            fs.realpath-sync "categories" .concat "/*.csv"
+            fs.realpath-sync "#{tavmant.path}/categories" .concat "/*.csv"
         ], ->
             run_sequence ["построение категорий"], reload
 
     if tavmant.modules.resize_images
         watch do
             _.map tavmant.modules.resize_images.paths, (pth)->
-                fs.realpath-sync pth.split("/").0
+                fs.realpath-sync "#{tavmant.path}/" + pth.split("/").0
                 .concat "/"
                 .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
             (file)->

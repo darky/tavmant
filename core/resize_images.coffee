@@ -27,7 +27,7 @@ module.exports =
         # *************
         _get_files = (cb)->
             err, files <- async.map tavmant.modules.resize_images.paths, (path, next)->
-                err, result <- dir_helper.files "#{process.cwd()}/#{path}"
+                err, result <- dir_helper.files "#{tavmant.path}/#{path}"
                 next err, result
             cb err, _.flatten files
 

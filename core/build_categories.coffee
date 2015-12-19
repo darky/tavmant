@@ -35,7 +35,7 @@ module.exports =
         #    PRIVATE
         # *************
         _generate = (parsed, cb)->
-            <- async.each parsed, (item, next)->
+            <- async.each-series parsed, (item, next)->
                 builder <- _get_builder item, parsed
                 <- builder.start!
                 next!
@@ -45,7 +45,7 @@ module.exports =
             err, [list_wrapper_content, meta] <- async.parallel [
                 (next)->
                     template_name = if item.2 then "subcategory-list-wrapper.html" else "list-wrapper.html"
-                    fs.read-file "#{process.cwd()}/templates/categories/#{template_name}", encoding : "utf8", next
+                    fs.read-file "#{tavmant.path}/templates/categories/#{template_name}", encoding : "utf8", next
                 (next)->
                     if _.is-error meta = yaml.safe-load item.4
                         next meta
@@ -64,10 +64,10 @@ module.exports =
                     .replace "__title__", meta.title
                     .replace "__text__", item.5
                     .replace "__name__", item.0
-                path : path.join process.env.PWD, "pages/", "#{item.2}/#{item.0}.html"
+                path : path.join tavmant.path, "pages/", "#{item.2}/#{item.0}.html"
 
         _get_favorites = (parsed, cb)->
-            err, html_content <- fs.read-file "#{process.cwd()}/templates/categories/favorites.html" encoding : "utf8"
+            err, html_content <- fs.read-file "#{tavmant.path}/templates/categories/favorites.html" encoding : "utf8"
             if err then cb err else cb null, 
                 _ parsed
                 .filter (item)-> !!item.3
@@ -78,18 +78,18 @@ module.exports =
                 .join ""
 
         _get_categories_items_favorites = (cb)->
-            err, favorites_template <- fs.read-file "#{process.cwd()}/templates/categories/subcategory-list-favorites.html",
+            err, favorites_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
             if tavmant.helpers.is_error err then return
             err, files_names <- async.waterfall [
-                async.apply fs.readdir, "#{process.cwd()}/categories"
+                async.apply fs.readdir, "#{tavmant.path}/categories"
                 (files_names, next)-> next null, _.filter files_names, (file_name)-> file_name isnt "tavmant-list.csv"
             ]
             if tavmant.helpers.is_error err then return
             err, all_items <- async.waterfall [
                 (next)->
                     err, file_contents <- async.map files_names, (item, cb)->
-                        fs.read-file "#{process.cwd()}/categories/#{item}", encoding : "utf8", (err, content)-> cb err, content
+                        fs.read-file "#{tavmant.path}/categories/#{item}", encoding : "utf8", (err, content)-> cb err, content
                     if err then next err else next null, file_contents
                 (file_contents, next)->
                     async.map file_contents, (item, cb)->
@@ -112,7 +112,7 @@ module.exports =
                 .value!.join ""
 
         _get_html_subcategory = (item, parsed, cb)->
-            err, list_content <- fs.read-file "#{process.cwd()}/templates/categories/list.html" encoding : "utf8"
+            err, list_content <- fs.read-file "#{tavmant.path}/templates/categories/list.html" encoding : "utf8"
             if tavmant.helpers.is_error err then return
             cb do
                 _ if item.6 then _transform_parsed parsed, item.6 else parsed
@@ -125,11 +125,11 @@ module.exports =
                 .value!.join ""
 
         _get_html_subcategory_item = (item, cb)->
-            err, subcategory_template <- fs.read-file "#{process.cwd()}/templates/categories/subcategory-list.html", encoding : "utf8"
+            err, subcategory_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list.html", encoding : "utf8"
             if tavmant.helpers.is_error err then return
             err, parsed_subcategory <- (next)->
                 if tavmant.modules.category.portfolio
-                    err, paths <- dir_helper.paths "#{process.cwd!}/assets/img/tavmant-categories/#{item.0}", true
+                    err, paths <- dir_helper.paths "#{tavmant.path}/assets/img/tavmant-categories/#{item.0}", true
                     if err
                         next err
                     else
@@ -141,7 +141,7 @@ module.exports =
                             .map (name)-> [name, name]
                             .value!
                 else
-                    err, subcategory_content <- fs.read-file "#{process.cwd()}/categories/#{item.0}.csv", encoding : "utf8"
+                    err, subcategory_content <- fs.read-file "#{tavmant.path}/categories/#{item.0}.csv", encoding : "utf8"
                     if err then next err else csv_parse subcategory_content, delimiter : ";", next
             if tavmant.helpers.is_error err then return
             cb do
@@ -157,8 +157,8 @@ module.exports =
 
         _get_menu = (parsed, cb)->
             err, [html_category, html_subcategory] <- async.parallel [
-                async.apply fs.read-file, "#{process.cwd()}/templates/categories/menu-category.html", encoding : "utf8"  
-                async.apply fs.read-file, "#{process.cwd()}/templates/categories/menu-subcategory.html", encoding : "utf8"
+                async.apply fs.read-file, "#{tavmant.path}/templates/categories/menu-category.html", encoding : "utf8"  
+                async.apply fs.read-file, "#{tavmant.path}/templates/categories/menu-subcategory.html", encoding : "utf8"
             ]
             if err then cb err else cb null,
                 _ parsed
@@ -179,7 +179,7 @@ module.exports =
 
         _get_parsed = (cb)->
             err, result <- async.waterfall [
-                async.apply fs.read-file, "#{process.cwd()}/categories/tavmant-list.csv", encoding : "utf8"
+                async.apply fs.read-file, "#{tavmant.path}/categories/tavmant-list.csv", encoding : "utf8"
                 (data, next)-> csv_parse data, delimiter : ";", next
             ]
             if tavmant.helpers.is_error err then return

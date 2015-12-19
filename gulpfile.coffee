@@ -15,9 +15,11 @@ yaml = require "js-yaml"
 # ********************
 #    GLOBAL DEFINE
 # ********************
+process.env.PATH = process.env.PATH.concat ":/usr/local/bin"
 global.tavmant = {}
 global.tavmant.radio = {}
-modules = fs.read-file-sync "settings/modules.yaml", encoding : "utf8"
+global.tavmant.path = __dirname
+modules = fs.read-file-sync "#{tavmant.path}/settings/modules.yaml", encoding : "utf8"
 global.tavmant.modules = yaml.safe-load modules
 global.tavmant.helpers = require "./core/helpers.coffee"
 
@@ -52,7 +54,7 @@ up_server = (dir)->
 #    BUILD DEV
 # ***************
 gulp.task "очистка", (cb)->
-    del ["@dev/**/*.*", "@prod/**/*.*"], cb
+    del ["#{tavmant.path}/@dev/**/*.*", "#{tavmant.path}/@prod/**/*.*"], cb
 
 gulp.task "построение категорий", (cb)->
     Categories_Build = require "./core/build_categories.coffee"
@@ -64,22 +66,27 @@ gulp.task "построение HTML", (cb)->
     html_builder = new HTML_Build
     html_builder.start cb
 
-gulp.task "резка изображений", (cb)->
+gulp.task "резка изображений", ["копирование изображений и других бинарных файлов"], (cb)->
     Resize_Images = require "./core/resize_images.coffee"
     resize_images = new Resize_Images
     resize_images.start cb
 
 gulp.task "копирование CSS JS", ->
     gulp.src [
-        "./assets/**/*.js"
-        "./assets/**/*.css"
+        "#{tavmant.path}/assets/**/*.js"
+        "#{tavmant.path}/assets/**/*.css"
     ]
     .pipe cache "text_assets"
-    .pipe gulp.dest "./@dev/"
+    .pipe gulp.dest "#{tavmant.path}/@dev/"
 
 gulp.task "копирование изображений и других бинарных файлов", ->
-    gulp.src ["./assets/**/*", "!./assets/**/*.js", "!./assets/**/*.css", "!./assets/img/tavmant-portfolio/**/*.jpg"]
-    .pipe gulp.dest "./@dev/"
+    gulp.src [
+        "#{tavmant.path}/assets/**/*"
+        "!#{tavmant.path}/assets/**/*.js"
+        "!#{tavmant.path}/assets/**/*.css"
+        "!#{tavmant.path}/assets/img/tavmant-portfolio/**/*.jpg"
+    ]
+    .pipe gulp.dest "#{tavmant.path}/@dev/"
 
 gulp.task "базовая сборка", ["очистка"], (cb)->
     run_sequence do
@@ -92,46 +99,46 @@ gulp.task "базовая сборка", ["очистка"], (cb)->
         cb
 
 gulp.task "сервер", ["базовая сборка"], ->
-    up_server "./@dev"
+    up_server "#{tavmant.path}/@dev"
     require "./core/livereload.coffee" .call!
 
 # *****************
 #    PRODUCTION
 # *****************
 gulp.task "копирование шрифтов", ->
-    gulp.src "@dev/font/**/*.*"
-    .pipe gulp.dest "@prod/font"
+    gulp.src "#{tavmant.path}/@dev/font/**/*.*"
+    .pipe gulp.dest "#{tavmant.path}/@prod/font"
 
 gulp.task "копирование файлов в корень сайта", ->
-    gulp.src "./site_root/**/*"
-    .pipe gulp.dest "@prod"
+    gulp.src "#{tavmant.path}/site_root/**/*"
+    .pipe gulp.dest "#{tavmant.path}/@prod"
 
 gulp.task "сжатие изображений", ->
     gulp.src [
-        "@dev/**/*.jpg"
-        "@dev/**/*.jpeg"
-        "@dev/**/*.png"
-        "@dev/**/*.gif"
-        "@dev/**/*.svg"
-        "!@dev/font/**/*.svg"
+        "#{tavmant.path}/@dev/**/*.jpg"
+        "#{tavmant.path}/@dev/**/*.jpeg"
+        "#{tavmant.path}/@dev/**/*.png"
+        "#{tavmant.path}/@dev/**/*.gif"
+        "#{tavmant.path}/@dev/**/*.svg"
+        "!#{tavmant.path}/@dev/font/**/*.svg"
     ]
     .pipe image_min()
-    .pipe gulp.dest "@prod"
+    .pipe gulp.dest "#{tavmant.path}/@prod"
 
 gulp.task "объединение CSS JS", ->
     assets = useref.assets()
-    gulp.src "@dev/**/*.html"
+    gulp.src "#{tavmant.path}/@dev/**/*.html"
     .pipe assets
     .pipe assets.restore()
     .pipe useref()
-    .pipe gulp.dest "@prod"
+    .pipe gulp.dest "#{tavmant.path}/@prod"
 
 gulp.task "сжатие HTML", ["объединение CSS JS"], ->
-    gulp.src "@prod/**/*.html"
+    gulp.src "#{tavmant.path}/@prod/**/*.html"
     .pipe minify_html do
         collapseWhitespace : true
         removeComments     : true
-    .pipe gulp.dest "@prod"
+    .pipe gulp.dest "#{tavmant.path}/@prod"
 
 minify_js_css = !(type, cb)->
     try_resolve = _.after 2, cb
@@ -140,14 +147,14 @@ minify_js_css = !(type, cb)->
     else if type is "css"
         minificator = minify_css
 
-    gulp.src "@prod/**/*.#type"
+    gulp.src "#{tavmant.path}/@prod/**/*.#type"
     .pipe minificator()
-    .pipe gulp.dest "@prod"
+    .pipe gulp.dest "#{tavmant.path}/@prod"
     .on "finish", try_resolve
 
-    gulp.src "@dev/#type/custom/**/*.#type"
+    gulp.src "#{tavmant.path}/@dev/#type/custom/**/*.#type"
     .pipe minificator()
-    .pipe gulp.dest "@prod/#type/custom"
+    .pipe gulp.dest "#{tavmant.path}/@prod/#type/custom"
     .on "finish", try_resolve
 
 gulp.task "сжатие JS", ["объединение CSS JS"], (cb)->
@@ -165,7 +172,7 @@ gulp.task "боевая сборка", ["базовая сборка"], ->
         "копирование шрифтов"
         "копирование файлов в корень сайта"
     ], ->
-        up_server "./@prod"
+        up_server "#{tavmant.path}/@prod"
 
 
 # **********************
@@ -177,60 +184,59 @@ gulp.task "сборка для разработчика", ["сервер"]
 # ******************
 #    RUN PACKAGED
 # ******************
-if process.env.TAVMANT_PACKAGE
-    # from gulp 3.9.0
-    chalk = require "chalk"
-    gutil = require "gulp-util"
-    prettyTime = require "pretty-hrtime"
+# from gulp 3.9.0
+chalk = require "chalk"
+gutil = require "gulp-util"
+prettyTime = require "pretty-hrtime"
 
-    formatError = (e)->
-      unless e.err
-        return e.message;
+formatError = (e)->
+  unless e.err
+    return e.message;
 
-      # PluginError
-      if typeof e.err.showStack is "boolean"
-        return e.err.toString()
+  # PluginError
+  if typeof e.err.showStack is "boolean"
+    return e.err.toString()
 
-      # Normal error
-      if e.err.stack
-        return e.err.stack
+  # Normal error
+  if e.err.stack
+    return e.err.stack
 
-      # Unknown (string, number, etc.)
-      return new Error(String(e.err)).stack
+  # Unknown (string, number, etc.)
+  return new Error(String(e.err)).stack
 
-    logEvents = (gulpInst)->
+logEvents = (gulpInst)->
 
-      # Total hack due to poor error management in orchestrator
-      gulpInst.on "err", ->
-        failed = true
+  # Total hack due to poor error management in orchestrator
+  gulpInst.on "err", ->
+    failed = true
 
-      gulpInst.on "task_start", (e)->
-        # TODO: batch these
-        # so when 5 tasks start at once it only logs one time with all 5
-        gutil.log("Стартовало", "\'" + chalk.cyan(e.task) + "\'...")
+  gulpInst.on "task_start", (e)->
+    # TODO: batch these
+    # so when 5 tasks start at once it only logs one time with all 5
+    gutil.log("Стартовало", "\'" + chalk.cyan(e.task) + "\'...")
 
-      gulpInst.on "task_stop", (e)->
-        time = prettyTime(e.hrDuration)
-        gutil.log(
-          "Завершилось", "\'" + chalk.cyan(e.task) + "\'",
-          "после", chalk.magenta(time)
-        )
+  gulpInst.on "task_stop", (e)->
+    time = prettyTime(e.hrDuration)
+    gutil.log(
+      "Завершилось", "\'" + chalk.cyan(e.task) + "\'",
+      "после", chalk.magenta(time)
+    )
 
-      gulpInst.on "task_err", (e)->
-        msg = formatError(e)
-        time = prettyTime(e.hrDuration)
-        gutil.log(
-          "\'" + chalk.cyan(e.task) + "\'",
-          chalk.red("завершилось с ошибкой после"),
-          chalk.magenta(time)
-        )
-        gutil.log(msg)
+  gulpInst.on "task_err", (e)->
+    msg = formatError(e)
+    time = prettyTime(e.hrDuration)
+    gutil.log(
+      "\'" + chalk.cyan(e.task) + "\'",
+      chalk.red("завершилось с ошибкой после"),
+      chalk.magenta(time)
+    )
+    gutil.log(msg)
 
-      gulpInst.on "task_not_found", (err)->
-        gutil.log(
-          chalk.red("Задача \'" + err.task + "\' отсутствует")
-        )
-        process.exit(1)
+  gulpInst.on "task_not_found", (err)->
+    gutil.log(
+      chalk.red("Задача \'" + err.task + "\' отсутствует")
+    )
+    process.exit(1)
 
-    logEvents gulp
-    gulp.start [that]
+logEvents gulp
+gulp.start ["боевая сборка"]
