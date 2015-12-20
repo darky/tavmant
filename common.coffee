@@ -16,7 +16,6 @@ yaml = require "js-yaml"
 # ********************
 #    GLOBAL DEFINE
 # ********************
-process.env.PATH = process.env.PATH.concat ":/usr/local/bin"
 global.tavmant = {}
 global.tavmant.radio = _.extend {}, radio.Requests, backbone.Events
 global.tavmant.path = __dirname
