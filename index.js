@@ -5,3 +5,4 @@ if (process.env.TAVMANT_DEV) {
   require(tavmant.path + "/dev.coffee");
 }
 require("./gulp/gulpfile.coffee");
+require("./electron_frontend/routes.coffee");
