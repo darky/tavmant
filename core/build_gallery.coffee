@@ -23,7 +23,7 @@ module.exports =
                 async.apply dir_helper.paths, "./assets/img/tavmant-gallery", true
                 async.apply fs.read-file, "./templates/gallery.html", encoding : "utf8"
             ]
-            if tavmant.helpers.is_error err then return
+            if err then console.log err; return
             image_names = _.map image_paths, (path)->
                 path.match(
                     //

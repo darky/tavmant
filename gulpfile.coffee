@@ -21,7 +21,6 @@ global.tavmant.radio = {}
 global.tavmant.path = __dirname
 modules = fs.read-file-sync "#{tavmant.path}/settings/modules.yaml", encoding : "utf8"
 global.tavmant.modules = yaml.safe-load modules
-global.tavmant.helpers = require "./core/helpers.coffee"
 
 
 # **********************

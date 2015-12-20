@@ -52,6 +52,6 @@ module.exports =
                 err <- _resize [that]
                 return cb!
             err, files <- _get_files
-            if tavmant.helpers.is_error err then return
+            if err then console.log err; return
             err <- _resize _.filter files, (file)-> !!file.match /\.jpg$/
-            unless tavmant.helpers.is_error err then cb!
+            if err then console.log err else cb!
