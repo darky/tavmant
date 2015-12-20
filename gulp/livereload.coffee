@@ -89,7 +89,7 @@ module.exports = (done)->
                 .concat "/"
                 .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
             (file)->
-                global.tavmant.radio["current:resize:image"] = file.path
+                global.tavmant.radio.reply "current:resize:image", file.path
                 run_sequence [
                     "резка изображений"
                 ], reload
