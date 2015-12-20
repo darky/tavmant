@@ -23,8 +23,10 @@ watch = require "gulp-watch"
 # ***********************
 #    LIVERELOAD DEFINE
 # ***********************
-module.exports = ->
-    server = livereload.create-server!
+server = null
+module.exports = (done)->
+    <- (next)-> server?config.server.close next or next!
+    server := livereload.create-server!
 
     reload = ->
         server.refresh ""
@@ -91,3 +93,5 @@ module.exports = ->
                 run_sequence [
                     "резка изображений"
                 ], reload
+
+    done!

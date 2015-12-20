@@ -28,7 +28,6 @@ global.tavmant.helpers = require "./core/helpers.coffee"
 #    GULP & KO DEFINE
 # **********************
 gulp = require "gulp"
-cache = require "gulp-cached"
 del = require "del"
 image_min = require "gulp-imagemin"
 minify_css = require "gulp-minify-css"
@@ -42,12 +41,16 @@ useref = require "gulp-useref"
 # ******************
 #    LOCAL SERVER
 # ******************
-up_server = (dir)->
+server = null
+up_server = (dir, cb)->
     file = new static_server.Server dir
-    require "http" .create-server (req, res)->
+    <- (next)-> server?close next or next!
+    server := require "http" .create-server (req, res)->
         req.add-listener "end", -> file.serve req, res
         .resume!
-    .listen 9000, -> console.log "Сервер поднят по адресу localhost:9000"
+    .listen 9000, ->
+        console.log "Сервер поднят по адресу localhost:9000"
+        cb!
 
 
 # ***************
@@ -76,7 +79,6 @@ gulp.task "копирование CSS JS", ->
         "#{tavmant.path}/assets/**/*.js"
         "#{tavmant.path}/assets/**/*.css"
     ]
-    .pipe cache "text_assets"
     .pipe gulp.dest "#{tavmant.path}/@dev/"
 
 gulp.task "копирование изображений и других бинарных файлов", ->
@@ -98,9 +100,11 @@ gulp.task "базовая сборка", ["очистка"], (cb)->
         .concat if tavmant.modules.resize_images then "резка изображений" else []
         cb
 
-gulp.task "сервер", ["базовая сборка"], ->
-    up_server "#{tavmant.path}/@dev"
-    require "./core/livereload.coffee" .call!
+gulp.task "сервер", ["базовая сборка"], (cb)->
+    <- up_server "#{tavmant.path}/@dev"
+    <- require <| "./core/livereload.coffee"
+    cb!
+
 
 # *****************
 #    PRODUCTION
@@ -163,7 +167,7 @@ gulp.task "сжатие JS", ["объединение CSS JS"], (cb)->
 gulp.task "сжатие CSS", ["объединение CSS JS"], (cb)->
     minify_js_css "css", cb
 
-gulp.task "боевая сборка", ["базовая сборка"], ->
+gulp.task "боевая сборка", ["базовая сборка"], (cb)->
     run_sequence [
         "сжатие изображений"
         "сжатие HTML"
@@ -172,7 +176,7 @@ gulp.task "боевая сборка", ["базовая сборка"], ->
         "копирование шрифтов"
         "копирование файлов в корень сайта"
     ], ->
-        up_server "#{tavmant.path}/@prod"
+        up_server "#{tavmant.path}/@prod", cb
 
 
 # **********************
@@ -238,4 +242,3 @@ logEvents = (gulpInst)->
     process.exit(1)
 
 logEvents gulp
-gulp.start ["боевая сборка"]
