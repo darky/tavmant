@@ -59,17 +59,17 @@ gulp.task "очистка", (cb)->
     del ["#{tavmant.path}/@dev/**/*.*", "#{tavmant.path}/@prod/**/*.*"], cb
 
 gulp.task "построение категорий", (cb)->
-    Categories_Build = require "./core/build_categories.coffee"
+    Categories_Build = require "./build_categories.coffee"
     categories_builder = new Categories_Build
     categories_builder.start cb
 
 gulp.task "построение HTML", (cb)->
-    HTML_Build = require "./core/build_html.coffee"
+    HTML_Build = require "./build_html.coffee"
     html_builder = new HTML_Build
     html_builder.start cb
 
 gulp.task "резка изображений", ["копирование изображений и других бинарных файлов"], (cb)->
-    Resize_Images = require "./core/resize_images.coffee"
+    Resize_Images = require "./resize_images.coffee"
     resize_images = new Resize_Images
     resize_images.start cb
 
@@ -101,7 +101,7 @@ gulp.task "базовая сборка", ["очистка"], (cb)->
 
 gulp.task "сервер", ["базовая сборка"], (cb)->
     <- up_server "#{tavmant.path}/@dev"
-    <- require <| "./core/livereload.coffee"
+    <- require <| "./livereload.coffee"
     cb!
 
 
