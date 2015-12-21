@@ -9,6 +9,11 @@ Backbone_Mixin = require "backbone-react-component"
 
 module.exports = class extends React.Component
 
+    _commit = ->
+        textarea = document.query-selector "\#commit-message"
+        if textarea.value isnt ""
+            tavmant.radio.trigger "git:commit", textarea.value
+
     _pull = ->
         tavmant.radio.trigger "git:pull"
 
@@ -47,11 +52,11 @@ module.exports = class extends React.Component
                                     | "modified" => "fa fa-edit"
                                     | "deleted" => "fa fa-remove"
                     .flatten!value!
-                $.div class-name : "col-lg-6 col-md-6 col-sm-6",
+                $.form class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.p null,
-                        $.textarea cols : 30
+                        $.textarea cols : 30, required : true, id : "commit-message"
                     $.p null,
-                        $.button class-name : "btn btn-default",
+                        $.button class-name : "btn btn-default", on-click : _commit,
                             "Сохранить"
             $.div class-name : "row pager", style : marginTop : "80px",
                 @state.model.diff.split "\n" .map (text)->

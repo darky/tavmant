@@ -10,6 +10,16 @@ module.exports = class extends Backbone.Model
 
     _repo : null
 
+    _commit = (message)->
+        files = _.reduce ["created", "deleted", "modified", "not_added"], (paths, action)~>
+            paths.concat @get("status")[action]
+        , []
+        err <~ @_repo.commit message, files
+        if err then tavmant.radio.trigger "logs:new:err", err.message
+        tavmant.radio.trigger "git:status"
+        tavmant.radio.trigger "git:history"
+        tavmant.radio.trigger "git:diff"
+
     _diff = ->
         err, diff <~ @_repo.diff
         if err
@@ -56,5 +66,6 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "git:diff", _diff
         @listen-to tavmant.radio, "git:pull", _pull
         @listen-to tavmant.radio, "git:push", _push
+        @listen-to tavmant.radio, "git:commit", _commit
 
         @_repo = git tavmant.path
