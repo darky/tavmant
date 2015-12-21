@@ -11,6 +11,8 @@ module.exports = class extends Backbone.Model
     _repo : null
 
     _commit = (message)->
+        err <~ @_repo.add @get("status").conflicted
+        if err then tavmant.radio.trigger "logs:new:err", err.message
         files = _.reduce ["created", "deleted", "modified", "not_added", "conflicted"], (paths, action)~>
             paths.concat @get("status")[action]
         , []
@@ -42,6 +44,7 @@ module.exports = class extends Backbone.Model
         if err then tavmant.radio.trigger "logs:new:err", err.message
         tavmant.radio.trigger "git:history"
         tavmant.radio.trigger "git:diff"
+        tavmant.radio.trigger "git:status"
 
     _push = ->
         @set "waiting", "Отправка..."
