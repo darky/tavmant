@@ -9,6 +9,9 @@ Backbone_Mixin = require "backbone-react-component"
 
 module.exports = class extends React.Component
 
+    _pull = ->
+        tavmant.radio.trigger "git:pull"
+
     component-will-mount : ->
         Backbone_Mixin.on-model @, tavmant.stores.git_store
         tavmant.radio.trigger "git:status"
@@ -22,7 +25,7 @@ module.exports = class extends React.Component
         $.div null,
             $.div class-name : "row pager",
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6",
-                    $.button class-name : "btn btn-default",
+                    $.button class-name : "btn btn-default", on-click : _pull,
                         "Получить"
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.button class-name : "btn btn-default",
@@ -57,10 +60,13 @@ module.exports = class extends React.Component
                         class-name : "text-left small #{color}", key : _.unique-id "diff"
                         text
             $.div class-name : "row pager text-left", style : marginTop : "80px",
-                _.map @state.model.history, (item)->
-                    $.p do
-                        class-name : "text-left"
-                        key : _.unique-id "gitlog"
-                        "#{item.date} | #{item.author_name} | #{
-                            item.message.replace 'HEAD -> master', 'ЛОКАЛЬНО' .replace 'origin/master', 'В ОБЛАКЕ'
-                        }"
+                if @state.model.waiting
+                    $.span class-name : "bg-warning", "Получение..."
+                else
+                    _.map @state.model.history, (item)->
+                        $.p do
+                            class-name : "text-left"
+                            key : _.unique-id "gitlog"
+                            "#{item.date} | #{item.author_name} | #{
+                                item.message.replace 'HEAD -> master', 'ЛОКАЛЬНО' .replace 'origin/master', 'В ОБЛАКЕ'
+                            }"

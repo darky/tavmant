@@ -22,8 +22,15 @@ module.exports = class extends Backbone.Model
         if err
             tavmant.radio.trigger "logs:new:err", err.message
         else
-            @set "history",
-                _.slice log.all, 0, 10
+            @set do
+                history : _.slice log.all, 0, 10
+                waiting : false
+
+    _pull = ->
+        @set "waiting", true
+        err <- @_repo.pull
+        if err then tavmant.radio.trigger "logs:new:err", err.message
+        tavmant.radio.trigger "git:history"
 
     _status = ->
         err, status <~ @_repo.status
@@ -41,5 +48,6 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "git:status", _status
         @listen-to tavmant.radio, "git:history", _history
         @listen-to tavmant.radio, "git:diff", _diff
+        @listen-to tavmant.radio, "git:pull", _pull
 
         @_repo = git tavmant.path
