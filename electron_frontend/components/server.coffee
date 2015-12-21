@@ -10,6 +10,7 @@ Backbone_Mixin = require "backbone-react-component"
 #    STORES
 # ************
 Server_Store = require "../stores/server.coffee"
+server_store = new Server_Store
 
 
 module.exports = class extends React.Component
@@ -21,7 +22,7 @@ module.exports = class extends React.Component
         tavmant.radio.trigger "server:start:prod"
 
     component-will-mount : ->
-        Backbone_Mixin.on-model @, model : new Server_Store
+        Backbone_Mixin.on-model @, model : server_store
 
     component-will-unmount : ->
         Backbone_Mixin.off @
