@@ -40,7 +40,7 @@ module.exports = class extends React.Component
                         "Отправить"
             $.div class-name : "row pager", style : marginTop : "80px",
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6 text-left",
-                    _ ["modified", "not_added", "created", "deleted"]
+                    _ ["modified", "not_added", "created", "deleted", "conflicted"]
                     .map (action)~>
                         _.map @state.model.status[action], (path)->
                             $.p do
@@ -51,6 +51,7 @@ module.exports = class extends React.Component
                                     | "not_added", "created" => "fa fa-plus"
                                     | "modified" => "fa fa-edit"
                                     | "deleted" => "fa fa-remove"
+                                    | "conflicted" => "fa fa-medkit"
                     .flatten!value!
                 $.form class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.p null,

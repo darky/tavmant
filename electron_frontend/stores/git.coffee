@@ -11,7 +11,7 @@ module.exports = class extends Backbone.Model
     _repo : null
 
     _commit = (message)->
-        files = _.reduce ["created", "deleted", "modified", "not_added"], (paths, action)~>
+        files = _.reduce ["created", "deleted", "modified", "not_added", "conflicted"], (paths, action)~>
             paths.concat @get("status")[action]
         , []
         err <~ @_repo.commit message, files
