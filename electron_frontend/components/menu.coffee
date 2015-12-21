@@ -10,4 +10,4 @@ module.exports = class extends React.Component
     render : ->
         $.ul class-name : "nav nav-pills nav-stacked",
             $.li role : "presentation",
-                $.a href : "", "Запуск сервера"
+                $.a href : "#", "Запуск сервера"

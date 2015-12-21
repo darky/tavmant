@@ -6,11 +6,6 @@ React = require "react"
 dom = require "react-dom"
 
 
-# *************
-#    STORES
-# *************
-
-
 # ****************
 #    COMPONENTS
 # ****************
@@ -24,16 +19,23 @@ Styles_Comp = require "./components/styles.coffee"
 class Router extends Backbone.Router
 
     routes :
-        "" : 123
+        "" : require "./components/server.coffee"
 
 router = new Router
-router.on "route", ->
+router.on "route", (route)->
+    dom.render do
+        React.create-element @routes[route]
+        document.query-selector "\#content"
 
-dom.render do
-    React.create-element Menu_Comp
-    document.query-selector "\#menu"
+
+# *******************
+#    RENDER INITIAL
+# *******************
 dom.render do
     React.create-element Styles_Comp
     document.query-selector "\#styles"
+dom.render do
+    React.create-element Menu_Comp
+    document.query-selector "\#menu"
 
 Backbone.history.start!
