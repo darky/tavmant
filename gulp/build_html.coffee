@@ -46,7 +46,7 @@ module.exports =
                         build_options
                     stream._transform ...
                 catch e
-                    console.log e
+                    tavmant.radio.trigger "logs:new:err", e.message
                     cb!
 
         _get_helpers = (cb)->
@@ -73,7 +73,9 @@ module.exports =
 
         _get_partials = (cb)->
             err, partial_paths <- dir_helper.paths "#{tavmant.path}/partials" true
-            if err then console.log err; return
+            if err
+                tavmant.radio.trigger "logs:new:err", err.message
+                return
             partial_names = _.map partial_paths, (partial_path)->
                 path.basename partial_path, ".html"
             err, partial_contents <- async.map partial_paths, (path, next)->
@@ -92,7 +94,9 @@ module.exports =
                 helpers  : _get_helpers
                 layout   : _get_layout_content
                 partials : _get_partials
-            if err then console.log err; return
+            if err
+                tavmant.radio.trigger "logs:new:err", err.message
+                return
             cb res
 
 
@@ -103,7 +107,7 @@ module.exports =
             @_get_html_stream!
             .pipe front_matter!
             .on "error", (e)->
-                console.log "Ошибка в написании мета-информации для страницы #{e.file-name}"
+                tavmant.radio.trigger "logs:new:err", "Ошибка в написании мета-информации для страницы #{e.file-name}"
                 cb!
             .pipe _build_transform build_options
             .pipe rename _rename_file_to_index

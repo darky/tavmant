@@ -46,4 +46,5 @@ module.exports = class extends React.Component
                 _.map @state.logs_state.logs, (log)->
                     $.p do
                         key : _.unique-id "log"
-                        log
+                        class-name : if log.type is "error" then "bg-danger"
+                        log.text
