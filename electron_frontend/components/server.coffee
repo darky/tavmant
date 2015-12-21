@@ -36,8 +36,8 @@ module.exports = class extends React.Component
                     "Запуск в боевом режиме"
             $.div class-name : "row pager",
                 if @state.model.waiting
-                    "Запускается..."
+                    $.span class-name : "bg-warning", "Запускается..."
                 else if @state.model.server is "dev"
-                    "Запущено в режиме разработчика"
+                    $.span class-name : "bg-success", "Запущено в режиме разработчика"
                 else if @state.model.server is "prod"
-                    "Запущено в боевом разработчика"
+                    $.span class-name : "bg-success", "Запущено в боевом разработчика"
