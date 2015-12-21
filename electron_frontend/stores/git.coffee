@@ -18,6 +18,8 @@ module.exports = class extends Backbone.Model
             @set "diff", diff
 
     _history = ->
+        err <~ @_repo.fetch
+        if err then tavmant.radio.trigger "logs:new:err", err.message
         err, log <~ @_repo.log
         if err
             tavmant.radio.trigger "logs:new:err", err.message
