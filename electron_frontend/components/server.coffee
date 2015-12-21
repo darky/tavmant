@@ -30,10 +30,12 @@ module.exports = class extends React.Component
     render : ->
         $.div null,
             $.div class-name : "row pager",
-                $.button class-name : "btn btn-default", on-click : _dev,
-                    "Запуск в режиме разработчика"
-                $.button class-name : "btn btn-default", on-click : _prod,
-                    "Запуск в боевом режиме"
+                $.div class-name : "col-lg-6 col-md-6 col-sm-6",
+                    $.button class-name : "btn btn-default", on-click : _dev,
+                        "Запуск в режиме разработчика"
+                $.div class-name : "col-lg-6 col-md-6 col-sm-6",
+                    $.button class-name : "btn btn-default", on-click : _prod,
+                        "Запуск в боевом режиме"
             $.div class-name : "row pager",
                 if @state.model.waiting
                     $.span class-name : "bg-warning", "Запускается..."
