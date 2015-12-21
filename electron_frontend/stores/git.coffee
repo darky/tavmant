@@ -8,7 +8,7 @@ git = require "simple-git"
 
 module.exports = class extends Backbone.Model
 
-    _repo : null
+    _repo : undefined
 
     _commit = (message)->
         files = _.reduce ["created", "deleted", "modified", "not_added"], (paths, action)~>
