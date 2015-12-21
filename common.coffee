@@ -8,16 +8,28 @@ fs = require "fs"
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
-backbone = require "backbone"
-radio = require "backbone.radio"
+Backbone = require "backbone"
+Radio = require "backbone.radio"
 yaml = require "js-yaml"
+
+
+# ************
+#    STORES
+# ************
+Server_Store = require "./electron_frontend/stores/server.coffee"
+Logs_Store = require "./electron_frontend/stores/logs.coffee"
 
 
 # ********************
 #    GLOBAL DEFINE
 # ********************
 global.tavmant = {}
-global.tavmant.radio = _.extend {}, radio.Requests, backbone.Events
+global.tavmant.radio = _.extend {}, Radio.Requests, Backbone.Events
 global.tavmant.path = __dirname
+
 modules = fs.read-file-sync "#{tavmant.path}/settings/modules.yaml", encoding : "utf8"
 global.tavmant.modules = yaml.safe-load modules
+
+global.tavmant.stores = {}
+global.tavmant.stores.server_store = new Server_Store
+global.tavmant.stores.logs_store = new Logs_Store

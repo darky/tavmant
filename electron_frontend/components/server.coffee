@@ -7,15 +7,6 @@ $ = React.DOM
 Backbone_Mixin = require "backbone-react-component"
 
 
-# ************
-#    STORES
-# ************
-Server_Store = require "../stores/server.coffee"
-server_store = new Server_Store
-Logs_Store = require "../stores/logs.coffee"
-logs_store = new Logs_Store
-
-
 module.exports = class extends React.Component
 
     _dev = ->
@@ -29,8 +20,8 @@ module.exports = class extends React.Component
     component-will-mount : ->
         Backbone_Mixin.on @,
             models : 
-                server_state : server_store
-                logs_state : logs_store
+                server_state : tavmant.stores.server_store
+                logs_state : tavmant.stores.logs_store
 
     component-will-unmount : ->
         Backbone_Mixin.off @
