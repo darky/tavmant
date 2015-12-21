@@ -19,10 +19,12 @@ Styles_Comp = require "./components/styles.coffee"
 class Router extends Backbone.Router
 
     routes :
-        "" : require "./components/server.coffee"
+        ""    : require "./components/server.coffee"
+        "git" : require "./components/git.coffee"
 
 router = new Router
-router.on "route", (route)->
+router.on "route", ->
+    route = location.hash.replace "#", ""
     dom.render do
         React.create-element @routes[route]
         document.query-selector "\#content"

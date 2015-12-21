@@ -11,3 +11,5 @@ module.exports = class extends React.Component
         $.ul class-name : "nav nav-pills nav-stacked",
             $.li role : "presentation",
                 $.a href : "#", "Запуск сервера"
+            $.li role : "presentation",
+                $.a href : "\#git", "Облако (Получение/Отправка)"
