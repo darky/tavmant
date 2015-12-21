@@ -16,10 +16,10 @@ module.exports = class extends Backbone.Model
         @set "waiting", true
 
     _dev_ready = ->
-        @set server : "dev", waiting : false
+        @set running : "dev", waiting : false
 
     _prod_ready = ->
-        @set server : "prod", waiting : false
+        @set running : "prod", waiting : false
 
     initialize : ->
         @listen-to tavmant.radio, "server:start:dev", _dev_start

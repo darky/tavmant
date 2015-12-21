@@ -29,7 +29,7 @@ up_server = (dir, cb)->
         req.add-listener "end", -> file.serve req, res
         .resume!
     .listen 9000, ->
-        console.log "Сервер поднят по адресу localhost:9000"
+        tavmant.radio.trigger "logs:new", "Сервер поднят по адресу localhost:9000"
         cb!
 
 
@@ -196,29 +196,22 @@ logEvents = (gulpInst)->
   gulpInst.on "task_start", (e)->
     # TODO: batch these
     # so when 5 tasks start at once it only logs one time with all 5
-    gutil.log("Стартовало", "\'" + e.task + "\'...")
+    tavmant.radio.trigger "logs:new",
+      "Стартовало \'" + e.task + "\'..."
 
   gulpInst.on "task_stop", (e)->
     time = prettyTime(e.hrDuration)
-    gutil.log(
-      "Завершилось", "\'" + e.task + "\'",
-      "после", time
-    )
+    tavmant.radio.trigger "logs:new",
+      "Завершилось \'" + e.task + "\' после " + time
 
   gulpInst.on "task_err", (e)->
     msg = formatError(e)
     time = prettyTime(e.hrDuration)
-    gutil.log(
-      "\'" + e.task + "\'",
-      "завершилось с ошибкой после",
-      time
-    )
-    gutil.log(msg)
+    tavmant.radio.trigger "logs:new",
+      "\'" + e.task + "\' завершилось с ошибкой после " + time
 
   gulpInst.on "task_not_found", (err)->
-    gutil.log(
+    tavmant.radio.trigger "logs:new",
       "Задача \'" + err.task + "\' отсутствует"
-    )
-    process.exit(1)
 
 logEvents gulp
