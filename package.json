@@ -31,7 +31,7 @@
         "react-dom"                : "0.14.3",
         "run-sequence"             : "1.1.5",
         "searchjs"                 : "0.6.2",
-        "simple-git"               : "darrrk/git-js#0b45097199da206f77107cf2e857fd499213978e",
+        "simple-git"               : "1.18.0",
         "through2"                 : "2.0.0"
     },
     "main" : "electron.js"
