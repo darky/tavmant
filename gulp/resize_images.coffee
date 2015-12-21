@@ -48,7 +48,7 @@ module.exports =
         #    PUBLIC
         # ************
         start : (cb)->
-            if global.tavmant.radio.request "current:resize:image"
+            if global.tavmant.radio.request "gulp:current:resize:image"
                 err <- _resize [that]
                 return cb!
             err, files <- _get_files
