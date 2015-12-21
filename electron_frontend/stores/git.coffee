@@ -8,15 +8,17 @@ git = require "simple-git"
 
 module.exports = class extends Backbone.Model
 
+    _repo : null
+
     _diff = ->
-        err, diff <~ @get "repo" .diff
+        err, diff <~ @_repo.diff
         if err
             tavmant.radio.trigger "logs:new:err", err.message
         else
             @set "diff", diff
 
     _history = ->
-        err, log <~ @get "repo" .log
+        err, log <~ @_repo.log
         if err
             tavmant.radio.trigger "logs:new:err", err.message
         else
@@ -24,14 +26,13 @@ module.exports = class extends Backbone.Model
                 _.slice log.all, 0, 10
 
     _status = ->
-        err, status <~ @get "repo" .status
+        err, status <~ @_repo.status
         if err
             tavmant.radio.trigger "logs:new:err", err.message
         else
             @set "status", status
 
     defaults : ->
-        repo    : git tavmant.path
         diff    : ""
         history : []
         status  : []
@@ -40,3 +41,5 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "git:status", _status
         @listen-to tavmant.radio, "git:history", _history
         @listen-to tavmant.radio, "git:diff", _diff
+
+        @_repo = git tavmant.path
