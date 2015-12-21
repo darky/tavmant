@@ -8,7 +8,7 @@ git = require "simple-git"
 
 module.exports = class extends Backbone.Model
 
-    _repo : false
+    _repo : null
 
     _commit = (message)->
         files = _.reduce ["created", "deleted", "modified", "not_added"], (paths, action)~>
@@ -41,6 +41,7 @@ module.exports = class extends Backbone.Model
         err <- @_repo.pull
         if err then tavmant.radio.trigger "logs:new:err", err.message
         tavmant.radio.trigger "git:history"
+        tavmant.radio.trigger "git:diff"
 
     _push = ->
         @set "waiting", "Отправка..."
