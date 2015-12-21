@@ -49,5 +49,9 @@ module.exports = class extends React.Component
                     $.p null,
                         $.button class-name : "btn btn-default",
                             "Сохранить"
-            $.div class-name : "row pager", style : marginTop : "80px",
-                "история изменений"
+            $.div class-name : "row pager text-left", style : marginTop : "80px",
+                _.map @state.model.history, (item)->
+                    $.p do
+                        class-name : "text-left"
+                        key : _.unique-id "gitlog"
+                        "#{item.date} | #{item.author_name} | #{item.message}"
