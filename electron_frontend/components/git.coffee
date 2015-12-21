@@ -12,6 +12,9 @@ module.exports = class extends React.Component
     _pull = ->
         tavmant.radio.trigger "git:pull"
 
+    _push = ->
+        tavmant.radio.trigger "git:push"
+
     component-will-mount : ->
         Backbone_Mixin.on-model @, tavmant.stores.git_store
         tavmant.radio.trigger "git:status"
@@ -27,7 +30,7 @@ module.exports = class extends React.Component
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.button class-name : "btn btn-default", on-click : _pull,
                         "Получить"
-                $.div class-name : "col-lg-6 col-md-6 col-sm-6",
+                $.div class-name : "col-lg-6 col-md-6 col-sm-6", on-click : _push,
                     $.button class-name : "btn btn-default",
                         "Отправить"
             $.div class-name : "row pager", style : marginTop : "80px",
@@ -61,7 +64,7 @@ module.exports = class extends React.Component
                         text
             $.div class-name : "row pager text-left", style : marginTop : "80px",
                 if @state.model.waiting
-                    $.span class-name : "bg-warning", "Получение..."
+                    $.span class-name : "bg-warning", that
                 else
                     _.map @state.model.history, (item)->
                         $.p do

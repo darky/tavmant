@@ -27,8 +27,14 @@ module.exports = class extends Backbone.Model
                 waiting : false
 
     _pull = ->
-        @set "waiting", true
+        @set "waiting", "Получение..."
         err <- @_repo.pull
+        if err then tavmant.radio.trigger "logs:new:err", err.message
+        tavmant.radio.trigger "git:history"
+
+    _push = ->
+        @set "waiting", "Отправка..."
+        err <- @_repo.push
         if err then tavmant.radio.trigger "logs:new:err", err.message
         tavmant.radio.trigger "git:history"
 
@@ -49,5 +55,6 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "git:history", _history
         @listen-to tavmant.radio, "git:diff", _diff
         @listen-to tavmant.radio, "git:pull", _pull
+        @listen-to tavmant.radio, "git:push", _push
 
         @_repo = git tavmant.path
