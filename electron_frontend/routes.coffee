@@ -11,6 +11,7 @@ dom = require "react-dom"
 # ****************
 Menu_Comp = require "./components/menu.coffee"
 Styles_Comp = require "./components/styles.coffee"
+Notify_Comp = require "./components/notify.coffee"
 
 
 # **************
@@ -42,5 +43,8 @@ dom.render do
 dom.render do
     React.create-element Menu_Comp
     document.query-selector "\#menu"
+dom.render do
+    React.create-element Notify_Comp
+    document.query-selector "\#notify"
 
 Backbone.history.start!

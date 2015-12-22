@@ -1,5 +1,6 @@
 {
     "dependencies" : {
+        "alertify.js"              : "1.0.8",
         "async"                    : "1.5.0",
         "backbone"                 : "1.2.3",
         "backbone-react-component" : "0.10.0",
@@ -9,7 +10,6 @@
         "browserify"               : "12.0.1",
         "csv-parse"                : "1.0.1",
         "del"                      : "2.2.0",
-        "dialogs"                  : "1.1.7",
         "gm"                       : "1.21.1",
         "gulp"                     : "3.9.0",
         "gulp-build"               : "0.5.3",

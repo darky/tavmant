@@ -18,19 +18,18 @@ require "brace/theme/monokai"
 # *************
 #    DIALOGS
 # *************
-Dialogs = require "dialogs"
-dialogs = new Dialogs cancel : "Отмена"
+alertify = require "alertify.js"
 
 
 module.exports = class extends React.Component
 
     _add = ->
-        path <- dialogs.prompt "Введите путь нового файла (Примеры: contacts.html, portfolio/biser.html)"
-        if path then tavmant.radio.trigger "files:add", path
+        path <- alertify.cancel-btn "Отмена" .prompt "Введите путь нового файла (Примеры: contacts.html, portfolio/biser.html)"
+        tavmant.radio.trigger "files:add", path
 
     _delete = ->
-        ok <- dialogs.confirm "Удалить?"
-        if ok then tavmant.radio.trigger "files:delete"
+        <- alertify.cancel-btn "Отмена" .confirm "Удалить?"
+        tavmant.radio.trigger "files:delete"
 
     _save_content = ->
         tavmant.radio.trigger "files:save", @refs.ace.editor.get-value!
