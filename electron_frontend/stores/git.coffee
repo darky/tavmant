@@ -16,7 +16,7 @@ module.exports = class extends Backbone.Model
         files = _.reduce ["created", "deleted", "modified", "not_added", "conflicted"], (paths, action)~>
             paths.concat @get("status")[action]
         , []
-        err <~ @_repo.commit message, files
+        err <~ @_repo.commit message, unless @get("status").conflicted.length then files
         if err then tavmant.radio.trigger "logs:new:err", err.message
         tavmant.radio.trigger "git:refresh"
 
