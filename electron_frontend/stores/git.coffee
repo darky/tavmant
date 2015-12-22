@@ -18,9 +18,7 @@ module.exports = class extends Backbone.Model
         , []
         err <~ @_repo.commit message, files
         if err then tavmant.radio.trigger "logs:new:err", err.message
-        tavmant.radio.trigger "git:status"
-        tavmant.radio.trigger "git:history"
-        tavmant.radio.trigger "git:diff"
+        tavmant.radio.trigger "git:refresh"
 
     _diff = ->
         err, diff <~ @_repo.diff
@@ -42,15 +40,18 @@ module.exports = class extends Backbone.Model
         @set "waiting", "Получение..."
         err <- @_repo.pull
         if err then tavmant.radio.trigger "logs:new:err", err.message
-        tavmant.radio.trigger "git:history"
-        tavmant.radio.trigger "git:diff"
-        tavmant.radio.trigger "git:status"
+        tavmant.radio.trigger "git:refresh"
 
     _push = ->
         @set "waiting", "Отправка..."
         err <- @_repo.push
         if err then tavmant.radio.trigger "logs:new:err", err.message
         tavmant.radio.trigger "git:history"
+
+    _refresh = ->
+        tavmant.radio.trigger "git:status"
+        tavmant.radio.trigger "git:history"
+        tavmant.radio.trigger "git:diff"
 
     _status = ->
         err, status <~ @_repo.status
@@ -71,5 +72,6 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "git:pull", _pull
         @listen-to tavmant.radio, "git:push", _push
         @listen-to tavmant.radio, "git:commit", _commit
+        @listen-to tavmant.radio, "git:refresh", _refresh
 
         @_repo = git tavmant.path

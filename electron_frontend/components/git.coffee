@@ -22,9 +22,7 @@ module.exports = class extends React.Component
 
     component-will-mount : ->
         Backbone_Mixin.on-model @, tavmant.stores.git_store
-        tavmant.radio.trigger "git:status"
-        tavmant.radio.trigger "git:history"
-        tavmant.radio.trigger "git:diff"
+        tavmant.radio.trigger "git:refresh"
 
     component-will-unmount : ->
         Backbone_Mixin.off @
