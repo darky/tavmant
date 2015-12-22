@@ -13,3 +13,5 @@ module.exports = class extends React.Component
                 $.a href : "\#git", "Облако (Получение/Отправка)"
             $.li role : "presentation",
                 $.a href : "#", "Запуск сервера"
+            $.li role : "presentation",
+                $.a href : "\#pages", "Редактирование страниц"

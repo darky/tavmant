@@ -11,7 +11,7 @@ module.exports = class extends Backbone.Model
     _repo : null
 
     _commit = (message)->
-        err <~ @_repo.add @get("status").conflicted
+        err <~ @_repo.add _.flatten [@get("status").conflicted, @get("status").not_added]
         if err then tavmant.radio.trigger "logs:new:err", err.message
         files = _.reduce ["created", "deleted", "modified", "not_added", "conflicted"], (paths, action)~>
             paths.concat @get("status")[action]

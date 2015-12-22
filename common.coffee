@@ -19,6 +19,7 @@ yaml = require "js-yaml"
 Server_Store = require "./electron_frontend/stores/server.coffee"
 Logs_Store = require "./electron_frontend/stores/logs.coffee"
 Git_Store = require "./electron_frontend/stores/git.coffee"
+Files_Store = require "./electron_frontend/stores/files.coffee"
 
 
 # ********************
@@ -35,3 +36,4 @@ global.tavmant.stores = {}
 global.tavmant.stores.server_store = new Server_Store
 global.tavmant.stores.logs_store = new Logs_Store
 global.tavmant.stores.git_store = new Git_Store
+global.tavmant.stores.files_store = new Files_Store
