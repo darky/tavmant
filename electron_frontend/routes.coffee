@@ -19,9 +19,11 @@ Styles_Comp = require "./components/styles.coffee"
 class Router extends Backbone.Router
 
     routes :
-        ""      : require "./components/server.coffee"
-        "git"   : require "./components/git.coffee"
-        "pages" : require "./components/pages.coffee"
+        ""         : require "./components/server.coffee"
+        "git"      : require "./components/git.coffee"
+        "pages"    : require "./components/pages.coffee"
+        "partials" : require "./components/partials.coffee"
+        "layouts"  : require "./components/layouts.coffee"
 
 router = new Router
 router.on "route", ->

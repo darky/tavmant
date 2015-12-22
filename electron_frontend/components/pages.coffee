@@ -38,9 +38,11 @@ module.exports = class extends React.Component
     _select_file = (e)->
         tavmant.radio.trigger "files:select", e.target.inner-text
 
+    _folder : "pages"
+
     component-will-mount : ->
         Backbone_Mixin.on-model @, tavmant.stores.files_store
-        tavmant.radio.trigger "files:set:folder", "pages"
+        tavmant.radio.trigger "files:set:folder", @_folder
         tavmant.radio.trigger "files:list"
 
     component-will-unmount : ->

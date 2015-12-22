@@ -15,3 +15,7 @@ module.exports = class extends React.Component
                 $.a href : "#", "Запуск сервера"
             $.li role : "presentation",
                 $.a href : "\#pages", "Редактирование страниц"
+            $.li role : "presentation",
+                $.a href : "\#partials", "Редактирование частей страниц"
+            $.li role : "presentation",
+                $.a href : "\#layouts", "Редактирование шаблонов"
