@@ -8,7 +8,7 @@ git = require "simple-git"
 
 module.exports = class extends Backbone.Model
 
-    _repo : null
+    _repo : false
 
     _commit = (message)->
         err <~ @_repo.add @get("status").conflicted
