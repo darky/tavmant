@@ -59,13 +59,17 @@ module.exports = class extends React.Component
                 title : "Фильтр"
                 type  : "textarea"
             ,
+                item-template : (value, row)->
+                    "<img width=100 src=\"#{tavmant.path}/assets/img/tavmant-categories/#{row.0}.jpg\">"
+                title : "Фото"
+            ,
                 type : "control"
             ]
             width : "100%"
         jQuery "\#table .jsgrid-grid-body tbody" .sortable do
             update : ->
-                reordered_data = _.compact _.map do
-                    jQuery "\#table tr"
+                reordered_data = _.map do
+                    jQuery "\#table .jsgrid-grid-body tr"
                     (el)-> jQuery el .data "JSGridItem"
                 _init_grid new_data : reordered_data
 
