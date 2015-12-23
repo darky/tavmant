@@ -60,7 +60,7 @@ module.exports =
                 module_class : require "./build_yakubovich.coffee"
                 module_name : "yakubovich"
             ], (item, next)->
-                if tavmant.modules[item.module_name]
+                if tavmant.stores.settings_store.attributes[item.module_name]
                     obj = new item.module_class
                     helpers <- obj.get_helpers!
                     next null, helpers

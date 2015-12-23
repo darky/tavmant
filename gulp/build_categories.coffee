@@ -138,7 +138,7 @@ module.exports =
                 tavmant.radio.trigger "logs:new:err", err.message
                 return
             err, parsed_subcategory <- (next)->
-                if tavmant.modules.category.portfolio
+                if tavmant.stores.settings_store.attributes.category.portfolio
                     err, paths <- dir_helper.paths "#{tavmant.path}/assets/img/tavmant-categories/#{item.0}", true
                     if err
                         next err

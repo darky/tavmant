@@ -36,11 +36,11 @@ module.exports = (done)->
             fs.realpath-sync "#{tavmant.path}/layouts" .concat "/**/*.html"
             fs.realpath-sync "#{tavmant.path}/partials" .concat "/**/*.html"
             fs.realpath-sync "#{tavmant.path}/pages" .concat "/**/*.html"
-        ].concat if tavmant.modules.category or tavmant.modules.gallery
+        ].concat if tavmant.stores.settings_store.attributes.category or tavmant.stores.settings_store.attributes.gallery
             fs.realpath-sync "#{tavmant.path}/templates" .concat "/**/*.html"
         else
             []
-        .concat if tavmant.modules.yakubovich
+        .concat if tavmant.stores.settings_store.attributes.yakubovich
             fs.realpath-sync "#{tavmant.path}/api" .concat "/**/*.js"
         else
             []
@@ -64,8 +64,8 @@ module.exports = (done)->
             "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/*.css"
             "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/.DS_Store"
             "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/Thumbs.db"
-        ].concat if tavmant.modules.resize_images
-            _.map tavmant.modules.resize_images.paths, (pth)->
+        ].concat if tavmant.stores.settings_store.attributes.resize_images
+            _.map tavmant.stores.settings_store.attributes.resize_images.paths, (pth)->
                 "!" + fs.realpath-sync "#{tavmant.path}/" + pth.split("/").0
                 .concat "/"
                 .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
@@ -76,15 +76,15 @@ module.exports = (done)->
                 "копирование изображений и других бинарных файлов"
             ], reload
 
-    if tavmant.modules.category
+    if tavmant.stores.settings_store.attributes.category
         watch [
             fs.realpath-sync "#{tavmant.path}/categories" .concat "/*.csv"
         ], ->
             run_sequence ["построение категорий"], reload
 
-    if tavmant.modules.resize_images
+    if tavmant.stores.settings_store.attributes.resize_images
         watch do
-            _.map tavmant.modules.resize_images.paths, (pth)->
+            _.map tavmant.stores.settings_store.attributes.resize_images.paths, (pth)->
                 fs.realpath-sync "#{tavmant.path}/" + pth.split("/").0
                 .concat "/"
                 .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"

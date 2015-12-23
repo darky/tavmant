@@ -76,8 +76,8 @@ gulp.task "базовая сборка", ["очистка"], (cb)->
             "построение HTML"
             "копирование изображений и других бинарных файлов"
             "копирование CSS JS"
-        ].concat if tavmant.modules.category then "построение категорий" else []
-        .concat if tavmant.modules.resize_images then "резка изображений" else []
+        ].concat if tavmant.stores.settings_store.attributes.category then "построение категорий" else []
+        .concat if tavmant.stores.settings_store.attributes.resize_images then "резка изображений" else []
         cb
 
 gulp.task "сервер", ["базовая сборка"], (cb)->

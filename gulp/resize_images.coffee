@@ -26,13 +26,13 @@ module.exports =
         #    PRIVATE
         # *************
         _get_files = (cb)->
-            err, files <- async.map tavmant.modules.resize_images.paths, (path, next)->
+            err, files <- async.map tavmant.stores.settings_store.attributes.resize_images.paths, (path, next)->
                 err, result <- dir_helper.files "#{tavmant.path}/#{path}"
                 next err, result
             cb err, _.flatten files
 
         _resize = (images, cb)->
-            err <- async.for-each-of-series tavmant.modules.resize_images.resolutions, (px, size, next)->
+            err <- async.for-each-of-series tavmant.stores.settings_store.attributes.resize_images.resolutions, (px, size, next)->
                 async.each images, (image, next)->
                     output = "
                         #{path.dirname image .replace 'assets', '@dev'}
