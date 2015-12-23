@@ -74,7 +74,7 @@ module.exports =
         _get_partials = (cb)->
             err, partial_paths <- dir_helper.paths "#{tavmant.path}/partials" true
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             partial_names = _.map partial_paths, (partial_path)->
                 path.basename partial_path, ".html"
@@ -95,7 +95,7 @@ module.exports =
                 layout   : _get_layout_content
                 partials : _get_partials
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             cb res
 

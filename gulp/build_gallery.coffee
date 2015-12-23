@@ -24,7 +24,7 @@ module.exports =
                 async.apply fs.read-file, "./templates/gallery.html", encoding : "utf8"
             ]
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             image_names = _.map image_paths, (path)->
                 path.match(

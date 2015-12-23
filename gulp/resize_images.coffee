@@ -53,10 +53,10 @@ module.exports =
                 return cb!
             err, files <- _get_files
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             err <- _resize _.filter files, (file)-> !!file.match /\.jpg$/
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
             else
                 cb!

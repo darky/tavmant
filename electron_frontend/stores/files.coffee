@@ -21,24 +21,24 @@ module.exports = class extends Backbone.Model
         file_path = "#{tavmant.path}/#{folder}/#{file}"
         err <~ mkdirp path.dirname file_path
         if err
-            tavmant.radio.trigger "logs:new:err", err.message
+            tavmant.radio.trigger "logs:new:err", err.message or err
             return
         err <~ fs.write-file file_path, ""
         if err
-            tavmant.radio.trigger "logs:new:err", err.message
+            tavmant.radio.trigger "logs:new:err", err.message or err
         else
             tavmant.radio.trigger "files:list"
 
     _delete = ->
         err <~ fs.unlink @get "current"
-        if err then tavmant.radio.trigger "logs:new:err", err.message
+        if err then tavmant.radio.trigger "logs:new:err", err.message or err
         tavmant.radio.trigger "files:list"
 
     _list = ->
         folder = @get "folder"
         err, files_list <~ dir_helper.files "#{tavmant.path}/#{folder}"
         if err
-            tavmant.radio.trigger "logs:new:err", err.message
+            tavmant.radio.trigger "logs:new:err", err.message or err
         else
             @set files : files_list, current : null, content : ""
 
@@ -47,14 +47,14 @@ module.exports = class extends Backbone.Model
             @get "current"
             content
         if err
-            tavmant.radio.trigger "logs:new:err", err.message
+            tavmant.radio.trigger "logs:new:err", err.message or err
         else
             @set "content", content
 
     _select = (file)->
         err, content <~ fs.read-file file, encoding : "utf8"
         if err
-            tavmant.radio.trigger "logs:new:err", err.message
+            tavmant.radio.trigger "logs:new:err", err.message or err
         else
             @set content : content, current : file
 

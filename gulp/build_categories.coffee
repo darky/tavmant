@@ -53,7 +53,7 @@ module.exports =
                         next null, meta
             ]
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             get_html_fn = if item.2
                 _.partial _get_html_subcategory_item, item
@@ -83,14 +83,14 @@ module.exports =
             err, favorites_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             err, files_names <- async.waterfall [
                 async.apply fs.readdir, "#{tavmant.path}/categories"
                 (files_names, next)-> next null, _.filter files_names, (file_name)-> file_name isnt "tavmant-list.csv"
             ]
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             err, all_items <- async.waterfall [
                 (next)->
@@ -120,7 +120,7 @@ module.exports =
         _get_html_subcategory = (item, parsed, cb)->
             err, list_content <- fs.read-file "#{tavmant.path}/templates/categories/list.html" encoding : "utf8"
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             cb do
                 _ if item.6 then _transform_parsed parsed, item.6 else parsed
@@ -135,7 +135,7 @@ module.exports =
         _get_html_subcategory_item = (item, cb)->
             err, subcategory_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list.html", encoding : "utf8"
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             err, parsed_subcategory <- (next)->
                 if tavmant.stores.settings_store.attributes.category.portfolio
@@ -154,7 +154,7 @@ module.exports =
                     err, subcategory_content <- fs.read-file "#{tavmant.path}/categories/#{item.0}.csv", encoding : "utf8"
                     if err then next err else csv_parse subcategory_content, delimiter : ";", next
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             cb do
                 _ parsed_subcategory
@@ -195,7 +195,7 @@ module.exports =
                 (data, next)-> csv_parse data, delimiter : ";", next
             ]
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             cb _.map result, (item)-> _.to-plain-object item
 
@@ -221,7 +221,7 @@ module.exports =
                 async.apply _get_categories_items_favorites
             ]
             if err
-                tavmant.radio.trigger "logs:new:err", err.message
+                tavmant.radio.trigger "logs:new:err", err.message or err
                 return
             cb [
                 fn   : result.0
