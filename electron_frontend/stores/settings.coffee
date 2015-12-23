@@ -26,6 +26,8 @@ module.exports = class extends Backbone.Model
         if err
             tavmant.radio.trigger "logs:new:err", err.message or err
         else
+            @clear silent : true
+            @set content
             tavmant.radio.trigger "settings:read"
 
     initialize : ->

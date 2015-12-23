@@ -26,6 +26,7 @@ class Router extends Backbone.Router
         "partials" : require "./components/partials.coffee"
         "layouts"  : require "./components/layouts.coffee"
         "settings" : require "./components/settings.coffee"
+        "category" : require "./components/category.coffee"
 
 router = new Router
 router.on "route", ->

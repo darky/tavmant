@@ -21,6 +21,7 @@ Logs_Store = require "./electron_frontend/stores/logs.coffee"
 Git_Store = require "./electron_frontend/stores/git.coffee"
 Files_Store = require "./electron_frontend/stores/files.coffee"
 Settings_Store = require "./electron_frontend/stores/settings.coffee"
+Category_Store = require "./electron_frontend/stores/category.coffee"
 
 
 # ********************
@@ -39,3 +40,4 @@ global.tavmant.stores.logs_store = new Logs_Store
 global.tavmant.stores.git_store = new Git_Store
 global.tavmant.stores.files_store = new Files_Store
 global.tavmant.stores.settings_store = new Settings_Store modules
+global.tavmant.stores.category_store = new Category_Store

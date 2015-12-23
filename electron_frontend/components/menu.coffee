@@ -21,10 +21,13 @@ module.exports = class extends React.Component
             $.li role : "presentation",
                 $.a href : "#", "Запуск сервера"
             $.li role : "presentation",
-                $.a href : "\#pages", "Редактирование страниц"
+                $.a href : "\#pages", "Страницы"
             $.li role : "presentation",
-                $.a href : "\#partials", "Редактирование частей страниц"
+                $.a href : "\#partials", "Части страниц"
             $.li role : "presentation",
-                $.a href : "\#layouts", "Редактирование шаблонов"
+                $.a href : "\#layouts", "Шаблоны"
+            if @state.model.category
+                $.li role : "category",
+                    $.a href : "\#category", "Категории и подкатегории"
             $.li role : "presentation",
                 $.a href : "\#settings", "Настройки"
