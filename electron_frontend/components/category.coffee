@@ -11,6 +11,7 @@ Backbone_Mixin = require "backbone-react-component"
 #    GRID
 # ***********
 window.jQuery = require "jquery"
+require "jquery-ui"
 require "jsgrid/dist/jsgrid.js"
 
 
@@ -19,10 +20,14 @@ module.exports = class extends React.Component
     _add = ->
         jQuery "\#table" .js-grid "insertItem", ["","","","","","",""]
 
-    _init_grid = ->
+    _destroy_grid = ->
+        jQuery "\#table .jsgrid-grid-body tbody" .sortable "destroy"
         jQuery "\#table" .js-grid "destroy"
+
+    _init_grid = (obj = {})->
+        _destroy_grid!
         jQuery "\#table" .js-grid do
-            data : @state.model.content
+            data : obj.new_data or @state.model.content
             delete-confirm : "Удалить?"
             editing : true
             fields : [
@@ -57,6 +62,12 @@ module.exports = class extends React.Component
                 type : "control"
             ]
             width : "100%"
+        jQuery "\#table .jsgrid-grid-body tbody" .sortable do
+            update : ->
+                reordered_data = _.compact _.map do
+                    jQuery "\#table tr"
+                    (el)-> jQuery el .data "JSGridItem"
+                _init_grid new_data : reordered_data
 
     _save = ->
         tavmant.radio.trigger "category:save",
@@ -71,7 +82,7 @@ module.exports = class extends React.Component
         tavmant.radio.trigger "category:read"
 
     component-will-unmount : ->
-        jQuery "\#table" .js-grid "destroy"
+        _destroy_grid!
         Backbone_Mixin.off @
 
     render : ->
