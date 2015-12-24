@@ -100,13 +100,7 @@ module.exports = class extends React.Component
 
     render : ->
         $.div null,
-            if @state.settings.category.portfolio
-                123
-            else
-                $.div class-name : "col-md-2 col-lg-2",
-                    React.create-element Files, folder : "categories"
-            if @state.settings.category.portfolio
-                123
-            else
-                $.div class-name : "col-md-10 col-lg-10",
-                    React.create-element Subcategory
+            $.div class-name : "col-md-2 col-lg-2",
+                React.create-element Files, folder : "categories"
+            $.div class-name : "col-md-10 col-lg-10",
+                React.create-element Subcategory
