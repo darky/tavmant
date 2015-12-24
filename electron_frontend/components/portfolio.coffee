@@ -18,7 +18,11 @@ module.exports = class extends React.Component
         tavmant.radio.trigger "portfolio:add:folder", folder
 
     _add_photos = (file_blobs)->
-        tavmant.radio.trigger "portfolio:add:photos", file_blobs
+        no_jpg = _.any file_blobs, (blob)-> blob.type isnt "image/jpeg"
+        if no_jpg
+            alertify.log "Нужно все фотографии jpg"
+        else
+            tavmant.radio.trigger "portfolio:add:photos", file_blobs
 
     _delete_folder = ->
         <- alertify.confirm "Удалить?"
