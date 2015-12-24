@@ -119,6 +119,7 @@ module.exports = class extends React.Component
     component-will-unmount : ->
         _destroy_grid!
         Backbone_Mixin.off @
+        tavmant.radio.trigger "category:reset"
 
     render : ->
         $.div null,
