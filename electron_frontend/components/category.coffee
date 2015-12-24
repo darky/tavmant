@@ -79,7 +79,7 @@ module.exports = class extends React.Component
                 type  : "textarea"
             ,
                 item-template : (value, row)->
-                    "<img width=100 src=\"#{tavmant.path}/assets/img/tavmant-categories/#{row.0}.jpg\">"
+                    "<img width=100 src=\"#{tavmant.path}/assets/img/tavmant-categories/#{row.0}.jpg?_=#{_.random 1000000000, 10000000000}\">"
                 title : "Фото"
             ,
                 type : "control"
