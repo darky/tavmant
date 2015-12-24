@@ -32,7 +32,8 @@ module.exports = class extends React.Component
 
     render : ->
         $.div null,
-            React.create-element Files, folder : @_folder
+            $.div class-name : "col-md-3 col-lg-3",
+                React.create-element Files, folder : @_folder
             $.div class-name : "col-md-9 col-lg-9",
                 $.div class-name : "row",
                     React.create-element Ace,

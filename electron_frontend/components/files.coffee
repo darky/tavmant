@@ -41,7 +41,7 @@ module.exports = class extends React.Component
         Backbone_Mixin.off @
 
     render : ->
-        $.div class-name : "col-md-3 col-lg-3",
+        $.div null,
             $.div class-name : "row pager",
                 $.button class-name : "fa fa-plus", on-click : _add
                 $.button class-name : "fa fa-remove", on-click : _delete, disabled : not @state.model.current
