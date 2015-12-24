@@ -83,6 +83,7 @@ class Subcategory extends Categories
         Backbone_Mixin.on @, models :
             category : tavmant.stores.category_store
             files    : tavmant.stores.files_store
+        tavmant.radio.trigger "category:reset"
 
     component-will-update : ->
         if @state.files.current

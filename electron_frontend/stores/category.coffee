@@ -59,7 +59,11 @@ module.exports = class extends Backbone.Model
         else
             @set "content", parsed
 
+    _reset = ->
+        @set "content", []
+
     initialize : ->
+        @listen-to tavmant.radio, "category:reset", _reset
         @listen-to tavmant.radio, "category:read", _read
         @listen-to tavmant.radio, "category:save", _save
         @listen-to tavmant.radio, "category:add:photo", _add_photo
