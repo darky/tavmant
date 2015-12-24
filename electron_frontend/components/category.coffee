@@ -15,10 +15,29 @@ require "jquery-ui"
 require "jsgrid/dist/jsgrid.js"
 
 
+# ***********
+#    PHOTO
+# ***********
+alertify = require "alertify.js"
+Dropzone = require "react-dropzone"
+
+
 module.exports = class extends React.Component
 
     _add = ->
         jQuery "\#table" .js-grid "insertItem", ["","","","","","",""]
+
+    _add_photo = (files)->
+        $selected = jQuery "\#table .jsgrid-grid-body tr:hidden"
+        if $selected.length
+            file = files.0
+            if file.type isnt "image/jpeg"
+                alertify.log "Нужно фотографию jpg"
+            else
+                id = $selected.data "JSGridItem" .0
+                tavmant.radio.trigger "category:add:photo", id, file
+        else
+            alertify.log "Нужно выбрать подкатегорию сначала"
 
     _destroy_grid = ->
         jQuery "\#table .jsgrid-grid-body tbody" .sortable "destroy"
@@ -99,3 +118,6 @@ module.exports = class extends React.Component
                 $.button do
                     on-click : _save.bind @
                     "Сохранить"
+            $.div class-name : "row",
+                "Добавление фото"
+                React.create-element Dropzone, on-drop : _add_photo
