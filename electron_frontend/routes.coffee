@@ -20,13 +20,14 @@ Notify_Comp = require "./components/notify.coffee"
 class Router extends Backbone.Router
 
     routes :
-        ""         : require "./components/server.coffee"
-        "git"      : require "./components/git.coffee"
-        "pages"    : require "./components/pages.coffee"
-        "partials" : require "./components/partials.coffee"
-        "layouts"  : require "./components/layouts.coffee"
-        "settings" : require "./components/settings.coffee"
-        "category" : require "./components/category.coffee"
+        ""            : require "./components/server.coffee"
+        "git"         : require "./components/git.coffee"
+        "pages"       : require "./components/pages.coffee"
+        "partials"    : require "./components/partials.coffee"
+        "layouts"     : require "./components/layouts.coffee"
+        "settings"    : require "./components/settings.coffee"
+        "category"    : require "./components/category.coffee"
+        "subcategory" : require "./components/subcategory.coffee"
 
 router = new Router
 router.on "route", ->

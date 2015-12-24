@@ -70,6 +70,8 @@ module.exports = class extends React.Component
                 title : "Мета-информация"
                 type  : "textarea"
             ,
+                item-template : (value)->
+                    "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value}</div>"
                 name  : "5"
                 title : "Текст"
                 type  : "textarea"
