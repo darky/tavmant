@@ -1,3 +1,9 @@
+# ****************
+#    NODEJS API
+# ****************
+path = require "path"
+
+
 # **********************
 #    MUST HAVE DEFINE
 # **********************
@@ -7,20 +13,10 @@ Backbone_Mixin = require "backbone-react-component"
 
 
 Files = require "./files.coffee"
-
-
-# *************
-#    EDITOR
-# *************
-Ace = require "react-ace"
-require "brace/mode/handlebars"
-require "brace/theme/monokai"
+Ace = require "./ace.coffee"
 
 
 module.exports = class extends React.Component
-
-    _save_content = ->
-        tavmant.radio.trigger "files:save", @refs.ace.editor.get-value!
 
     _folder : "pages"
 
@@ -35,14 +31,6 @@ module.exports = class extends React.Component
             $.div class-name : "col-md-3 col-lg-3",
                 React.create-element Files, folder : @_folder
             $.div class-name : "col-md-9 col-lg-9",
-                $.div class-name : "row",
-                    React.create-element Ace,
-                        ref   : "ace"
-                        mode  : "handlebars"
-                        theme : "monokai"
-                        value : @state.model.content
-                        width : "100%"
-                $.div class-name : "row pager",
-                    $.button do
-                        on-click : _save_content.bind @
-                        "Сохранить"
+                React.create-element Ace,
+                    ext     : path.extname @state.model.current
+                    content : @state.model.content

@@ -22,6 +22,7 @@ class Router extends Backbone.Router
     routes :
         ""            : require "./components/server.coffee"
         "git"         : require "./components/git.coffee"
+        "assets"      : require "./components/assets.coffee"
         "pages"       : require "./components/pages.coffee"
         "partials"    : require "./components/partials.coffee"
         "layouts"     : require "./components/layouts.coffee"
