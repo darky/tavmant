@@ -139,7 +139,9 @@ app.on('ready', function() {
   var menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
-  mainWindow = new BrowserWindow();
+  mainWindow = new BrowserWindow({
+    title : "Tavmant"
+  });
   mainWindow.loadURL('file://' + __dirname + '/index.html');
   mainWindow.focus();
 });
