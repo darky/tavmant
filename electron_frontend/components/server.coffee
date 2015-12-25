@@ -36,7 +36,9 @@ module.exports = class extends React.Component
                     $.button class-name : "btn btn-default", on-click : _prod,
                         "Запуск в боевом режиме"
             $.div class-name : "row pager",
-                if @state.server_state.waiting
+                if @state.server_state.errored
+                    $.span class-name : "bg-danger", "Произошла ошибка запуска"
+                else if @state.server_state.waiting
                     $.span class-name : "bg-warning", "Запускается..."
                 else if @state.server_state.running is "dev"
                     $.span class-name : "bg-success", "Запущено в режиме разработчика"

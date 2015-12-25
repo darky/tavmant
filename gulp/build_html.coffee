@@ -62,8 +62,8 @@ module.exports =
             ], (item, next)->
                 if tavmant.stores.settings_store.attributes[item.module_name]
                     obj = new item.module_class
-                    helpers <- obj.get_helpers!
-                    next null, helpers
+                    err, helpers <- obj.get_helpers!
+                    next err, helpers
                 else
                     next null, []
             cb err, _.flatten extra_helpers
@@ -94,10 +94,7 @@ module.exports =
                 helpers  : _get_helpers
                 layout   : _get_layout_content
                 partials : _get_partials
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
-            cb res
+            cb err, res
 
 
         # ***************
@@ -107,8 +104,7 @@ module.exports =
             @_get_html_stream!
             .pipe front_matter!
             .on "error", (e)->
-                tavmant.radio.trigger "logs:new:err", "Ошибка в написании мета-информации для страницы #{e.file-name}"
-                cb!
+                cb "Ошибка в написании мета-информации для страницы #{e.file-name}"
             .pipe _build_transform build_options
             .pipe rename _rename_file_to_index
             .pipe gulp.dest "#{tavmant.path}/@dev/"
@@ -122,6 +118,7 @@ module.exports =
         #    PUBLIC
         # ************
         start : (cb)->
-            options <~ _setup
-            <- @_build options
-            cb!
+            err, options <~ _setup
+            if err then cb err; return
+            err <- @_build options
+            cb err

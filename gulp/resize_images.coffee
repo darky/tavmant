@@ -50,13 +50,9 @@ module.exports =
         start : (cb)->
             if global.tavmant.radio.request "gulp:current:resize:image"
                 err <- _resize [that]
-                return cb!
-            err, files <- _get_files
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
-            err <- _resize _.filter files, (file)-> !!file.match /\.jpg$/
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
+                cb err
             else
-                cb!
+                err, files <- _get_files
+                if err then cb err; return
+                err <- _resize _.filter files, (file)-> !!file.match /\.jpg$/
+                cb err

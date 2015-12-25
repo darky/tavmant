@@ -37,6 +37,7 @@ up_server = (dir, cb)->
 #    BUILD DEV
 # ***************
 gulp.task "очистка", (cb)->
+    tavmant.radio.reply "gulp:current:resize:image", null
     del ["#{tavmant.path}/@dev/**/*.*", "#{tavmant.path}/@prod/**/*.*"], cb
 
 gulp.task "построение категорий", (cb)->
@@ -66,7 +67,6 @@ gulp.task "копирование изображений и других бин�
         "#{tavmant.path}/assets/**/*"
         "!#{tavmant.path}/assets/**/*.js"
         "!#{tavmant.path}/assets/**/*.css"
-        "!#{tavmant.path}/assets/img/tavmant-portfolio/**/*.jpg"
     ]
     .pipe gulp.dest "#{tavmant.path}/@dev/"
 
@@ -172,21 +172,6 @@ gulp.task "сборка для разработчика", ["сервер"]
 gutil = require "gulp-util"
 prettyTime = require "pretty-hrtime"
 
-formatError = (e)->
-  unless e.err
-    return e.message;
-
-  # PluginError
-  if typeof e.err.showStack is "boolean"
-    return e.err.toString()
-
-  # Normal error
-  if e.err.stack
-    return e.err.stack
-
-  # Unknown (string, number, etc.)
-  return new Error(String(e.err)).stack
-
 logEvents = (gulpInst)->
 
   # Total hack due to poor error management in orchestrator
@@ -205,10 +190,9 @@ logEvents = (gulpInst)->
       "Завершилось \'" + e.task + "\' после " + time
 
   gulpInst.on "task_err", (e)->
-    msg = formatError(e)
     time = prettyTime(e.hrDuration)
-    tavmant.radio.trigger "logs:new",
-      "\'" + e.task + "\' завершилось с ошибкой после " + time
+    tavmant.radio.trigger "logs:new:err",
+      "'#{e.task}' завершилось с ошибкой #{e.err.message or e.err} после #{time}"
 
   gulpInst.on "task_not_found", (err)->
     tavmant.radio.trigger "logs:new",

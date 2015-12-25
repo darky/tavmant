@@ -23,9 +23,7 @@ module.exports =
                 async.apply dir_helper.paths, "./assets/img/tavmant-gallery", true
                 async.apply fs.read-file, "./templates/gallery.html", encoding : "utf8"
             ]
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
+            if err then cb err; return
             image_names = _.map image_paths, (path)->
                 path.match(
                     //
@@ -34,7 +32,7 @@ module.exports =
                         )$
                     //
                 ).1
-            cb ->
+            cb null, ->
                 _.map _.shuffle(image_names), (name)->
                     template.replace "__image__", name
                 .join ""
@@ -44,8 +42,8 @@ module.exports =
         #    PUBLIC
         # ************
         get_helpers : (cb)->
-            fn <- _generate_html!
-            cb [
+            err, fn <- _generate_html!
+            cb err, [
                 fn   : fn
                 name : "gallery"
             ]

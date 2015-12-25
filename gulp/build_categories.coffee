@@ -35,11 +35,14 @@ module.exports =
         #    PRIVATE
         # *************
         _generate = (parsed, cb)->
-            <- async.each-series parsed, (item, next)->
-                builder <- _get_builder item, parsed
-                <- builder.start!
-                next!
-            cb!
+            err <- async.each-series parsed, (item, next)->
+                err, builder <- _get_builder item, parsed
+                if err
+                    next err
+                else
+                    err <- builder.start!
+                    next err
+            cb err
 
         _get_builder = (item, parsed, cb)->
             err, [list_wrapper_content, meta] <- async.parallel [
@@ -52,21 +55,22 @@ module.exports =
                     else
                         next null, meta
             ]
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
+            if err then cb err; return
             get_html_fn = if item.2
                 _.partial _get_html_subcategory_item, item
             else
                 _.partial _get_html_subcategory, item, parsed
-            html_content <- get_html_fn
-            cb new HTML_Virtual_Build do
-                content : new Buffer do
-                    list_wrapper_content.replace "__content__", html_content
-                    .replace "__title__", meta.title
-                    .replace "__text__", item.5
-                    .replace "__name__", item.0
-                path : path.join tavmant.path, "pages/", "#{item.2}/#{item.0}.html"
+            err, html_content <- get_html_fn
+            if err
+                cb err
+            else
+                cb null, new HTML_Virtual_Build do
+                    content : new Buffer do
+                        list_wrapper_content.replace "__content__", html_content
+                        .replace "__title__", meta?.title
+                        .replace "__text__", item.5
+                        .replace "__name__", item.0
+                    path : path.join tavmant.path, "pages/", "#{item.2}/#{item.0}.html"
 
         _get_favorites = (parsed, cb)->
             err, html_content <- fs.read-file "#{tavmant.path}/templates/categories/favorites.html" encoding : "utf8"
@@ -83,14 +87,14 @@ module.exports =
             err, favorites_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
             if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
+                cb err
                 return
             err, files_names <- async.waterfall [
                 async.apply fs.readdir, "#{tavmant.path}/categories"
                 (files_names, next)-> next null, _.filter files_names, (file_name)-> file_name isnt "tavmant-list.csv"
             ]
             if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
+                cb err
                 return
             err, all_items <- async.waterfall [
                 (next)->
@@ -120,23 +124,21 @@ module.exports =
         _get_html_subcategory = (item, parsed, cb)->
             err, list_content <- fs.read-file "#{tavmant.path}/templates/categories/list.html" encoding : "utf8"
             if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
-            cb do
-                _ if item.6 then _transform_parsed parsed, item.6 else parsed
-                .filter (subitem)-> if item.6 then true else subitem.2 is item.0
-                .map (subitem)->
-                    list_content.replace /__name__/g, subitem.0
-                    .replace /__locale__/g, subitem.1
-                    .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
-                    .replace /__parent__/g, subitem.2
-                .value!.join ""
+                cb err
+            else
+                cb null,
+                    _ if item.6 then _transform_parsed parsed, item.6 else parsed
+                    .filter (subitem)-> if item.6 then true else subitem.2 is item.0
+                    .map (subitem)->
+                        list_content.replace /__name__/g, subitem.0
+                        .replace /__locale__/g, subitem.1
+                        .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
+                        .replace /__parent__/g, subitem.2
+                    .value!.join ""
 
         _get_html_subcategory_item = (item, cb)->
             err, subcategory_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list.html", encoding : "utf8"
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
+            if err then cb err; return
             err, parsed_subcategory <- (next)->
                 if tavmant.stores.settings_store.attributes.category.portfolio
                     err, paths <- dir_helper.paths "#{tavmant.path}/assets/img/tavmant-categories/#{item.0}", true
@@ -154,18 +156,18 @@ module.exports =
                     err, subcategory_content <- fs.read-file "#{tavmant.path}/categories/#{item.0}.csv", encoding : "utf8"
                     if err then next err else csv_parse subcategory_content, delimiter : ";", next
             if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
-            cb do
-                _ parsed_subcategory
-                .map (subitem)->
-                    subcategory_template.replace /__locale__/g, subitem.1
-                    .replace /__link__/g, "#{item.0}/#{subitem.0}"
-                    .replace /__price__/g, subitem.2
-                    .replace /__4__/g, _.identity -> subitem.4 or ""
-                    .replace /__5__/g, _.identity -> subitem.5 or ""
-                    .replace /__6__/g, _.identity -> subitem.6 or ""
-                .value!.join ""
+                cb err
+            else
+                cb null,
+                    _ parsed_subcategory
+                    .map (subitem)->
+                        subcategory_template.replace /__locale__/g, subitem.1
+                        .replace /__link__/g, "#{item.0}/#{subitem.0}"
+                        .replace /__price__/g, subitem.2
+                        .replace /__4__/g, _.identity -> subitem.4 or ""
+                        .replace /__5__/g, _.identity -> subitem.5 or ""
+                        .replace /__6__/g, _.identity -> subitem.6 or ""
+                    .value!.join ""
 
         _get_menu = (parsed, cb)->
             err, [html_category, html_subcategory] <- async.parallel [
@@ -194,10 +196,7 @@ module.exports =
                 async.apply fs.read-file, "#{tavmant.path}/categories/tavmant-list.csv", encoding : "utf8"
                 (data, next)-> csv_parse data, delimiter : ";", next
             ]
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
-            cb _.map result, (item)-> _.to-plain-object item
+            cb err, _.map result, (item)-> _.to-plain-object item
 
         _transform_parsed = (data, meta)->
             action = meta.split "---" .0 .trim!
@@ -214,16 +213,14 @@ module.exports =
         #    PUBLIC
         # ************
         get_helpers : (cb)->
-            parsed <- _get_parsed!
+            err, parsed <- _get_parsed!
+            if err then cb err; return
             err, result <- async.parallel [
                 async.apply _get_menu, parsed
                 async.apply _get_favorites, parsed
                 async.apply _get_categories_items_favorites
             ]
-            if err
-                tavmant.radio.trigger "logs:new:err", err.message or err
-                return
-            cb [
+            cb err, [
                 fn   : result.0
                 name : "categories_menu"
             ,
@@ -235,6 +232,7 @@ module.exports =
             ]
 
         start : (cb)->
-            parsed <- _get_parsed!
-            <- _generate parsed
-            cb!
+            err, parsed <- _get_parsed!
+            if err then cb err; return
+            err <- _generate parsed
+            cb err
