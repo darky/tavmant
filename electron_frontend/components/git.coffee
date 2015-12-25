@@ -9,7 +9,8 @@ Backbone_Mixin = require "backbone-react-component"
 
 module.exports = class extends React.Component
 
-    _commit = ->
+    _commit = (...some, ev)->
+        ev.prevent-default!
         textarea = document.query-selector "\#commit-message"
         if textarea.value isnt ""
             tavmant.radio.trigger "git:commit", textarea.value
