@@ -39,3 +39,5 @@ module.exports = class extends React.Component
                     $.a href : "\#portfolio", "Режим портфолио"
             $.li role : "presentation",
                 $.a href : "\#settings", "Настройки"
+            $.li role : "presentation",
+                $.a href : "\#about", "О Tavmant"

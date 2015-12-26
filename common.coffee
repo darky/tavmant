@@ -29,7 +29,7 @@ Assets_Store = require "./electron_frontend/stores/assets.coffee"
 # ********************
 #    GLOBAL DEFINE
 # ********************
-global.tavmant = {}
+global.tavmant ?= {}
 global.tavmant.radio = _.extend {}, Radio.Requests, Backbone.Events
 global.tavmant.path = __dirname
 

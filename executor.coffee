@@ -45,11 +45,12 @@ try
             res.on "end", ->
               try
                 if res.status-code isnt 200
-                  console.log encrypted
+                  document.write encrypted
                 else
                   resp = JSON.parse encrypted
-                  console.log "Текущая версия: #{resp.version}"
-                  console.log "Лицензия истекает: #{resp.expire}"
+                  global.tavmant = {}
+                  global.tavmant.VERSION = resp.version
+                  global.tavmant.EXPIRED = resp.expire
                   code = decipher.update resp.data, "hex", "utf8"
                   code += decipher.final "utf8"
                   eval code

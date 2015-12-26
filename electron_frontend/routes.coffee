@@ -30,6 +30,7 @@ class Router extends Backbone.Router
         "category"    : require "./components/category.coffee"
         "subcategory" : require "./components/subcategory.coffee"
         "portfolio"   : require "./components/portfolio.coffee"
+        "about"       : require "./components/about.coffee"
 
 router = new Router
 router.on "route", ->

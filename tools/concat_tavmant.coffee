@@ -8,7 +8,7 @@ browserify do
   browser-field : false
   builtins : false
   commondir : false
-  entries : ["gulpfile.js"]
+  entries : ["tavmant.js"]
   insert-global-vars : do
     process: undefined
     global: undefined
@@ -20,7 +20,7 @@ browserify do
     __dirname: (file, basedir)->
         dir = path.dirname '/' + path.relative basedir, file
         JSON.stringify dir
-.exclude "key.js"
+.ignore "remote"
 .transform do
   (file, opts)->
     if file.match /node_modules\/gm\/index\.js/
@@ -31,4 +31,4 @@ browserify do
       through!
   global : true
 .bundle!
-.pipe fs.createWriteStream "tavmant.js"
+.pipe fs.createWriteStream "tavmant2.js"
