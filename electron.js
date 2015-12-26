@@ -16,15 +16,15 @@ app.on('ready', function() {
 
   var template = [
     {
-      label: 'Edit',
+      label: 'Редактирование',
       submenu: [
         {
-          label: 'Undo',
+          label: 'Отменить',
           accelerator: 'CmdOrCtrl+Z',
           role: 'undo'
         },
         {
-          label: 'Redo',
+          label: 'Повторить',
           accelerator: 'Shift+CmdOrCtrl+Z',
           role: 'redo'
         },
@@ -32,32 +32,32 @@ app.on('ready', function() {
           type: 'separator'
         },
         {
-          label: 'Cut',
+          label: 'Вырезать',
           accelerator: 'CmdOrCtrl+X',
           role: 'cut'
         },
         {
-          label: 'Copy',
+          label: 'Копировать',
           accelerator: 'CmdOrCtrl+C',
           role: 'copy'
         },
         {
-          label: 'Paste',
+          label: 'Вставить',
           accelerator: 'CmdOrCtrl+V',
           role: 'paste'
         },
         {
-          label: 'Select All',
+          label: 'Выделить всё',
           accelerator: 'CmdOrCtrl+A',
           role: 'selectall'
         },
       ]
     },
     {
-      label: 'View',
+      label: 'Вид',
       submenu: [
         {
-          label: 'Reload',
+          label: 'Перезагрузить',
           accelerator: 'CmdOrCtrl+R',
           click: function(item, focusedWindow) {
             if (focusedWindow)
@@ -65,7 +65,7 @@ app.on('ready', function() {
           }
         },
         {
-          label: 'Toggle Full Screen',
+          label: 'Полный экран',
           accelerator: (function() {
             if (process.platform == 'darwin')
               return 'Ctrl+Command+F';
@@ -80,16 +80,16 @@ app.on('ready', function() {
       ]
     },
     {
-      label: 'Window',
+      label: 'Окно',
       role: 'window',
       submenu: [
         {
-          label: 'Minimize',
+          label: 'Минимизировать',
           accelerator: 'CmdOrCtrl+M',
           role: 'minimize'
         },
         {
-          label: 'Close',
+          label: 'Закрыть',
           accelerator: 'CmdOrCtrl+W',
           role: 'close'
         },
@@ -102,24 +102,24 @@ app.on('ready', function() {
       label: 'Tavmant',
       submenu: [
         {
-          label: 'Hide Tavmant',
+          label: 'Скрыть Tavmant',
           accelerator: 'Command+H',
           role: 'hide'
         },
         {
-          label: 'Hide Others',
+          label: 'Скрыть другие',
           accelerator: 'Command+Shift+H',
           role: 'hideothers'
         },
         {
-          label: 'Show All',
+          label: 'Показать все',
           role: 'unhide'
         },
         {
           type: 'separator'
         },
         {
-          label: 'Quit',
+          label: 'Выйти',
           accelerator: 'Command+Q',
           click: function() { app.quit(); }
         },
@@ -130,7 +130,7 @@ app.on('ready', function() {
         type: 'separator'
       },
       {
-        label: 'Bring All to Front',
+        label: 'Все перед',
         role: 'front'
       }
     );
