@@ -6,6 +6,7 @@ alertify = require "alertify.js"
 React = require "react"
 $ = React.DOM
 Backbone_Mixin = require "backbone-react-component"
+tavmant = require "../../common.coffee" .call!
 
 
 module.exports = class extends React.Component

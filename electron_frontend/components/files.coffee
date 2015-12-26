@@ -11,6 +11,7 @@ _ = require "lodash"
 React = require "react"
 $ = React.DOM
 Backbone_Mixin = require "backbone-react-component"
+tavmant = require "../../common.coffee" .call!
 
 
 # *************

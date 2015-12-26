@@ -10,6 +10,7 @@ path = require "path"
 _ = require "lodash"
 async = require "async"
 dir_helper = require "node-dir"
+tavmant = require "../common.coffee" .call!
 
 
 # **************
@@ -48,7 +49,7 @@ module.exports =
         #    PUBLIC
         # ************
         start : (cb)->
-            if global.tavmant.radio.request "gulp:current:resize:image"
+            if tavmant.radio.request "gulp:current:resize:image"
                 err <- _resize [that]
                 cb err
             else

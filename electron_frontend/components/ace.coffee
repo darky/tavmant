@@ -3,6 +3,7 @@
 # **********************
 React = require "react"
 $ = React.DOM
+tavmant = require "../../common.coffee" .call!
 
 
 # *************

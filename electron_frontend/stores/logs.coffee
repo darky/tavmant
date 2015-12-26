@@ -2,6 +2,7 @@
 #    MUST HAVE DEFINE
 # **********************
 Backbone = require "backbone"
+tavmant = require "../../common.coffee" .call!
 
 
 module.exports = class extends Backbone.Model

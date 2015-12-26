@@ -3,6 +3,7 @@
 # **********************
 Backbone = require "backbone"
 gulp = require "gulp"
+tavmant = require "../../common.coffee" .call!
 
 
 module.exports = class extends Backbone.Model

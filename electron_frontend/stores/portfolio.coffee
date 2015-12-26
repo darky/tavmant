@@ -10,6 +10,7 @@ fs = require "fs"
 _ = require "lodash"
 async = require "async"
 Backbone = require "backbone"
+tavmant = require "../../common.coffee" .call!
 
 
 rimraf = require "rimraf"

@@ -12,6 +12,7 @@ _ = require "lodash"
 async = require "async"
 dir_helper = require "node-dir"
 through = require "through2"
+tavmant = require "../common.coffee" .call!
 
 
 # **********************

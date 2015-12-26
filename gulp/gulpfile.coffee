@@ -2,6 +2,7 @@
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
+tavmant = require "../common.coffee" .call!
 
 
 # **********************

@@ -1,3 +1,6 @@
+tavmant = require "../common.coffee" .call!
+
+
 # ***********************
 #    NODEJS API DEFINE
 # ***********************

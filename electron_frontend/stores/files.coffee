@@ -12,6 +12,7 @@ _ = require "lodash"
 Backbone = require "backbone"
 dir_helper = require "node-dir"
 mkdirp = require "mkdirp"
+tavmant = require "../../common.coffee" .call!
 
 
 module.exports = class extends Backbone.Model

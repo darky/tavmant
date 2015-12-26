@@ -13,6 +13,7 @@ async = require "async"
 Backbone = require "backbone"
 mkdirp = require "mkdirp"
 to_buffer = require "blob-to-buffer"
+tavmant = require "../../common.coffee" .call!
 
 
 module.exports = class extends Backbone.Model

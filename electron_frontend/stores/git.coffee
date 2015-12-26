@@ -4,6 +4,7 @@
 _ = require "lodash"
 Backbone = require "backbone"
 git = require "simple-git"
+tavmant = require "../../common.coffee" .call!
 
 
 module.exports = class extends Backbone.Model
