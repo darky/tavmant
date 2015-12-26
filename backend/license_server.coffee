@@ -23,7 +23,7 @@ server = http.create-server (req, res)->
     return
 
   file_name <- (cb)->
-    if params.version.match /^latest(\d)+/
+    if params.version.match /^latest([\d]+)/
       err, files <- fs.readdir "."
       cb do
         files.filter (name)-> !!name.match "tavmant-#{that.1}"
