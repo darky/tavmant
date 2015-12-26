@@ -3,12 +3,12 @@ try
   http = require "http"
   os = require "os"
 
-  err, version <- fs.read-file "./version.txt", encoding : "utf8"
-  if err then console.log "Ошибка чтения version.txt"; process.exit!
+  err, version <- fs.read-file "#{__dirname}/version.txt", encoding : "utf8"
+  if err then document.write "Ошибка чтения version.txt"; return
 
   try
-    err, login <- fs.read-file "./login.txt", encoding : "utf8"
-    if err then console.log "Ошибка чтения login.txt"; process.exit!
+    err, login <- fs.read-file "#{__dirname}/login.txt", encoding : "utf8"
+    if err then document.write "Ошибка чтения login.txt"; return
 
     try
       license_salt = "t1RANgvoC3lKeNHUJbRDxr06RggWYwmT"
