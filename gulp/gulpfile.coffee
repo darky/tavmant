@@ -51,10 +51,14 @@ gulp.task "построение HTML", (cb)->
     html_builder = new HTML_Build
     html_builder.start cb
 
-gulp.task "резка изображений", ["копирование изображений и других бинарных файлов"], (cb)->
+gulp.task "резка изображений", (cb)->
     Resize_Images = require "./resize_images.coffee"
     resize_images = new Resize_Images
-    resize_images.start cb
+    if tavmant.radio.request "gulp:current:resize:image"
+        resize_images.start cb
+    else
+        run_sequence ["копирование изображений и других бинарных файлов"], (e)->
+            if e then cb e else resize_images.start cb
 
 gulp.task "копирование CSS JS", ->
     gulp.src [
