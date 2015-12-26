@@ -17,9 +17,7 @@ browserify do
     __filename: (file, basedir)->
         filename = '/' + path.relative basedir, file
         JSON.stringify filename
-    __dirname: (file, basedir)->
-        dir = path.dirname '/' + path.relative basedir, file
-        JSON.stringify dir
+    __dirname: undefined
 .ignore "remote"
 .transform do
   (file, opts)->
