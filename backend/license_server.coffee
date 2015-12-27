@@ -3,6 +3,8 @@ http = require "http"
 querystring = require "querystring"
 zlib = require "zlib"
 
+_ = require "lodash"
+
 err, users_str <- fs.read-file "users.json", encoding : "utf8"
 users = JSON.parse users_str
 
@@ -13,7 +15,7 @@ server = http.create-server (req, res)->
   if not params.login or not params.auth or not params.version
     res.write-head 418; res.end "<====3"; return
 
-  if users[params.login] isnt params.auth
+  if users[params.login] is undefined or _.flatten([users[params.login]]).index-of(params.auth) is -1
     res.write-head 401
     res.end "Вы не зарегистрированы в системе. Отправьте #{params.auth} на darkvlados@me.com"
     return
