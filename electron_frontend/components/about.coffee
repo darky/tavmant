@@ -15,6 +15,10 @@ module.exports = class extends React.Component
                 "Истекает: #{global.tavmant.EXPIRED}"
             $.ul class-name : "pager row",
                 $.li null,
+                    "11.0.4"
+                    $.ul null,
+                        $.li null, "Исправлена перезагрузка на кнопке Сохранить в облаке, настройках"
+                $.li null,
                     "11.0.3"
                     $.ul null,
                         $.li null, "Улучшения в стабильности категорий"
