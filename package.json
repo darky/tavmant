@@ -40,7 +40,7 @@
         "react-dropzone"           : "3.3.0",
         "rimraf"                   : "2.5.0",
         "run-sequence"             : "1.1.5",
-        "searchjs"                 : "0.6.2",
+        "searchjs"                 : "0.7.0",
         "simple-git"               : "1.18.0",
         "through2"                 : "2.0.0"
     },
