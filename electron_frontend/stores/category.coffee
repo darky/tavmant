@@ -54,7 +54,9 @@ module.exports = class extends Backbone.Model
         if err
             tavmant.radio.trigger "logs:new:err", err.message or err
             return
-        err, parsed <~ csv_parse content, delimiter : ";"
+        err, parsed <~ csv_parse do
+            content.replace /\r\n/g, "\n"
+            delimiter : ";"
         if err
             tavmant.radio.trigger "logs:new:err", err.message or err
         else
