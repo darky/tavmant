@@ -15,6 +15,11 @@ module.exports = class extends React.Component
                 "Истекает: #{global.tavmant.EXPIRED}"
             $.ul class-name : "pager row",
                 $.li null,
+                    "11.0.3"
+                    $.ul null,
+                        $.li null, "В ячейках категорий при сохранении автоматически \
+                        убираются лишние пробелы/отступы перед и после содержимого"
+                $.li null,
                     "11.0.2"
                     $.ul null,
                         $.li null, "починка резак изображений на windows"
