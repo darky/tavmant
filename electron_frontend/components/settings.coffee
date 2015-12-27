@@ -71,6 +71,7 @@ module.exports = class extends React.Component
                     $.input type : "checkbox", default-checked : @state.model.yakubovich, ref : "yakubovich"
                     "Якубович"
             $.div class-name : "form-group",
-                $.button do
+                $.span do
+                    class-name : "btn btn-default"
                     on-click : _save.bind @
                     "Сохранить"

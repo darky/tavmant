@@ -10,8 +10,7 @@ tavmant = require "../../common.coffee" .call!
 
 module.exports = class extends React.Component
 
-    _commit = (...some, ev)->
-        ev.prevent-default!
+    _commit = ->
         textarea = document.query-selector "\#commit-message"
         if textarea.value isnt ""
             tavmant.radio.trigger "git:commit", textarea.value
@@ -57,7 +56,7 @@ module.exports = class extends React.Component
                     $.p null,
                         $.textarea cols : 30, required : true, id : "commit-message"
                     $.p null,
-                        $.button class-name : "btn btn-default", on-click : _commit,
+                        $.span class-name : "btn btn-default", on-click : _commit,
                             "Сохранить"
             $.div class-name : "row pager", style : marginTop : "80px",
                 @state.model.diff.split "\n" .map (text)->
