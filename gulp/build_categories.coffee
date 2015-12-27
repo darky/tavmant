@@ -191,7 +191,7 @@ module.exports =
                         .join ""
                     .replace /__name__/g, name
                     .replace /__locale__/g,
-                        _.find parsed, (item)-> item.0 is name
+                        ((_.find parsed, (item)-> item.0 is name) or [])
                         .1
                 .values!.compact!.value!.join ""
 
