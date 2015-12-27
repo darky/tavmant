@@ -45,7 +45,7 @@ module.exports = class extends Backbone.Model
         if err
             tavmant.radio.trigger "logs:new:err", err.message or err
             return
-        err <~ fs.write-file "#{tavmant.path}/categories/#{file}", content
+        err <~ fs.write-file "#{tavmant.path}/categories/#{file}", content.replace /\r\n/g, "\n"
         if err
             tavmant.radio.trigger "logs:new:err", err.message or err
 
