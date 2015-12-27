@@ -104,7 +104,10 @@ module.exports =
                     if err then next err else next null, file_contents
                 (file_contents, next)->
                     async.map file_contents, (item, cb)->
-                        csv_parse item, delimiter : ";", (err, result)-> cb err, result
+                        csv_parse do
+                            item.replace /\r\n/g, "\n"
+                            delimiter : ";"
+                            (err, result)-> cb err, result
                     , next
             ]
             if err then cb err else cb null,
@@ -155,7 +158,7 @@ module.exports =
                             .value!
                 else
                     err, subcategory_content <- fs.read-file "#{tavmant.path}/categories/#{item.0}.csv", encoding : "utf8"
-                    if err then next err else csv_parse subcategory_content, delimiter : ";", next
+                    if err then next err else csv_parse subcategory_content.replace(/\r\n/g, "\n"), delimiter : ";", next
             if err
                 cb err
             else
@@ -195,7 +198,7 @@ module.exports =
         _get_parsed = (cb)->
             err, result <- async.waterfall [
                 async.apply fs.read-file, "#{tavmant.path}/categories/tavmant-list.csv", encoding : "utf8"
-                (data, next)-> csv_parse data, delimiter : ";", next
+                (data, next)-> csv_parse data.replace(/\r\n/g, "\n"), delimiter : ";", next
             ]
             cb err, _.map result, (item)-> _.to-plain-object item
 
