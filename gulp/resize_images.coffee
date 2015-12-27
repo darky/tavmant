@@ -35,7 +35,7 @@ module.exports =
                         #{path.sep}
                         #{path.basename image, '.jpg'}-#{size}.jpg
                     "
-                    exec "vipsthumbnail --size #{px} -o '#{output}' '#{image}'", next
+                    exec "vipsthumbnail --size #{px} -o \"#{output}\" \"#{image}\"", next
                 , next
             cb err
 
