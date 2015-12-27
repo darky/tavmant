@@ -12,7 +12,6 @@
         "csv-parse"                : "1.0.1",
         "csv-stringify"            : "0.0.8",
         "del"                      : "2.2.0",
-        "gm"                       : "1.21.1",
         "gulp"                     : "3.9.0",
         "gulp-build"               : "0.5.3",
         "gulp-front-matter"        : "1.3.0",

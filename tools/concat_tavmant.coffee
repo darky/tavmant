@@ -21,9 +21,7 @@ browserify do
 .ignore "remote"
 .transform do
   (file, opts)->
-    if file.match /node_modules\/gm\/index\.js/
-      brfs file, opts
-    else if file.match /node_modules\/livereload\/lib\/livereload\.js/
+    if file.match /node_modules\/livereload\/lib\/livereload\.js/
       brfs file, opts
     else
       through!

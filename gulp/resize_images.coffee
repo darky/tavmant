@@ -1,6 +1,7 @@
 # ***********************
 #    NODEJS API DEFINE
 # ***********************
+exec = require "child_process" .exec
 path = require "path"
 
 
@@ -11,12 +12,6 @@ _ = require "lodash"
 async = require "async"
 dir_helper = require "node-dir"
 tavmant = require "../common.coffee" .call!
-
-
-# **************
-#    GRAPHICS
-# **************
-gm = require "gm"
 
 
 module.exports =
@@ -40,7 +35,7 @@ module.exports =
                         #{path.sep}
                         #{path.basename image, '.jpg'}-#{size}.jpg
                     "
-                    gm image .resize px .write output, next
+                    exec "vipsthumbnail --size #{px} -o '#{output}' '#{image}'", next
                 , next
             cb err
 
