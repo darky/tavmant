@@ -41,7 +41,8 @@ module.exports = class extends Backbone.Model
             @set "forceupdate", _.random 1000000000, 10000000000
 
     _save = (data, file)->
-        err, content <~ csv_stringify data, delimiter : ";"
+        trimmed_data = _.map data, (row)-> _.map row, (col)-> col.trim!
+        err, content <~ csv_stringify trimmed_data, delimiter : ";"
         if err
             tavmant.radio.trigger "logs:new:err", err.message or err
             return
