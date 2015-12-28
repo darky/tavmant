@@ -28,6 +28,7 @@ class Router extends Backbone.Router
         "layouts"     : require "./components/layouts.coffee"
         "settings"    : require "./components/settings.coffee"
         "category"    : require "./components/category.coffee"
+        "rawcategory" : require "./components/rawcategory.coffee"
         "subcategory" : require "./components/subcategory.coffee"
         "portfolio"   : require "./components/portfolio.coffee"
         "about"       : require "./components/about.coffee"

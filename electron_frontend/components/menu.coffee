@@ -32,6 +32,9 @@ module.exports = class extends React.Component
             if @state.model.category
                 $.li role : "category",
                     $.a href : "\#category", "Категории и подкатегории"
+            if @state.model.category
+                $.li role : "category",
+                    $.a href : "\#rawcategory", "Голые категории/подкатегории (если конфликты)"
             if @state.model.category and not @state.model.category.portfolio
                 $.li role : "category",
                     $.a href : "\#subcategory", "Элементы подкатегорий"
