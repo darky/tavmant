@@ -9,7 +9,7 @@ tavmant = require "../../common.coffee" .call!
 
 module.exports = class extends Backbone.Model
 
-    _repo : null
+    _repo : undefined
 
     _commit = (message)->
         err <~ @_repo.add _.flatten [@get("status").conflicted, @get("status").not_added]
