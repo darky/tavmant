@@ -21,7 +21,7 @@ module.exports = class extends Backbone.Model
     _add_picture = (blobs, path)->
         err <~ mkdirp "#{tavmant.path}/assets/#{path}/"
         if err
-            tavmant.radio.trigger "logs:new:err", err.message or err
+            tavmant.radio.trigger "logs:new:err", (err.message or err)
             return
         err <~ async.each blobs, (blob, next)->
             err, buffer <- to_buffer blob
@@ -29,7 +29,7 @@ module.exports = class extends Backbone.Model
             err <- fs.write-file "#{tavmant.path}/assets/#{path}/#{blob.name.to-lower-case!}", buffer
             next err
         if err
-            tavmant.radio.trigger "logs:new:err", err.message or err
+            tavmant.radio.trigger "logs:new:err", (err.message or err)
         else
             tavmant.radio.trigger "files:list"
 
