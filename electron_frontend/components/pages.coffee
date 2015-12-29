@@ -14,6 +14,7 @@ tavmant = require "../../common.coffee" .call!
 
 
 Files = require "./files.coffee"
+Yakubovich = require "./yakubovich.coffee"
 Ace = require "./ace.coffee"
 
 
@@ -35,3 +36,5 @@ module.exports = class extends React.Component
                 React.create-element Ace,
                     ext     : path.extname @state.model.current
                     content : @state.model.content
+                if not @_no_yakubovich
+                    React.create-element Yakubovich

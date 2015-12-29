@@ -38,6 +38,7 @@ Settings_Store = require "./electron_frontend/stores/settings.coffee"
 Category_Store = require "./electron_frontend/stores/category.coffee"
 Portfolio_Store = require "./electron_frontend/stores/portfolio.coffee"
 Assets_Store = require "./electron_frontend/stores/assets.coffee"
+Yakubovich_Store = require "./electron_frontend/stores/yakubovich.coffee"
 
 
 tavmant.stores = {}
@@ -49,3 +50,4 @@ tavmant.stores.settings_store = new Settings_Store modules
 tavmant.stores.category_store = new Category_Store
 tavmant.stores.portfolio_store = new Portfolio_Store
 tavmant.stores.assets_store = new Assets_Store
+tavmant.stores.yakubovich_store = new Yakubovich_Store
