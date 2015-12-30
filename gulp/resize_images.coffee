@@ -37,7 +37,7 @@ module.exports =
                     err, data <- fs.read-file image
                     if err then next err; return
                     hash = crypto.create-hash "sha1" .update data .digest "hex"
-                    cache_path = "#{tavmant.path}/tavmant-cache/assets/img/tavmant-categories/#{hash}-#{size}"
+                    cache_path = "#{tavmant.path}/tavmant-cache/resize_images/#{hash}-#{size}"
                     err <- fs.access cache_path
                     new_name = "#{path.basename image, '.jpg'}-#{size}.jpg"
                     output = "#{path.dirname image .replace 'assets', '@dev'}#{path.sep}#{new_name}"
