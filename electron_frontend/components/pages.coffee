@@ -23,7 +23,9 @@ module.exports = class extends React.Component
     _folder : "pages"
 
     component-will-mount : ->
-        Backbone_Mixin.on-model @, tavmant.stores.files_store
+        Backbone_Mixin.on @, models :
+            files    : tavmant.stores.files_store
+            settings : tavmant.stores.settings_store
 
     component-will-unmount : ->
         Backbone_Mixin.off @
@@ -34,7 +36,7 @@ module.exports = class extends React.Component
                 React.create-element Files, folder : @_folder
             $.div class-name : "col-md-9 col-lg-9",
                 React.create-element Ace,
-                    ext     : path.extname @state.model.current
-                    content : @state.model.content
-                if not @_no_yakubovich
+                    ext     : path.extname @state.files.current
+                    content : @state.files.content
+                if @state.settings.yakubovich and not @_no_yakubovich
                     React.create-element Yakubovich
