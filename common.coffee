@@ -9,7 +9,6 @@ fs = require "fs"
 # **********************
 _ = require "lodash"
 Backbone = require "backbone"
-yaml = require "js-yaml"
 
 
 # ********************
