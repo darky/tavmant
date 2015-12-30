@@ -9,7 +9,6 @@ path = require "path"
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
-async = require "async"
 tavmant = require "../common.coffee" .call!
 
 
@@ -85,29 +84,24 @@ module.exports = (done)->
             run_sequence ["построение категорий"], reload
 
     if tavmant.stores.settings_store.attributes.resize_images
-        resize_images_queue = async.queue (file, cb)->
-            if file.contents
-                run_sequence do
-                    [
-                        "резка изображений"
-                    ].concat if tavmant.stores.settings_store.attributes.category?.portfolio
-                        "построение категорий"
-                    else
-                        []
-                    cb
-            else if tavmant.stores.settings_store.attributes.category?.portfolio
-                run_sequence ["построение категорий"], cb
-            else
-                cb!
-
-        resize_images_queue.drain = reload
+        resize_images_throttle = _.debounce ->
+            run_sequence do
+                [
+                    "резка изображений"
+                ].concat if tavmant.stores.settings_store.attributes.category?.portfolio
+                    "построение категорий"
+                else
+                    []
+                reload
+        , 300
 
         watch do
             _.map tavmant.stores.settings_store.attributes.resize_images.paths, (pth)->
                 fs.realpath-sync "#{tavmant.path}/" + pth.split("/").0
                 .concat "/"
                 .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
-            (file)->
-                resize_images_queue.push file
+            ->
+                resize_images_throttle.cancel!
+                resize_images_throttle!
 
     done!
