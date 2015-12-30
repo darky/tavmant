@@ -14,7 +14,6 @@ Backbone = require "backbone"
 # ********************
 #    TAVMANT DEFINE
 # ********************
-global.tavmant ?= {}
 tavmant = {}
 tavmant.radio = _.extend {}, Backbone.Events
 tavmant.path = __dirname
