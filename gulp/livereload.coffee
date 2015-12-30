@@ -87,11 +87,6 @@ module.exports = (done)->
     if tavmant.stores.settings_store.attributes.resize_images
         resize_images_queue = async.queue (file, cb)->
             if file.contents
-                tavmant.radio.reply "gulp:current:resize:image",
-                    "#{tavmant.path}#{path.sep}
-                    #{['assets', 'img', 'tavmant-categories'].join path.sep}
-                    #{path.sep}
-                    #{file.relative}"
                 run_sequence do
                     [
                         "резка изображений"

@@ -4,7 +4,6 @@
         "async"                    : "1.5.0",
         "backbone"                 : "1.2.3",
         "backbone-react-component" : "0.10.0",
-        "backbone.radio"           : "1.0.2",
         "blob-to-buffer"           : "1.2.4",
         "brace"                    : "0.7.0",
         "brfs"                     : "1.4.1",

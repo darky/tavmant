@@ -38,7 +38,6 @@ up_server = (dir, cb)->
 #    BUILD DEV
 # ***************
 gulp.task "очистка", (cb)->
-    tavmant.radio.reply "gulp:current:resize:image", null
     del ["#{tavmant.path}/@dev/**/*.*", "#{tavmant.path}/@prod/**/*.*"], cb
 
 gulp.task "построение категорий", (cb)->
@@ -54,11 +53,7 @@ gulp.task "построение HTML", (cb)->
 gulp.task "резка изображений", (cb)->
     Resize_Images = require "./resize_images.coffee"
     resize_images = new Resize_Images
-    if tavmant.radio.request "gulp:current:resize:image"
-        resize_images.start cb
-    else
-        run_sequence ["копирование изображений и других бинарных файлов"], (e)->
-            if e then cb e else resize_images.start cb
+    resize_images.start cb
 
 gulp.task "копирование CSS JS", ->
     gulp.src [

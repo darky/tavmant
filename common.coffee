@@ -9,7 +9,6 @@ fs = require "fs"
 # **********************
 _ = require "lodash"
 Backbone = require "backbone"
-Radio = require "backbone.radio"
 yaml = require "js-yaml"
 
 
@@ -18,7 +17,7 @@ yaml = require "js-yaml"
 # ********************
 global.tavmant ?= {}
 tavmant = {}
-tavmant.radio = _.extend {}, Radio.Requests, Backbone.Events
+tavmant.radio = _.extend {}, Backbone.Events
 tavmant.path = __dirname
 
 modules_content = fs.read-file-sync "#{tavmant.path}/settings/modules.json", encoding : "utf8"
