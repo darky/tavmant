@@ -33,10 +33,10 @@ module.exports = class extends React.Component
             $.div class-name : "row pager",
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.button class-name : "btn btn-default", on-click : _pull,
-                        "Получить"
+                        "Получить ", $.span class-name : "fa fa-long-arrow-down"
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6", on-click : _push,
                     $.button class-name : "btn btn-default",
-                        "Отправить"
+                        "Отправить ", $.span class-name : "fa fa-long-arrow-up"
             $.div class-name : "row pager", style : marginTop : "80px",
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6 text-left", do ~>
                     changes = _ ["modified", "not_added", "created", "deleted", "conflicted"]
@@ -55,7 +55,9 @@ module.exports = class extends React.Component
                     if changes.length then changes else "Изменения отсутствуют"
                 $.form class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.p null,
-                        $.textarea cols : 30, required : true, id : "commit-message"
+                        $.textarea do
+                            cols : 30, required : true, id : "commit-message"
+                            placeholder : "Кратко о том, что изменено"
                     $.p null,
                         $.span class-name : "btn btn-default", on-click : _commit,
                             "Сохранить изменения"
