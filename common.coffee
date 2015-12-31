@@ -36,6 +36,7 @@ Category_Store = require "./electron_frontend/stores/category.coffee"
 Portfolio_Store = require "./electron_frontend/stores/portfolio.coffee"
 Assets_Store = require "./electron_frontend/stores/assets.coffee"
 Yakubovich_Store = require "./electron_frontend/stores/yakubovich.coffee"
+Cache_Store = require "./electron_frontend/stores/cache.coffee"
 
 
 tavmant.stores = {}
@@ -48,3 +49,4 @@ tavmant.stores.category_store = new Category_Store
 tavmant.stores.portfolio_store = new Portfolio_Store
 tavmant.stores.assets_store = new Assets_Store
 tavmant.stores.yakubovich_store = new Yakubovich_Store
+tavmant.stores.cache_store = new Cache_Store
