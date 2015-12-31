@@ -29,6 +29,20 @@ module.exports = class extends React.Component
         Backbone_Mixin.off @
 
     render : ->
+        changes = _ ["modified", "not_added", "created", "deleted", "conflicted"]
+        .map (action)~>
+            path <- _.map @state.model.status[action]
+            $.p do
+                key : _.unique-id "gitfile"
+                path.concat " "
+                $.span class-name :
+                    switch action
+                    | "not_added", "created" => "fa fa-plus"
+                    | "modified" => "fa fa-edit"
+                    | "deleted" => "fa fa-remove"
+                    | "conflicted" => "fa fa-medkit"
+        .flatten!value!
+
         $.div null,
             $.div class-name : "row pager",
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6",
@@ -38,20 +52,7 @@ module.exports = class extends React.Component
                     $.button class-name : "btn btn-default",
                         "Отправить ", $.span class-name : "fa fa-long-arrow-up"
             $.div class-name : "row pager", style : marginTop : "50px",
-                $.div class-name : "col-lg-6 col-md-6 col-sm-6 text-left", do ~>
-                    changes = _ ["modified", "not_added", "created", "deleted", "conflicted"]
-                    .map (action)~>
-                        path <- _.map @state.model.status[action]
-                        $.p do
-                            key : _.unique-id "gitfile"
-                            path.concat " "
-                            $.span class-name :
-                                switch action
-                                | "not_added", "created" => "fa fa-plus"
-                                | "modified" => "fa fa-edit"
-                                | "deleted" => "fa fa-remove"
-                                | "conflicted" => "fa fa-medkit"
-                    .flatten!value!
+                $.div class-name : "col-lg-6 col-md-6 col-sm-6 text-left",
                     if changes.length then changes else "Изменения отсутствуют"
                 $.form class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.p null,
@@ -61,16 +62,17 @@ module.exports = class extends React.Component
                     $.p null,
                         $.span class-name : "btn btn-default", on-click : _commit,
                             "Сохранить изменения"
-            $.details class-name : "row pager",
-                $.summary null, "Подробно об изменениях"
-                @state.model.diff.split "\n" .map (text)->
-                    color = switch true
-                    | text.starts-with "---" or text.starts-with "+++" => "bg-primary"
-                    | text.starts-with "+" => "bg-success"
-                    | text.starts-with "-" => "bg-danger"
-                    $.pre do
-                        class-name : "text-left small #{color}", key : _.unique-id "diff"
-                        text
+            if changes.length
+                $.details class-name : "row pager",
+                    $.summary null, "Подробно об изменениях"
+                    @state.model.diff.split "\n" .map (text)->
+                        color = switch true
+                        | text.starts-with "---" or text.starts-with "+++" => "bg-primary"
+                        | text.starts-with "+" => "bg-success"
+                        | text.starts-with "-" => "bg-danger"
+                        $.pre do
+                            class-name : "text-left small #{color}", key : _.unique-id "diff"
+                            text
             $.div class-name : "row pager text-left", style : marginTop : "50px",
                 if @state.model.waiting
                     $.span class-name : "bg-warning", that
