@@ -37,7 +37,7 @@ module.exports = class extends React.Component
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6", on-click : _push,
                     $.button class-name : "btn btn-default",
                         "Отправить ", $.span class-name : "fa fa-long-arrow-up"
-            $.div class-name : "row pager", style : marginTop : "80px",
+            $.div class-name : "row pager", style : marginTop : "50px",
                 $.div class-name : "col-lg-6 col-md-6 col-sm-6 text-left", do ~>
                     changes = _ ["modified", "not_added", "created", "deleted", "conflicted"]
                     .map (action)~>
@@ -61,7 +61,8 @@ module.exports = class extends React.Component
                     $.p null,
                         $.span class-name : "btn btn-default", on-click : _commit,
                             "Сохранить изменения"
-            $.div class-name : "row pager", style : marginTop : "80px",
+            $.details class-name : "row pager",
+                $.summary null, "Подробно об изменениях"
                 @state.model.diff.split "\n" .map (text)->
                     color = switch true
                     | text.starts-with "---" or text.starts-with "+++" => "bg-primary"
@@ -70,7 +71,7 @@ module.exports = class extends React.Component
                     $.pre do
                         class-name : "text-left small #{color}", key : _.unique-id "diff"
                         text
-            $.div class-name : "row pager text-left", style : marginTop : "80px",
+            $.div class-name : "row pager text-left", style : marginTop : "50px",
                 if @state.model.waiting
                     $.span class-name : "bg-warning", that
                 else
