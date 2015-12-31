@@ -38,26 +38,27 @@ module.exports = class extends React.Component
                     $.button class-name : "btn btn-default",
                         "Отправить"
             $.div class-name : "row pager", style : marginTop : "80px",
-                $.div class-name : "col-lg-6 col-md-6 col-sm-6 text-left",
-                    _ ["modified", "not_added", "created", "deleted", "conflicted"]
+                $.div class-name : "col-lg-6 col-md-6 col-sm-6 text-left", do ~>
+                    changes = _ ["modified", "not_added", "created", "deleted", "conflicted"]
                     .map (action)~>
-                        _.map @state.model.status[action], (path)->
-                            $.p do
-                                key : _.unique-id "gitfile"
-                                path.concat " "
-                                $.span class-name :
-                                    switch action
-                                    | "not_added", "created" => "fa fa-plus"
-                                    | "modified" => "fa fa-edit"
-                                    | "deleted" => "fa fa-remove"
-                                    | "conflicted" => "fa fa-medkit"
+                        path <- _.map @state.model.status[action]
+                        $.p do
+                            key : _.unique-id "gitfile"
+                            path.concat " "
+                            $.span class-name :
+                                switch action
+                                | "not_added", "created" => "fa fa-plus"
+                                | "modified" => "fa fa-edit"
+                                | "deleted" => "fa fa-remove"
+                                | "conflicted" => "fa fa-medkit"
                     .flatten!value!
+                    if changes.length then changes else "Изменения отсутствуют"
                 $.form class-name : "col-lg-6 col-md-6 col-sm-6",
                     $.p null,
                         $.textarea cols : 30, required : true, id : "commit-message"
                     $.p null,
                         $.span class-name : "btn btn-default", on-click : _commit,
-                            "Сохранить"
+                            "Сохранить изменения"
             $.div class-name : "row pager", style : marginTop : "80px",
                 @state.model.diff.split "\n" .map (text)->
                     color = switch true
