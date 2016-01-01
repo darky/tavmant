@@ -6,7 +6,7 @@
         "backbone-react-component" : "0.10.0",
         "blob-to-buffer"           : "1.2.4",
         "brace"                    : "0.7.0",
-        "brfs"                     : "1.4.1",
+        "brfs"                     : "1.4.2",
         "browserify"               : "12.0.1",
         "csv-parse"                : "1.0.1",
         "csv-stringify"            : "0.0.8",
