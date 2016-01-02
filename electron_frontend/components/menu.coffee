@@ -47,5 +47,3 @@ module.exports = class extends React.Component
                 $.a href : "\#cache", "Кеш"
             $.li role : "presentation",
                 $.a href : "\#about", "О Tavmant"
-            $.li role : "presentation",
-                $.a href : "\#update12", class-name : "fa fa-star", " Обновить до 12 версии"

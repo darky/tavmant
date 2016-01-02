@@ -33,7 +33,6 @@ class Router extends Backbone.Router
         "portfolio"   : require "./components/portfolio.coffee"
         "about"       : require "./components/about.coffee"
         "cache"       : require "./components/cache.coffee"
-        "update12"    : require "./components/update12.coffee"
 
 router = new Router
 router.on "route", ->
