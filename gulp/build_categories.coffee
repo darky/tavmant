@@ -145,7 +145,7 @@ module.exports =
                         err, content <- fs.read-file file, encoding : "utf8"
                         if err then next err; return
                         next err, JSON.parse content
-                    if err then next err else next err, items
+                    if err then next err else next err, _.sort-by items, "order"
             if err
                 cb err
             else
