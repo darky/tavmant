@@ -17,7 +17,6 @@ tavmant = require "../common.coffee" .call!
 # ***********
 #    PARSE
 # ***********
-csv_parse = require "csv-parse"
 sjs = require "searchjs"
 yaml = require "js-yaml"
 
@@ -48,16 +47,16 @@ module.exports =
         _get_builder = (item, parsed, cb)->
             err, [list_wrapper_content, meta] <- async.parallel [
                 (next)->
-                    template_name = if item.2 then "subcategory-list-wrapper.html" else "list-wrapper.html"
+                    template_name = if item.parent then "subcategory-list-wrapper.html" else "list-wrapper.html"
                     fs.read-file "#{tavmant.path}/templates/categories/#{template_name}", encoding : "utf8", next
                 (next)->
-                    if _.is-error meta = yaml.safe-load item.4
+                    if _.is-error meta = yaml.safe-load item.meta
                         next meta
                     else
                         next null, meta
             ]
             if err then cb err; return
-            get_html_fn = if item.2
+            get_html_fn = if item.parent
                 _.partial _get_html_subcategory_item, item
             else
                 _.partial _get_html_subcategory, item, parsed
@@ -69,60 +68,42 @@ module.exports =
                     content : new Buffer do
                         list_wrapper_content.replace "__content__", html_content
                         .replace "__title__", meta?.title
-                        .replace "__text__", item.5
-                        .replace "__name__", item.0
-                    path : path.join tavmant.path, "pages/", "#{item.2}/#{item.0}.html"
+                        .replace "__text__", item.content
+                        .replace "__name__", item.id
+                    path : path.join tavmant.path, "pages/", "#{item.parent or ""}/#{item.id}.html"
 
         _get_favorites = (parsed, cb)->
             err, html_content <- fs.read-file "#{tavmant.path}/templates/categories/favorites.html" encoding : "utf8"
             if err then cb err else cb null, 
                 _ parsed
-                .filter (item)-> !!item.3
+                .filter (item)-> !!item.favorite
                 .map (item)->
-                    html_content.replace /__name__/g, item.0
-                    .replace /__locale__/g, item.1
-                    .replace /__link__/g, if item.2 then "/#{item.2}/#{item.0}" else item.0
+                    html_content.replace /__name__/g, item.id
+                    .replace /__locale__/g, item.locale
+                    .replace /__link__/g, if item.parent then "/#{item.parent}/#{item.id}" else item.id
                 .join ""
 
         _get_categories_items_favorites = (cb)->
             err, favorites_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
-            if err
-                cb err
-                return
-            err, files_names <- async.waterfall [
-                async.apply fs.readdir, "#{tavmant.path}/categories"
-                (files_names, next)-> next null, _.filter files_names, (file_name)-> file_name isnt "tavmant-list.csv"
-            ]
-            if err
-                cb err
-                return
-            err, all_items <- async.waterfall [
-                (next)->
-                    err, file_contents <- async.map files_names, (item, cb)->
-                        fs.read-file "#{tavmant.path}/categories/#{item}", encoding : "utf8", (err, content)-> cb err, content
-                    if err then next err else next null, file_contents
-                (file_contents, next)->
-                    async.map file_contents, (item, cb)->
-                        csv_parse do
-                            item.replace /\r\n/g, "\n"
-                            delimiter : ";"
-                            (err, result)-> cb err, result
-                    , next
-            ]
+            if err then cb err; return
+            err, files <- dir_helper.files "#{tavmant.path}/db/subcategory_items"
+            if err then cb err; return
+            json_files = files.filter (file)-> !!file.match /\.json$/
+            err, items <- async.map json_files, (file, next)->
+                err, content <- fs.read-file file, encoding : "utf8"
+                if err then next err; return
+                next err, JSON.parse content
             if err then cb err else cb null,
-                _ all_items
-                .map (items, i)->
-                    _ items
-                    .filter (subitem)-> !!subitem.3
-                    .map (subitem)->
-                        favorites_template.replace /__locale__/g, subitem.1
-                        .replace /__link__/g, "#{files_names[i].replace /\.csv/, ""}/#{subitem.0}"
-                        .replace /__price__/g, subitem.2
-                        .replace /__4__/g, subitem.4
-                        .replace /__5__/g, subitem.5
-                        .replace /__6__/g, subitem.6
-                    .value!.join ""
+                _ items
+                .filter (subitem)-> !!subitem.favorite
+                .map (subitem)->
+                    favorites_template.replace /__locale__/g, subitem.locale
+                    .replace /__link__/g, "#{subitem.parent}/#{subitem.id}"
+                    .replace /__price__/g, subitem.price
+                    .replace /__4__/g, (subitem.extra1 or "")
+                    .replace /__5__/g, (subitem.extra2 or "")
+                    .replace /__6__/g, (subitem.extra3 or "")
                 .value!.join ""
 
         _get_html_subcategory = (item, parsed, cb)->
@@ -131,13 +112,13 @@ module.exports =
                 cb err
             else
                 cb null,
-                    _ if item.6 then _transform_parsed parsed, item.6 else parsed
-                    .filter (subitem)-> if item.6 then true else subitem.2 is item.0
+                    _ if item.query then _transform_parsed parsed, item.query else parsed
+                    .filter (subitem)-> if item.query then true else subitem.parent is item.id
                     .map (subitem)->
-                        list_content.replace /__name__/g, subitem.0
-                        .replace /__locale__/g, subitem.1
-                        .replace /__link__/g, "/#{subitem.2}/#{subitem.0}"
-                        .replace /__parent__/g, subitem.2
+                        list_content.replace /__name__/g, subitem.id
+                        .replace /__locale__/g, subitem.locale
+                        .replace /__link__/g, "/#{subitem.parent}/#{subitem.id}"
+                        .replace /__parent__/g, subitem.parent
                     .value!.join ""
 
         _get_html_subcategory_item = (item, cb)->
@@ -145,7 +126,7 @@ module.exports =
             if err then cb err; return
             err, parsed_subcategory <- (next)->
                 if tavmant.stores.settings_store.attributes.category.portfolio
-                    err, paths <- dir_helper.paths "#{tavmant.path}/assets/img/tavmant-categories/#{item.0}", true
+                    err, paths <- dir_helper.paths "#{tavmant.path}/assets/img/tavmant-categories/#{item.id}", true
                     if err
                         next err
                     else
@@ -154,23 +135,29 @@ module.exports =
                             .filter (path_item)-> !!path_item.match(/\.jpg$/)
                             .map (path_item)-> path.basename path_item, ".jpg"
                             .sort-by (item)-> parse-int item
-                            .map (name)-> [name, name]
+                            .map (name)-> id : name, locale : name
                             .value!
                 else
-                    err, subcategory_content <- fs.read-file "#{tavmant.path}/categories/#{item.0}.csv", encoding : "utf8"
-                    if err then next err else csv_parse subcategory_content.replace(/\r\n/g, "\n"), delimiter : ";", next
+                    err, files <- dir_helper.files "#{tavmant.path}/db/subcategory_items/#{item.id}"
+                    if err then if err.code is "ENOENT" then files = [] else next err
+                    json_files = files.filter (file)-> !!file.match /\.json$/
+                    err, items <- async.map json_files, (file, next)->
+                        err, content <- fs.read-file file, encoding : "utf8"
+                        if err then next err; return
+                        next err, JSON.parse content
+                    if err then next err else next err, items
             if err
                 cb err
             else
                 cb null,
                     _ parsed_subcategory
                     .map (subitem)->
-                        subcategory_template.replace /__locale__/g, subitem.1
-                        .replace /__link__/g, "#{item.0}/#{subitem.0}"
-                        .replace /__price__/g, subitem.2
-                        .replace /__4__/g, _.identity -> subitem.4 or ""
-                        .replace /__5__/g, _.identity -> subitem.5 or ""
-                        .replace /__6__/g, _.identity -> subitem.6 or ""
+                        subcategory_template.replace /__locale__/g, subitem.locale
+                        .replace /__link__/g, "#{item.id}/#{subitem.id}"
+                        .replace /__price__/g, subitem.price
+                        .replace /__4__/g, _.identity -> subitem.extra1 or ""
+                        .replace /__5__/g, _.identity -> subitem.extra2 or ""
+                        .replace /__6__/g, _.identity -> subitem.extra3 or ""
                     .value!.join ""
 
         _get_menu = (parsed, cb)->
@@ -180,34 +167,48 @@ module.exports =
             ]
             if err then cb err else cb null,
                 _ parsed
-                .group-by (item)-> if item.6 then item.0 else item.2
+                .group-by (item)-> if item.query then item.id else item.parent or ""
                 .map-values (items, name)->
                     if name is "" then return null
                     html_category.replace /__content__/g,
                         _.map items, (item)->
-                            html_subcategory.replace /__name__/g, item.0
-                            .replace /__locale__/g, item.1
-                            .replace /__link__/g, "/#{name}/#{item.0}"
+                            html_subcategory.replace /__name__/g, item.id
+                            .replace /__locale__/g, item.locale
+                            .replace /__link__/g, "/#{name}/#{item.id}"
                         .join ""
                     .replace /__name__/g, name
                     .replace /__locale__/g,
-                        ((_.find parsed, (item)-> item.0 is name) or [])
-                        .1
+                        ((_.find parsed, (item)-> item.id is name) or [])
+                        .locale
                 .values!.compact!.value!.join ""
 
         _get_parsed = (cb)->
-            err, result <- async.waterfall [
-                async.apply fs.read-file, "#{tavmant.path}/categories/tavmant-list.csv", encoding : "utf8"
-                (data, next)-> csv_parse data.replace(/\r\n/g, "\n"), delimiter : ";", next
-            ]
-            cb err, _.map result, (item)-> _.to-plain-object item
+            err, path_list <- async.concat do
+                ["#{tavmant.path}/db/categories" "#{tavmant.path}/db/subcategories"]
+                dir_helper.files
+            if err then cb err; return
+            json_files = path_list.filter (file_path)-> !!file_path.match /\.json$/
+            err, parsed <- async.map json_files, (file_path, next)->
+                err, content <- fs.read-file file_path, encoding : "utf8"
+                if err then next err; return
+                next err, JSON.parse content
+            cb err, _.sort-by parsed, "order"
+
+        _transform_fields =
+            0 : "id"
+            1 : "locale"
+            2 : "parent"
+            3 : "favorite"
+            4 : "meta"
+            5 : "content"
+            6 : "query"
 
         _transform_parsed = (data, meta)->
             action = meta.split "---" .0 .trim!
             query =
                 _(meta.split "---" .1 .trim!)
-                .thru yaml.safe-load .map-keys (val, key)->
-                    if _.is-NaN parse-int key then key else key - 1
+                .thru yaml.load .map-keys (val, key)->
+                    if _.is-NaN parse-int key then key else _transform_fields[key - 1]
                 .value!
             switch action
             | "filter" => sjs.match-array data, query
