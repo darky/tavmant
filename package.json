@@ -1,7 +1,7 @@
 {
     "dependencies" : {
         "alertify.js"              : "1.0.8",
-        "async"                    : "1.5.0",
+        "async"                    : "1.5.1",
         "backbone"                 : "1.2.3",
         "backbone-react-component" : "0.10.0",
         "blob-to-buffer"           : "1.2.4",
