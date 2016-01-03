@@ -1,107 +1,52 @@
-# ****************
-#    NODEJS API
-# ****************
-path = require "path"
-
-
 # **********************
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
-React = require "react"
-$ = React.DOM
-Backbone_Mixin = require "backbone-react-component"
 tavmant = require "../../common.coffee" .call!
 
 
-Files = require "./files.coffee"
 Categories = require "./category.coffee"
 
 
-class Subcategory extends Categories
+module.exports = class extends Categories
 
-    _get_subcategory_file_name = (self)->
-        _.last self.state.files.current.split path.sep
+    _dir : -> "subcategories"
 
     _fields : ->
         [
-            name  : "0"
+            name  : "id"
             title : "ID"
             type  : "text"
-            width : 50
         ,
-            name  : "1"
+            name  : "locale"
             title : "Название"
             type  : "text"
-            width : 50
         ,
-            name  : "2"
-            title : "Цена"
+            name  : "parent"
+            title : "Родитель"
             type  : "text"
-            width : 50
         ,
-            name  : "3"
+            name  : "favorite"
             title : "Флаг фаворит"
             type  : "text"
-            width : 50
         ,
-            name  : "4"
-            title : "4"
-            type  : "text"
+            name  : "meta"
+            title : "Мета-информация"
+            type  : "textarea"
         ,
-            name  : "5"
-            title : "5"
-            type  : "text"
+            item-template : (value)->
+                "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value or ""}</div>"
+            name  : "content"
+            title : "Текст"
+            type  : "textarea"
         ,
-            name  : "6"
-            title : "6"
-            type  : "text"
+            name  : "query"
+            title : "Фильтр"
+            type  : "textarea"
         ,
-            item-template : (value, row)~>
-                "
-                    <img width=100 \
-                    src=\"#{tavmant.path}/assets/img/tavmant-categories
-                    /#{path.basename @state.files.current, '.csv'}
-                    /#{row.0}.jpg?_=#{_.random 1000000000, 10000000000}\">
-                "
+            item-template : (value, row)->
+                "<img width=100 src=\"#{tavmant.path}/assets/img/tavmant-categories/#{row.id}.jpg?_=#{_.random 1000000000, 10000000000}\">"
             title : "Фото"
         ,
             type : "control"
         ]
-
-    _get_content : ->
-        @state.category.content
-
-    _get_photo_path : ($selected)->
-        "#{path.basename @state.files.current, '.csv'}#{path.sep}#{$selected.data 'JSGridItem' .0}"
-
-    _save : ->
-        tavmant.radio.trigger "category:save",
-            jQuery "\#table" .data "JSGrid" .data
-            _get_subcategory_file_name @
-
-    component-will-mount : ->
-        Backbone_Mixin.on @, models :
-            category : tavmant.stores.category_store
-            files    : tavmant.stores.files_store
-
-    component-will-update : ->
-        if @state.files.current
-            tavmant.radio.trigger "category:read", _get_subcategory_file_name @
-
-module.exports = class extends React.Component
-
-    component-will-mount : ->
-        Backbone_Mixin.on @, models :
-            files    : tavmant.stores.files_store
-            settings : tavmant.stores.settings_store
-
-    component-will-unmount : ->
-        Backbone_Mixin.off @
-
-    render : ->
-        $.div null,
-            $.div class-name : "col-md-2 col-lg-2",
-                React.create-element Files, folder : "categories"
-            $.div class-name : "col-md-10 col-lg-10",
-                React.create-element Subcategory

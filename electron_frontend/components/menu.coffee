@@ -31,13 +31,16 @@ module.exports = class extends React.Component
                 $.a href : "\#layouts", "Шаблоны"
             if @state.model.category
                 $.li role : "category",
-                    $.a href : "\#category", "Категории и подкатегории"
+                    $.a href : "\#category", "Категории"
             if @state.model.category
                 $.li role : "category",
-                    $.a href : "\#rawcategory", "Голые категории/подкатегории (если конфликты)"
+                    $.a href : "\#subcategory", "Подкатегории"
+            if @state.model.category
+                $.li role : "category",
+                    $.a href : "\#rawcategory", "База данных (если конфликты)"
             if @state.model.category and not @state.model.category.portfolio
                 $.li role : "category",
-                    $.a href : "\#subcategory", "Элементы подкатегорий"
+                    $.a href : "\#subcategory_items", "Элементы подкатегорий"
             if @state.model.category?.portfolio
                 $.li role : "category",
                     $.a href : "\#portfolio", "Режим портфолио"

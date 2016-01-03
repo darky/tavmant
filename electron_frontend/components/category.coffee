@@ -26,7 +26,7 @@ Dropzone = require "react-dropzone"
 module.exports = class extends React.Component
 
     _add = ->
-        jQuery "\#table" .js-grid "insertItem", ["","","","","","",""]
+        jQuery "\#table" .js-grid "insertItem", {}
 
     _add_photo = (files)->
         $selected = jQuery "\#table .jsgrid-grid-body tr:hidden"
@@ -44,70 +44,68 @@ module.exports = class extends React.Component
         jQuery "\#table .jsgrid-grid-body tbody" .sortable "destroy"
         jQuery "\#table" .js-grid "destroy"
 
-    _init_grid = (obj = {})->
+    _init_grid = ->
         _destroy_grid!
         jQuery "\#table" .js-grid do
-            data : obj.new_data or @_get_content!
+            data : @state.model.content
             delete-confirm : "Удалить?"
             editing : true
             fields : @_fields!
+            on-item-deleted : @_delete.bind @
+            on-item-updated : @_save.bind @
             width : "100%"
         jQuery "\#table .jsgrid-grid-body tbody" .sortable do
             update : ~>
                 reordered_data = _.map do
                     jQuery "\#table .jsgrid-grid-body tr"
                     (el)-> jQuery el .data "JSGridItem"
-                _init_grid.call @, new_data : reordered_data
+                tavmant.radio.trigger "category:reorder", reordered_data, @_dir!
+
+    _delete : (args)->
+        tavmant.radio.trigger "category:delete", "#{@_dir args}/#{args.item.id}"
+
+    _dir : -> "categories"
 
     _fields : ->
         [
-            name  : "0"
+            name  : "id"
             title : "ID"
             type  : "text"
         ,
-            name  : "1"
+            name  : "locale"
             title : "Название"
             type  : "text"
         ,
-            name  : "2"
-            title : "Родитель (для подкатегории)"
-            type  : "text"
-        ,
-            name  : "3"
+            name  : "favorite"
             title : "Флаг фаворит"
             type  : "text"
         ,
-            name  : "4"
+            name  : "meta"
             title : "Мета-информация"
             type  : "textarea"
         ,
             item-template : (value)->
-                "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value}</div>"
-            name  : "5"
+                "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value or ""}</div>"
+            name  : "content"
             title : "Текст"
             type  : "textarea"
         ,
-            name  : "6"
+            name  : "query"
             title : "Фильтр"
             type  : "textarea"
         ,
             item-template : (value, row)->
-                "<img width=100 src=\"#{tavmant.path}/assets/img/tavmant-categories/#{row.0}.jpg?_=#{_.random 1000000000, 10000000000}\">"
+                "<img width=100 src=\"#{tavmant.path}/assets/img/tavmant-categories/#{row.id}.jpg?_=#{_.random 1000000000, 10000000000}\">"
             title : "Фото"
         ,
             type : "control"
         ]
 
-    _get_content : ->
-        @state.model.content
-
     _get_photo_path : ($selected)->
-        $selected.data "JSGridItem" .0
+        $selected.data "JSGridItem" .id
 
-    _save : ->
-        tavmant.radio.trigger "category:save",
-            jQuery "\#table" .data "JSGrid" .data
-            "tavmant-list.csv"
+    _save : (args)->
+        tavmant.radio.trigger "category:save", args.item, "#{@_dir args}/#{args.item.id}"
 
     component-did-mount : _init_grid
 
@@ -115,7 +113,7 @@ module.exports = class extends React.Component
 
     component-will-mount : ->
         Backbone_Mixin.on-model @, tavmant.stores.category_store
-        tavmant.radio.trigger "category:read", "tavmant-list.csv"
+        tavmant.radio.trigger "category:read", @_dir!
 
     component-will-unmount : ->
         _destroy_grid!
@@ -129,9 +127,6 @@ module.exports = class extends React.Component
                 $.button do
                     on-click : _add
                     "Добавить"
-                $.button do
-                    on-click : @_save.bind @
-                    "Сохранить"
             $.div class-name : "row",
                 "Добавление фото"
                 React.create-element Dropzone, on-drop : _add_photo.bind @

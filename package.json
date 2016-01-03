@@ -8,8 +8,6 @@
         "brace"                    : "0.7.0",
         "brfs"                     : "1.4.2",
         "browserify"               : "12.0.1",
-        "csv-parse"                : "1.0.1",
-        "csv-stringify"            : "0.0.8",
         "del"                      : "2.2.0",
         "gulp"                     : "3.9.0",
         "gulp-build"               : "0.5.3",

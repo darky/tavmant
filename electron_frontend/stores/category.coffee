@@ -5,19 +5,13 @@ fs = require "fs"
 path = require "path"
 
 
-# *****************
-#    NODE JS API
-# *****************
-fs = require "fs"
-
-
 # **********************
 #    MUST HAVE DEFINE
 # **********************
 _ = require "lodash"
+async = require "async"
 Backbone = require "backbone"
-csv_parse = require "csv-parse"
-csv_stringify = require "csv-stringify"
+dir_helper = require "node-dir"
 mkdirp = require "mkdirp"
 to_buffer = require "blob-to-buffer"
 tavmant = require "../../common.coffee" .call!
@@ -40,28 +34,46 @@ module.exports = class extends Backbone.Model
         else
             @set "forceupdate", _.random 1000000000, 10000000000
 
-    _save = (data, file)->
-        trimmed_data = _.map data, (row)-> _.map row, (col)-> col.trim!
-        err, content <~ csv_stringify trimmed_data, delimiter : ";"
-        if err
-            tavmant.radio.trigger "logs:new:err", (err.message or err)
-            return
-        err <~ fs.write-file "#{tavmant.path}/categories/#{file}", content
+    _delete = (file_path)->
+        err <- fs.unlink "#{tavmant.path}/db/#{file_path}.json"
+        if err then tavmant.radio.trigger "logs:new:err", (err.message or err)
+
+    _save = (data, file_path)->
+        trimmed_data = _.map-values data, (val)-> val.trim?! or val
+        err <~ fs.write-file "#{tavmant.path}/db/#{file_path}.json", JSON.stringify trimmed_data, null, 2
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
 
-    _read = (file)->
-        err, content <~ fs.read-file "#{tavmant.path}/categories/#{file}", encoding : "utf8"
+    _read = (dir)->
+        err, list <~ dir_helper.files "#{tavmant.path}/db/#{dir}"
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
             return
-        err, parsed <~ csv_parse do
-            content.replace /\r\n/g, "\n"
-            delimiter : ";"
+        json_files = list.filter (file)-> !!file.match /\.json$/
+        err, parsed <~ async.map json_files, (file, next)->
+            err, content <- fs.read-file file, encoding : "utf8"
+            if err then next err; return
+            next err, JSON.parse content
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
         else
-            @set "content", parsed
+            @set "content", _.sort-by parsed, "order"
+
+    _reorder = (data, dir)->
+        err <- async.for-each-of data, (item, i, next)->
+            item.order = i
+            if dir is "subcategory_items"
+                parent = item.parent
+            else
+                parent = ""
+            fs.write-file do
+                "#{tavmant.path}/db/#{dir}/#{parent}/#{item.id}.json"
+                JSON.stringify item, null, 2
+                (err)-> next err
+        if err
+            tavmant.radio.trigger "logs:new:err", (err.message or err)
+        else
+            tavmant.radio.trigger "category:read", dir
 
     _reset = ->
         @set "content", []
@@ -70,4 +82,6 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "category:reset", _reset
         @listen-to tavmant.radio, "category:read", _read
         @listen-to tavmant.radio, "category:save", _save
+        @listen-to tavmant.radio, "category:delete", _delete
+        @listen-to tavmant.radio, "category:reorder", _reorder
         @listen-to tavmant.radio, "category:add:photo", _add_photo

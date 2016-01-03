@@ -20,19 +20,20 @@ Notify_Comp = require "./components/notify.coffee"
 class Router extends Backbone.Router
 
     routes :
-        ""            : require "./components/server.coffee"
-        "git"         : require "./components/git.coffee"
-        "assets"      : require "./components/assets.coffee"
-        "pages"       : require "./components/pages.coffee"
-        "partials"    : require "./components/partials.coffee"
-        "layouts"     : require "./components/layouts.coffee"
-        "settings"    : require "./components/settings.coffee"
-        "category"    : require "./components/category.coffee"
-        "rawcategory" : require "./components/rawcategory.coffee"
-        "subcategory" : require "./components/subcategory.coffee"
-        "portfolio"   : require "./components/portfolio.coffee"
-        "about"       : require "./components/about.coffee"
-        "cache"       : require "./components/cache.coffee"
+        ""                  : require "./components/server.coffee"
+        "git"               : require "./components/git.coffee"
+        "assets"            : require "./components/assets.coffee"
+        "pages"             : require "./components/pages.coffee"
+        "partials"          : require "./components/partials.coffee"
+        "layouts"           : require "./components/layouts.coffee"
+        "settings"          : require "./components/settings.coffee"
+        "category"          : require "./components/category.coffee"
+        "rawcategory"       : require "./components/rawcategory.coffee"
+        "subcategory"       : require "./components/subcategory.coffee"
+        "portfolio"         : require "./components/portfolio.coffee"
+        "about"             : require "./components/about.coffee"
+        "cache"             : require "./components/cache.coffee"
+        "subcategory_items" : require "./components/subcategory_items.coffee"
 
 router = new Router
 router.on "route", ->
