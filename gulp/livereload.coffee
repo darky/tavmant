@@ -82,13 +82,17 @@ module.exports = (done)->
             run_sequence ["построение категорий" "построение HTML"], reload
         , 300
 
-        watch [
-            fs.realpath-sync "#{tavmant.path}/db/categories" .concat "/*.json"
-            fs.realpath-sync "#{tavmant.path}/db/subcategories" .concat "/*.json"
-            fs.realpath-sync "#{tavmant.path}/db/subcategory_items" .concat "/**/*.json"
-        ], ->
-            change_categories_debounce.cancel!
-            change_categories_debounce!
+        watch do
+            [
+                fs.realpath-sync "#{tavmant.path}/db/categories" .concat "/*.json"
+                fs.realpath-sync "#{tavmant.path}/db/subcategories" .concat "/*.json"
+            ].concat if tavmant.stores.settings_store.attributes.category.portfolio
+                []
+            else
+                fs.realpath-sync "#{tavmant.path}/db/subcategory_items" .concat "/**/*.json"
+            ->
+                change_categories_debounce.cancel!
+                change_categories_debounce!
 
     if tavmant.stores.settings_store.attributes.resize_images
         resize_images_throttle = _.debounce ->

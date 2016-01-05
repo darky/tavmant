@@ -84,6 +84,7 @@ module.exports =
                 .join ""
 
         _get_categories_items_favorites = (cb)->
+            if tavmant.stores.settings_store.attributes.category.portfolio then return cb null, ""
             err, favorites_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
             if err then cb err; return
