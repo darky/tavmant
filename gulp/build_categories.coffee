@@ -168,6 +168,7 @@ module.exports =
             ]
             if err then cb err else cb null,
                 _ parsed
+                .sort-by "order"
                 .group-by (item)-> if item.query then item.id else item.parent or ""
                 .map-values (items, name)->
                     if name is "" then return null
