@@ -13,7 +13,7 @@ Backbone = require "backbone"
 tavmant = require "../../common.coffee" .call!
 
 
-rimraf = require "rimraf"
+del = require "del"
 to_buffer = require "blob-to-buffer"
 
 
@@ -43,18 +43,12 @@ module.exports = class extends Backbone.Model
             tavmant.radio.trigger "portfolio:read:folder", @get "current"
 
     _delete_folder = ->
-        err <- rimraf "#{tavmant.path}/assets/img/tavmant-categories/#{@get 'current'}"
-        if err
-            tavmant.radio.trigger "logs:new:err", (err.message or err)
-        else
-            tavmant.radio.trigger "portfolio:read:folders"
+        err <- del "#{tavmant.path}/assets/img/tavmant-categories/#{@get 'current'}" .then
+        tavmant.radio.trigger "portfolio:read:folders"
 
     _delete_picture = (picture)->
-        err <~ rimraf "#{tavmant.path}/assets/img/tavmant-categories/#{@get 'current'}/#{picture}"
-        if err
-            tavmant.radio.trigger "logs:new:err", (err.message or err)
-        else
-            tavmant.radio.trigger "portfolio:read:folder", @get "current"
+        err <~ del "#{tavmant.path}/assets/img/tavmant-categories/#{@get 'current'}/#{picture}" .then
+        tavmant.radio.trigger "portfolio:read:folder", @get "current"
 
     _read_folder = (folder)->
         err, list <~ fs.readdir "#{tavmant.path}/assets/img/tavmant-categories/#{folder}"
