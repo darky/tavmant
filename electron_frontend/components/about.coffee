@@ -15,6 +15,10 @@ module.exports = class extends React.Component
                 "Истекает: #{global.tavmant.EXPIRED}"
             $.ul class-name : "pager row",
                 $.li null,
+                    "12.0.1"
+                    $.ul null,
+                        $.li null, "Исправлена ошибка, при которой не запускался сайт при портфолио-режиме"
+                $.li null,
                     "12.0.0"
                     $.ul null,
                         $.li null, "Переделана структура категорий, что поспособствует расширению функционала"
