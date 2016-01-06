@@ -15,6 +15,12 @@ module.exports = class extends React.Component
                 "Истекает: #{global.tavmant.EXPIRED}"
             $.ul class-name : "pager row",
                 $.li null,
+                    "12.1.0"
+                    $.ul null,
+                        $.li null, "Добавление категорий/подкатегорий/... в начало таблицы"
+                        $.br!
+                        $.li null, "Исправлена ошибка, где при переименовании категории/подкатегории/... старая не удалялась"
+                $.li null,
                     "12.0.2"
                     $.ul null,
                         $.li null, "Исправлена регрессия - неправильная сортировка меню"
