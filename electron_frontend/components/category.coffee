@@ -26,7 +26,12 @@ Dropzone = require "react-dropzone"
 module.exports = class extends React.Component
 
     _add = ->
-        jQuery "\#table" .js-grid "insertItem", {}
+        items = _get_items!
+        i = 1
+        while (!!_.find items, (item)-> item.id is "new#{i}")
+            i += 1
+        items.unshift id : "new#{i}"
+        tavmant.radio.trigger "category:reorder", items, @_dir!
 
     _add_photo = (files)->
         $selected = jQuery "\#table .jsgrid-grid-body tr:hidden"
@@ -56,10 +61,7 @@ module.exports = class extends React.Component
             width : "100%"
         jQuery "\#table .jsgrid-grid-body tbody" .sortable do
             update : ~>
-                reordered_data = _.map do
-                    jQuery "\#table .jsgrid-grid-body tr"
-                    (el)-> jQuery el .data "JSGridItem"
-                tavmant.radio.trigger "category:reorder", reordered_data, @_dir!
+                tavmant.radio.trigger "category:reorder", _get_items!, @_dir!
 
     _delete : (args)->
         tavmant.radio.trigger "category:delete", "#{@_dir args}/#{args.item.id}"
@@ -101,11 +103,18 @@ module.exports = class extends React.Component
             type : "control"
         ]
 
+    _get_items = ->
+        _.map do
+            jQuery "\#table .jsgrid-grid-body tr"
+            (el)-> jQuery el .data "JSGridItem"
+
     _get_photo_path : ($selected)->
         $selected.data "JSGridItem" .id
 
     _save : (args)->
         tavmant.radio.trigger "category:save", args.item, "#{@_dir args}/#{args.item.id}"
+        if args.item.id isnt args.previous-item.id
+            tavmant.radio.trigger "category:delete", "#{@_dir args}/#{args.previous-item.id}"
 
     component-did-mount : _init_grid
 
@@ -122,11 +131,11 @@ module.exports = class extends React.Component
 
     render : ->
         $.div null,
-            $.div id : "table", class-name : "row"
-            $.div class-name : "row pager",
-                $.button do
-                    on-click : _add
-                    "Добавить"
             $.div class-name : "row",
                 "Добавление фото"
                 React.create-element Dropzone, on-drop : _add_photo.bind @
+            $.div class-name : "row pager",
+                $.button do
+                    on-click : _add.bind @
+                    "Добавить"
+            $.div id : "table", class-name : "row"
