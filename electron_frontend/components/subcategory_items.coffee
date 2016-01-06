@@ -12,7 +12,7 @@ module.exports = class extends Categories
 
     _dir : (args)->
         if args
-            "subcategory_items/#{args.item.parent}"
+            "subcategory_items/#{args.item.parent or ""}"
         else
             "subcategory_items"
 
@@ -65,3 +65,9 @@ module.exports = class extends Categories
     _get_photo_path : ($selected)->
         data = $selected.data "JSGridItem"
         "#{data.parent}/#{data.id}"
+
+    _save : (args)->
+        tavmant.radio.trigger "category:save", args.item, "#{@_dir args}"
+        if args.item.parent isnt args.previous-item.parent or args.item.id isnt args.previous-item.id
+            tavmant.radio.trigger "category:delete",
+                "subcategory_items/#{args.previous-item.parent or ""}/#{args.previous-item.id}"

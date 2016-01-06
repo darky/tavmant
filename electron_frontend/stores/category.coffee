@@ -38,9 +38,13 @@ module.exports = class extends Backbone.Model
         err <- fs.unlink "#{tavmant.path}/db/#{file_path}.json"
         if err then tavmant.radio.trigger "logs:new:err", (err.message or err)
 
-    _save = (data, file_path)->
+    _save = (data, dir)->
         trimmed_data = _.map-values data, (val)-> val.trim?! or val
-        err <~ fs.write-file "#{tavmant.path}/db/#{file_path}.json", JSON.stringify trimmed_data, null, 2
+        err <~ mkdirp "#{tavmant.path}/db/#{dir}"
+        if err
+            tavmant.radio.trigger "logs:new:err", (err.message or err)
+            return
+        err <~ fs.write-file "#{tavmant.path}/db/#{dir}/#{trimmed_data.id}.json", JSON.stringify trimmed_data, null, 2
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
 
@@ -63,7 +67,7 @@ module.exports = class extends Backbone.Model
         err <- async.for-each-of data, (item, i, next)->
             item.order = i
             if dir is "subcategory_items"
-                parent = item.parent
+                parent = item.parent or ""
             else
                 parent = ""
             fs.write-file do

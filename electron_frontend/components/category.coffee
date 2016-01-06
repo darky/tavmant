@@ -112,7 +112,7 @@ module.exports = class extends React.Component
         $selected.data "JSGridItem" .id
 
     _save : (args)->
-        tavmant.radio.trigger "category:save", args.item, "#{@_dir args}/#{args.item.id}"
+        tavmant.radio.trigger "category:save", args.item, "#{@_dir args}"
         if args.item.id isnt args.previous-item.id
             tavmant.radio.trigger "category:delete", "#{@_dir args}/#{args.previous-item.id}"
 
