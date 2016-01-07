@@ -30,7 +30,7 @@ up_server = (dir, cb)->
         req.add-listener "end", -> file.serve req, res
         .resume!
     .listen 9000, ->
-        tavmant.radio.trigger "logs:new", "Сервер поднят по адресу localhost:9000"
+        tavmant.radio.trigger "logs:new", "Сервер поднят по адресу http://localhost:9000"
         cb!
 
 
