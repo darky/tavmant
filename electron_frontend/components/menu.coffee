@@ -44,6 +44,9 @@ module.exports = class extends React.Component
             if @state.model.category?.portfolio
                 $.li role : "category",
                     $.a href : "\#portfolio", "Режим портфолио"
+            if @state.model.gallery
+                $.li role : "category",
+                    $.a href : "\#gallery", "Галерея"
             $.li role : "presentation",
                 $.a href : "\#settings", "Настройки"
             $.li role : "presentation",
