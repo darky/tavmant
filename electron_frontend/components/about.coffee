@@ -15,6 +15,14 @@ module.exports = class extends React.Component
                 "Истекает: #{global.tavmant.EXPIRED}"
             $.ul class-name : "pager row",
                 $.li null,
+                    "12.2.0"
+                    $.ul null,
+                        $.li null, "В интерфейс добавлен модуль \"Галерея\""
+                        $.br!
+                        $.li null, "Очистка кеша перенесена в \"Настройки\""
+                        $.br!
+                        $.li null, "Более компактный вид категорий/подкатегорий"
+                $.li null,
                     "12.1.0"
                     $.ul null,
                         $.li null, "Добавление категорий/подкатегорий/... в начало таблицы"
