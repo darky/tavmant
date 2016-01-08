@@ -30,6 +30,8 @@ module.exports = class extends Categories
             title : "Флаг фаворит"
             type  : "text"
         ,
+            item-template : (value)->
+                "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value or ""}</div>"
             name  : "meta"
             title : "Мета-информация"
             type  : "textarea"
