@@ -8,6 +8,9 @@ Backbone_Mixin = require "backbone-react-component"
 tavmant = require "../../common.coffee" .call!
 
 
+Cache = require "./cache.coffee"
+
+
 module.exports = class extends React.Component
 
     _save = ->
@@ -45,6 +48,7 @@ module.exports = class extends React.Component
 
     render : ->
         $.form null,
+            $.h4 null, "Настройки модулей"
             $.div class-name : "checkbox",
                 $.label class-name : "checkbox-inline",
                     $.input type : "checkbox", default-checked : @state.model.category, ref : "category"
@@ -75,3 +79,5 @@ module.exports = class extends React.Component
                     class-name : "btn btn-default"
                     on-click : _save.bind @
                     "Сохранить"
+            $.h4 null, "Очистка кеша"
+            React.create-element Cache

@@ -28,7 +28,7 @@ module.exports = class extends React.Component
             alertify.log "Почищено - #{that}"
 
         $.div null,
-            $.div class-name : "row pager",
+            $.div class-name : "row",
                 $.span do
                     class-name : "btn btn-default"
                     on-click : _clear_resize_images
