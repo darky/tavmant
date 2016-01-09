@@ -15,6 +15,10 @@ module.exports = class extends React.Component
                 "Истекает: #{global.tavmant.EXPIRED}"
             $.ul class-name : "pager row",
                 $.li null,
+                    "12.3.0"
+                    $.ul null,
+                        $.li null, "Модуль \"Галерея\" удален"
+                $.li null,
                     "12.2.0"
                     $.ul null,
                         $.li null, "В интерфейс добавлен модуль \"Галерея\""
