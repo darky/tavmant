@@ -35,7 +35,7 @@ module.exports =
         #    PRIVATE
         # *************
         _generate = (parsed, cb)->
-            err <- async.each-limit parsed, 20, (item, next)->
+            err <- async.each parsed, (item, next)->
                 err, builder <- _get_builder item, parsed
                 if err
                     next err
@@ -190,7 +190,7 @@ module.exports =
                 dir_helper.files
             if err then cb err; return
             json_files = path_list.filter (file_path)-> !!file_path.match /\.json$/
-            err, parsed <- async.map json_files, (file_path, next)->
+            err, parsed <- async.map-limit json_files, 25, (file_path, next)->
                 err, content <- fs.read-file file_path, encoding : "utf8"
                 if err then next err; return
                 next err, JSON.parse content
