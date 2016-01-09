@@ -42,27 +42,23 @@ module.exports = class extends React.Component
 
     component-will-mount : ->
         Backbone_Mixin.on-model @, tavmant.stores.portfolio_store
-        if @_no_folders
-            tavmant.radio.trigger "portfolio:read:folder", "", @_dir!
-        else
-            tavmant.radio.trigger "portfolio:read:folders", @_dir!
+        tavmant.radio.trigger "portfolio:read:folders", @_dir!
 
     component-will-unmount : ->
         Backbone_Mixin.off @
 
     render : ->
         $.div null,
-            unless @_no_folders
-                $.div class-name : "col-md-3 col-lg-3",
-                    $.div class-name : "row pager",
-                        $.button class-name : "fa fa-plus", on-click : _add_folder.bind @
-                        $.button class-name : "fa fa-remove", on-click : _delete_folder.bind(@), disabled : not @state.model.current
-                    $.ul on-click : _select_folder.bind(@),
-                        _.map @state.model.folders, (folder)~>
-                            $.li do
-                                class-name : if @state.model.current is folder then "bg-info"
-                                key : _.unique-id "folder"
-                                folder
+            $.div class-name : "col-md-3 col-lg-3",
+                $.div class-name : "row pager",
+                    $.button class-name : "fa fa-plus", on-click : _add_folder.bind @
+                    $.button class-name : "fa fa-remove", on-click : _delete_folder.bind(@), disabled : not @state.model.current
+                $.ul on-click : _select_folder.bind(@),
+                    _.map @state.model.folders, (folder)~>
+                        $.li do
+                            class-name : if @state.model.current is folder then "bg-info"
+                            key : _.unique-id "folder"
+                            folder
             $.div class-name : "col-md-9 col-lg-9", on-click : _delete_picture.bind(@),
                 _.map @state.model.pictures, (picture)~>
                     $.div do

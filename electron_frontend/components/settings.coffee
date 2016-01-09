@@ -37,8 +37,6 @@ module.exports = class extends React.Component
                 result.resize_images.resolutions[postfix] = parse-int px
         if @refs.yakubovich.checked
             result.yakubovich = {}
-        if @refs.gallery.checked
-            result.gallery = {}
         tavmant.radio.trigger "settings:save", result
 
     component-will-mount : ->
@@ -76,10 +74,6 @@ module.exports = class extends React.Component
                 $.label class-name : "checkbox-inline",
                     $.input type : "checkbox", default-checked : @state.model.yakubovich, ref : "yakubovich"
                     "Якубович"
-            $.div class-name : "checkbox",
-                $.label class-name : "checkbox-inline",
-                    $.input type : "checkbox", default-checked : @state.model.gallery, ref : "gallery"
-                    "Галерея"
             $.div class-name : "form-group",
                 $.span do
                     class-name : "btn btn-default"

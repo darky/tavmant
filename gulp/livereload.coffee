@@ -37,11 +37,7 @@ module.exports = (done)->
             fs.realpath-sync "#{tavmant.path}/layouts" .concat "/**/*.html"
             fs.realpath-sync "#{tavmant.path}/partials" .concat "/**/*.html"
             fs.realpath-sync "#{tavmant.path}/pages" .concat "/**/*.html"
-        ].concat if tavmant.stores.settings_store.attributes.gallery
-            fs.realpath-sync "#{tavmant.path}/templates" .concat "/**/*.html"
-        else
-            []
-        .concat if tavmant.stores.settings_store.attributes.yakubovich
+        ].concat if tavmant.stores.settings_store.attributes.yakubovich
             fs.realpath-sync "#{tavmant.path}/api" .concat "/**/*.js"
         else
             []

@@ -52,9 +52,6 @@ module.exports =
 
         _get_helpers = (cb)->
             err, extra_helpers <- async.map [
-                module_class : require "./build_gallery.coffee"
-                module_name : "gallery"
-            ,
                 module_class : require "./build_categories.coffee"
                 module_name : "category"
             ,
