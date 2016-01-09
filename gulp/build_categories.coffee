@@ -35,7 +35,7 @@ module.exports =
         #    PRIVATE
         # *************
         _generate = (parsed, cb)->
-            err <- async.each-series parsed, (item, next)->
+            err <- async.each-limit parsed, 20, (item, next)->
                 err, builder <- _get_builder item, parsed
                 if err
                     next err
