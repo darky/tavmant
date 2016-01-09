@@ -45,7 +45,7 @@ module.exports =
                 @push new gulp_util.File do
                     base     : path.join tavmant.path, "pages/"
                     contents : content
-                    cwd      : process.env.PWD
+                    cwd      : tavmant.path
                     path     : path_option
                 @push null
             stream
