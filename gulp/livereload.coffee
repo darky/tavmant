@@ -63,9 +63,7 @@ module.exports = (done)->
             "!" + fs.realpath-sync "#{tavmant.path}/assets" .concat "/**/Thumbs.db"
         ].concat if tavmant.stores.settings_store.attributes.resize_images
             _.map tavmant.stores.settings_store.attributes.resize_images.paths, (pth)->
-                "!" + fs.realpath-sync "#{tavmant.path}/" + pth.split("/").0
-                .concat "/"
-                .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
+                "!" + fs.realpath-sync "#{tavmant.path}/" + pth .concat "/**/*.jpg"
         else
             []
         ->
@@ -106,9 +104,7 @@ module.exports = (done)->
 
         watch do
             _.map tavmant.stores.settings_store.attributes.resize_images.paths, (pth)->
-                fs.realpath-sync "#{tavmant.path}/" + pth.split("/").0
-                .concat "/"
-                .concat _.rest(pth.split("/")).join("/").concat "/**/*.jpg"
+                fs.realpath-sync "#{tavmant.path}/" + pth .concat "/**/*.jpg"
             ->
                 resize_images_throttle.cancel!
                 resize_images_throttle!
