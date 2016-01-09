@@ -37,7 +37,7 @@ module.exports = (done)->
             fs.realpath-sync "#{tavmant.path}/layouts" .concat "/**/*.html"
             fs.realpath-sync "#{tavmant.path}/partials" .concat "/**/*.html"
             fs.realpath-sync "#{tavmant.path}/pages" .concat "/**/*.html"
-        ].concat if tavmant.stores.settings_store.attributes.category or tavmant.stores.settings_store.attributes.gallery
+        ].concat if tavmant.stores.settings_store.attributes.gallery
             fs.realpath-sync "#{tavmant.path}/templates" .concat "/**/*.html"
         else
             []
@@ -45,7 +45,7 @@ module.exports = (done)->
             fs.realpath-sync "#{tavmant.path}/api" .concat "/**/*.js"
         else
             []
-        (file)->
+        ->
             run_sequence [
                 "построение HTML"
             ], reload
@@ -86,6 +86,7 @@ module.exports = (done)->
             [
                 fs.realpath-sync "#{tavmant.path}/db/categories" .concat "/*.json"
                 fs.realpath-sync "#{tavmant.path}/db/subcategories" .concat "/*.json"
+                fs.realpath-sync "#{tavmant.path}/templates/categories" .concat "/**/*.html"
             ].concat if tavmant.stores.settings_store.attributes.category.portfolio
                 []
             else
