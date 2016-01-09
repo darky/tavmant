@@ -99,7 +99,8 @@ module.exports = (done)->
             run_sequence do
                 [
                     "резка изображений"
-                ].concat if tavmant.stores.settings_store.attributes.category?.portfolio
+                    "построение HTML"
+                ].concat if tavmant.stores.settings_store.attributes.category
                     "построение категорий"
                 else
                     []
