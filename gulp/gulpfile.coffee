@@ -70,7 +70,11 @@ gulp.task "копирование изображений и других бин�
         "#{tavmant.path}/assets/**/*"
         "!#{tavmant.path}/assets/**/*.js"
         "!#{tavmant.path}/assets/**/*.css"
-    ]
+    ].concat if tavmant.stores.settings_store.attributes.resize_images
+        _.map tavmant.stores.settings_store.attributes.resize_images.paths, (pth)->
+            "!#{tavmant.path}/#{pth}/**/*.jpg"
+    else
+        []
     .pipe gulp.dest "#{tavmant.path}/@dev/"
 
 gulp.task "базовая сборка", ["очистка"], (cb)->
