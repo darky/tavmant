@@ -1,2 +1,2 @@
-lsc -c executor.coffee
+lsc -c executor.ls
 uglifyjs --output executor.js executor.js
