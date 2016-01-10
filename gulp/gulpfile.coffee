@@ -40,12 +40,15 @@ up_server = (dir, cb)->
 gulp.task "очистка", (cb)->
     del ["#{tavmant.path}/@dev/**/*.*", "#{tavmant.path}/@prod/**/*.*"], cb
 
-gulp.task "построение категорий", (cb)->
+gulp.task "cбор данных", (cb)->
+    tavmant.stores.database_store.get_data_from_fs cb
+
+gulp.task "построение категорий", ["cбор данных"], (cb)->
     Categories_Build = require "./build_categories.coffee"
     categories_builder = new Categories_Build
     categories_builder.start cb
 
-gulp.task "построение HTML", (cb)->
+gulp.task "построение HTML", ["cбор данных"], (cb)->
     HTML_Build = require "./build_html.coffee"
     html_builder = new HTML_Build
     html_builder.start cb

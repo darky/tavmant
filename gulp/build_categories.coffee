@@ -88,13 +88,9 @@ module.exports =
             err, favorites_template <- fs.read-file "#{tavmant.path}/templates/categories/subcategory-list-favorites.html",
                 encoding : "utf8"
             if err then cb err; return
-            err, files <- dir_helper.files "#{tavmant.path}/db/subcategory_items"
-            if err then cb err; return
-            json_files = files.filter (file)-> !!file.match /\.json$/
-            err, items <- async.map json_files, (file, next)->
-                err, content <- fs.read-file file, encoding : "utf8"
-                if err then next err; return
-                next err, JSON.parse content
+            items = []
+            _.each tavmant.stores.database_store.attributes.subcategory_items, (contain_subcategory_items)->
+                _.each contain_subcategory_items, (subcategory_item)-> items.push subcategory_item
             if err then cb err else cb null,
                 _ items
                 .filter (subitem)-> !!subitem.favorite
@@ -139,14 +135,11 @@ module.exports =
                             .map (name)-> id : name, locale : name
                             .value!
                 else
-                    err, files <- dir_helper.files "#{tavmant.path}/db/subcategory_items/#{item.id}"
-                    if err then if err.code is "ENOENT" then files = [] else next err
-                    json_files = files.filter (file)-> !!file.match /\.json$/
-                    err, items <- async.map json_files, (file, next)->
-                        err, content <- fs.read-file file, encoding : "utf8"
-                        if err then next err; return
-                        next err, JSON.parse content
-                    if err then next err else next err, _.sort-by items, "order"
+                    subcategory_items = []
+                    _.each do
+                        tavmant.stores.database_store.attributes.subcategory_items[item.id]
+                        (subcategory_item)-> subcategory_items.push subcategory_item
+                    next null, _.sort-by subcategory_items, "order"
             if err
                 cb err
             else
@@ -168,7 +161,6 @@ module.exports =
             ]
             if err then cb err else cb null,
                 _ parsed
-                .sort-by "order"
                 .group-by (item)-> if item.query then item.id else item.parent or ""
                 .map-values (items, name)->
                     if name is "" then return null
@@ -185,16 +177,12 @@ module.exports =
                 .values!.compact!.value!.join ""
 
         _get_parsed = (cb)->
-            err, path_list <- async.concat do
-                ["#{tavmant.path}/db/categories" "#{tavmant.path}/db/subcategories"]
-                dir_helper.files
-            if err then cb err; return
-            json_files = path_list.filter (file_path)-> !!file_path.match /\.json$/
-            err, parsed <- async.map-limit json_files, 25, (file_path, next)->
-                err, content <- fs.read-file file_path, encoding : "utf8"
-                if err then next err; return
-                next err, JSON.parse content
-            cb err, _.sort-by parsed, "order"
+            parsed = []
+            _.each tavmant.stores.database_store.attributes.categories, (item)->
+                parsed.push item
+            _.each tavmant.stores.database_store.attributes.subcategories, (item)->
+                parsed.push item
+            cb null, _.sort-by parsed, "order"
 
         _transform_fields =
             0 : "id"
