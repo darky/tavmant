@@ -59,6 +59,11 @@ module.exports = class extends Backbone.Model
         else
             @set content : content, current : file
 
+    # TODO remove, when this resolved https://github.com/facebook/react/issues/4618
+    _select_sync = (file)->
+        content = fs.read-file-sync file, encoding : "utf8"
+        @set content : content, current : file
+
     _set_folder = (folder)->
         @set "folder", folder
 
@@ -69,3 +74,4 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "files:delete", _delete
         @listen-to tavmant.radio, "files:set:folder", _set_folder
         @listen-to tavmant.radio, "files:add", _add
+        @listen-to tavmant.radio, "files:select:sync", _select_sync
