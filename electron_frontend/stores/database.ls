@@ -30,7 +30,7 @@ module.exports = class extends Backbone.Model
         if err then cb err; return
         result = _.reduce files_contents, (accum, [file_path, content])->
             bro accum .make-it-happen do
-                file_path.replace //#{path.sep}//g, "."
+                file_path.replace /(\\|\/)/g, "."
                 content
             accum
         , {}
