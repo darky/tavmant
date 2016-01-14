@@ -29,7 +29,7 @@ module.exports = class extends React.Component
     render : ->
         $.div null,
             $.div class-name : "col-md-3 col-lg-3",
-                React.create-element Files, folder : "assets", filter : /\/assets\/img\//
+                React.create-element Files, folder : "assets", filter : /(\/|\\)assets(\/|\\)img(\/|\\)/
             $.div class-name : "col-md-9 col-md-9",
                 React.create-element Ace,
                     ext     : path.extname @state.files.current
