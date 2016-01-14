@@ -19,14 +19,14 @@ tavmant = require "../../common.ls" .call!
 module.exports = class extends Backbone.Model
 
     _add_picture = (blobs, path)->
-        err <~ mkdirp "#{tavmant.path}/assets/#{path}/"
+        err <~ mkdirp "#{tavmant.path}/assets/img/#{path}/"
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
             return
         err <~ async.each blobs, (blob, next)->
             err, buffer <- to_buffer blob
             if err then next err; return
-            err <- fs.write-file "#{tavmant.path}/assets/#{path}/#{blob.name.to-lower-case!}", buffer
+            err <- fs.write-file "#{tavmant.path}/assets/img/#{path}/#{blob.name.to-lower-case!}", buffer
             next err
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
@@ -34,4 +34,4 @@ module.exports = class extends Backbone.Model
             tavmant.radio.trigger "files:list"
 
     initialize : ->
-        @listen-to tavmant.radio, "assets:add:picture", _add_picture
+        @listen-to tavmant.radio, "images:add:picture", _add_picture

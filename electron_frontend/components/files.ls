@@ -36,7 +36,7 @@ module.exports = class extends React.Component
     component-will-mount : ->
         Backbone_Mixin.on-model @, tavmant.stores.files_store
         tavmant.radio.trigger "files:set:folder", @props.folder
-        tavmant.radio.trigger "files:list"
+        tavmant.radio.trigger "files:list", @props.filter
 
     component-will-unmount : ->
         Backbone_Mixin.off @

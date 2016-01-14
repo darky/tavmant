@@ -28,20 +28,28 @@ module.exports = class extends Backbone.Model
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
         else
-            tavmant.radio.trigger "files:list"
+            tavmant.radio.trigger "files:list", @get "filter"
 
     _delete = ->
         err <~ fs.unlink @get "current"
         if err then tavmant.radio.trigger "logs:new:err", (err.message or err)
-        tavmant.radio.trigger "files:list"
+        tavmant.radio.trigger "files:list", @get "filter"
 
-    _list = ->
+    _list = (filter)->
         folder = @get "folder"
         err, files_list <~ dir_helper.files "#{tavmant.path}/#{folder}"
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
         else
-            @set files : files_list, current : null, content : ""
+            @set do
+                files : _.filter files_list, (file_path)~>
+                    if filter
+                        not file_path.match filter
+                    else
+                        true
+                filter  : filter
+                current : null
+                content : ""
 
     _save = (content)->
         err <~ fs.write-file do
