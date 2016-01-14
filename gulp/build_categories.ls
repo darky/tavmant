@@ -11,6 +11,7 @@ path = require "path"
 _ = require "lodash"
 async = require "async"
 dir_helper = require "node-dir"
+mkdirp = require "mkdirp"
 tavmant = require "../common.ls" .call!
 
 
@@ -123,6 +124,8 @@ module.exports =
             if err then cb err; return
             err, parsed_subcategory <- (next)->
                 if tavmant.stores.settings_store.attributes.category.portfolio
+                    err <- mkdirp "#{tavmant.path}/assets/img/tavmant-categories/#{item.id}"
+                    if err then next err; return
                     err, paths <- dir_helper.paths "#{tavmant.path}/assets/img/tavmant-categories/#{item.id}", true
                     if err
                         next err
