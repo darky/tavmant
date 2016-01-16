@@ -24,6 +24,10 @@ module.exports = class extends React.Component
         path <- alertify.prompt "В какую папку положить?"
         tavmant.radio.trigger "images:add:picture", files, path
 
+    _copy_link = ->
+        tavmant.radio.trigger "files:copy:clipboard"
+        alertify.log "Скопировано"
+
     component-will-mount : ->
         Backbone_Mixin.on @, models :
             images : tavmant.stores.images_store
@@ -37,6 +41,8 @@ module.exports = class extends React.Component
             $.div class-name : "col-md-3 col-lg-3",
                 React.create-element Files, folder : "assets/img"
             $.div class-name : "col-md-9 col-md-9",
-                $.div class-name : "thumbnail",
-                    $.img src : @state.files.current
+                if @state.files.current
+                    $.div class-name : "thumbnail",
+                        $.img src : @state.files.current
+                        $.button on-click : _copy_link, "Скопировать ссылку в буфер обмена"
                 React.create-element Dropzone, on-drop : _add_picture

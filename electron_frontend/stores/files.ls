@@ -15,6 +15,9 @@ mkdirp = require "mkdirp"
 tavmant = require "../../common.ls" .call!
 
 
+clipboard = global.require "electron" .clipboard
+
+
 module.exports = class extends Backbone.Model
 
     _add = (file)->
@@ -29,6 +32,9 @@ module.exports = class extends Backbone.Model
             tavmant.radio.trigger "logs:new:err", (err.message or err)
         else
             tavmant.radio.trigger "files:list", @get "filter"
+
+    _copy_clipboard = ->
+        clipboard.write-text <| @get "current" .replace "#{tavmant.path}#{path.sep}assets", ""
 
     _delete = ->
         err <~ fs.unlink @get "current"
@@ -83,3 +89,4 @@ module.exports = class extends Backbone.Model
         @listen-to tavmant.radio, "files:set:folder", _set_folder
         @listen-to tavmant.radio, "files:add", _add
         @listen-to tavmant.radio, "files:select:sync", _select_sync
+        @listen-to tavmant.radio, "files:copy:clipboard", _copy_clipboard
