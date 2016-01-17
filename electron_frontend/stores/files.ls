@@ -54,7 +54,7 @@ module.exports = class extends Backbone.Model
                     else
                         true
                 filter  : filter
-                current : null
+                current : ""
                 content : ""
 
     _save = (content)->
