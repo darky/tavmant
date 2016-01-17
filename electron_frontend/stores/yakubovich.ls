@@ -19,10 +19,12 @@ module.exports = class extends Backbone.Model
 
     _instance : null
 
-    _read = ->
+    _read = (query)->
         err, helpers <~ @_instance.get_helpers!
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
+        else if query
+            @set "helpers", helpers.filter (helper)-> !! helper.name.match query
         else
             @set "helpers", helpers
 
