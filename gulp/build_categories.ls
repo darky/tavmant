@@ -75,7 +75,7 @@ module.exports =
 
         _get_favorites = (parsed, cb)->
             err, html_content <- fs.read-file "#{tavmant.path}/templates/categories/favorites.html" encoding : "utf8"
-            if err then cb err else cb null, 
+            if err then cb err else cb null, ->
                 _ parsed
                 .filter (item)-> !!item.favorite
                 .map (item)->
@@ -92,7 +92,7 @@ module.exports =
             items = []
             _.each tavmant.stores.database_store.attributes.subcategory_items, (contain_subcategory_items)->
                 _.each contain_subcategory_items, (subcategory_item)-> items.push subcategory_item
-            if err then cb err else cb null,
+            if err then cb err else cb null, ->
                 _ items
                 .filter (subitem)-> !!subitem.favorite
                 .map (subitem)->
@@ -162,7 +162,7 @@ module.exports =
                 async.apply fs.read-file, "#{tavmant.path}/templates/categories/menu-category.html", encoding : "utf8"  
                 async.apply fs.read-file, "#{tavmant.path}/templates/categories/menu-subcategory.html", encoding : "utf8"
             ]
-            if err then cb err else cb null,
+            if err then cb err else cb null, ->
                 _ parsed
                 .group-by (item)-> if item.query then item.id else item.parent or ""
                 .map-values (items, name)->
