@@ -107,7 +107,7 @@ module.exports = class extends React.Component
 
     _get_items = ->
         _.map do
-            jQuery "\#table .jsgrid-grid-body tr"
+            jQuery "\#table .jsgrid-grid-body tr:not(.jsgrid-nodata-row)"
             (el)-> jQuery el .data "JSGridItem"
 
     _get_photo_path : ($selected)->
