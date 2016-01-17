@@ -20,7 +20,7 @@ tavmant = require "../common.ls" .call!
 # **********************
 gulp = require "gulp"
 front_matter = require "gulp-front-matter"
-html_build = require "gulp-build"
+html_build = require "gulp-build-promised"
 rename = require "gulp-rename"
 
 
