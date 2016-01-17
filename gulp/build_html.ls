@@ -43,7 +43,9 @@ module.exports =
 
                 try
                     stream = html_build do
-                        _.extend file.frontMatter, file_name : file_name
+                        _.extend file.frontMatter,
+                            file_name : file_name
+                            db : tavmant.stores.database_store.to-JSON!
                         build_options
                     stream._transform ...
                 catch e
