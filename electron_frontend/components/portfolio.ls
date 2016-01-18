@@ -19,7 +19,7 @@ module.exports = class extends React.Component
         tavmant.radio.trigger "portfolio:add:folder", folder, @_dir!
 
     _add_photos = (file_blobs)->
-        no_jpg = _.any file_blobs, (blob)-> blob.type isnt "image/jpeg"
+        no_jpg = _.some file_blobs, (blob)-> blob.type isnt "image/jpeg"
         if no_jpg
             alertify.log "Нужно все фотографии jpg"
         else
