@@ -66,6 +66,7 @@ module.exports =
                     next err, helpers
                 else
                     next null, []
+            extra_helpers.push require "./build_helpers.ls"
             cb err, _.flatten extra_helpers
 
         _get_layout_content =
