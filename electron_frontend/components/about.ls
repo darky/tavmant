@@ -15,6 +15,13 @@ module.exports = class extends React.Component
                 "Истекает: #{global.tavmant.EXPIRED}"
             $.ul class-name : "pager row",
                 $.li null,
+                    "13.0.0",
+                    $.div class-name : "row", "📅 19.01.2016"
+                    $.ul style : margin-bottom : "20px",
+                        $.li null, "🚮 Удалено \"построение категорий\""
+                        $.br!
+                        $.li null, "🚮 Удалены поля флаг-фаворит, фильтр, extra..., цена в категоризаторе"
+                $.li null,
                     "12.9.2",
                     $.div class-name : "row", "📅 19.01.2016"
                     $.ul style : margin-bottom : "20px",
