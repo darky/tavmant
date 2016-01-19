@@ -51,4 +51,4 @@ module.exports = class extends React.Component
                     "data-path" : file_path
                     class-name : if file_path is @state.model.current then "bg-info"
                     key : _.unique-id "file"
-                    file_path.split "#{tavmant.path}#{path.sep}#{@props.folder}#{path.sep}" .1
+                    file_path.split "#{tavmant.path}#{path.sep}#{@props.folder.replace(/\//g, path.sep)}#{path.sep}" .1
