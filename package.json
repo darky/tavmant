@@ -6,7 +6,7 @@
         "backbone-react-component" : "0.10.0",
         "blob-to-buffer"           : "1.2.5",
         "brace"                    : "0.7.0",
-        "brfs"                     : "1.4.2",
+        "brfs"                     : "1.4.3",
         "brototype"                : "0.0.5",
         "browserify"               : "13.0.0",
         "del"                      : "2.2.0",
