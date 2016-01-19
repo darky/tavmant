@@ -73,7 +73,7 @@ module.exports = (done)->
 
     if tavmant.stores.settings_store.attributes.category
         change_categories_debounce = _.debounce ->
-            run_sequence ["построение категорий" "построение HTML"], reload
+            run_sequence ["построение HTML"], reload
         , 300
 
         watch do
@@ -95,10 +95,7 @@ module.exports = (done)->
                 [
                     "резка изображений"
                     "построение HTML"
-                ].concat if tavmant.stores.settings_store.attributes.category
-                    "построение категорий"
-                else
-                    []
+                ]
                 reload
         , 300
 

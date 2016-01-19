@@ -13,8 +13,6 @@ module.exports = class extends React.Component
                 "Версия: #{global.tavmant.VERSION}"
             $.div class-name : "pager row",
                 "Истекает: #{global.tavmant.EXPIRED}"
-            $.div class-name : "pager row bg-danger",
-                "Вышла 13 версия, где удалено \"построение категорий\". Не обновляйся, сломается всё."
             $.ul class-name : "pager row",
                 $.li null,
                     "12.9.2",

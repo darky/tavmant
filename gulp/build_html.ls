@@ -54,9 +54,6 @@ module.exports =
 
         _get_helpers = (cb)->
             err, extra_helpers <- async.map [
-                module_class : require "./build_categories.ls"
-                module_name : "category"
-            ,
                 module_class : require "./build_yakubovich.ls"
                 module_name : "yakubovich"
             ], (item, next)->

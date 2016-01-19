@@ -43,11 +43,6 @@ gulp.task "очистка", (cb)->
 gulp.task "cбор данных", (cb)->
     tavmant.stores.database_store.get_data_from_fs cb
 
-gulp.task "построение категорий", ["cбор данных"], (cb)->
-    Categories_Build = require "./build_categories.ls"
-    categories_builder = new Categories_Build
-    categories_builder.start cb
-
 gulp.task "построение HTML", ["cбор данных"], (cb)->
     HTML_Build = require "./build_html.ls"
     html_builder = new HTML_Build
@@ -83,8 +78,7 @@ gulp.task "базовая сборка", ["очистка"], (cb)->
             "построение HTML"
             "копирование изображений и других бинарных файлов"
             "копирование CSS JS"
-        ].concat if tavmant.stores.settings_store.attributes.category then "построение категорий" else []
-        .concat if tavmant.stores.settings_store.attributes.resize_images then "резка изображений" else []
+        ].concat if tavmant.stores.settings_store.attributes.resize_images then "резка изображений" else []
         cb
 
 gulp.task "сервер", ["базовая сборка"], (cb)->
