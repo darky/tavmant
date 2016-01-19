@@ -78,10 +78,6 @@ module.exports = class extends React.Component
             title : "Название"
             type  : "text"
         ,
-            name  : "favorite"
-            title : "Флаг фаворит"
-            type  : "text"
-        ,
             item-template : (value)->
                 "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value or ""}</div>"
             name  : "meta"
@@ -92,10 +88,6 @@ module.exports = class extends React.Component
                 "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value or ""}</div>"
             name  : "content"
             title : "Текст"
-            type  : "textarea"
-        ,
-            name  : "query"
-            title : "Фильтр"
             type  : "textarea"
         ,
             item-template : (value, row)->

@@ -26,29 +26,15 @@ module.exports = class extends Categories
             title : "Название"
             type  : "text"
         ,
-            name  : "price"
-            title : "Цена"
-            type  : "text"
-        ,
             name  : "parent"
             title : "Подкатегория"
             type  : "text"
         ,
-            name  : "favorite"
-            title : "Флаг фаворит"
-            type  : "text"
-        ,
-            name  : "extra1"
-            title : "4"
-            type  : "text"
-        ,
-            name  : "extra2"
-            title : "5"
-            type  : "text"
-        ,
-            name  : "extra3"
-            title : "6"
-            type  : "text"
+            item-template : (value)->
+                "<div style=\"white-space: nowrap; overflow: hidden; text-overflow: ellipsis;\">#{value or ""}</div>"
+            name  : "meta"
+            title : "Мета-информация"
+            type  : "textarea"
         ,
             item-template : (value, row)->
                 "
