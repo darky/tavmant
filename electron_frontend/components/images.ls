@@ -39,7 +39,7 @@ module.exports = class extends React.Component
     render : ->
         $.div null,
             $.div class-name : "col-md-3 col-lg-3",
-                React.create-element Files, folder : "assets/img"
+                React.create-element Files, folder : "assets/img", filter : /(\/|\\)assets(\/|\\)img(\/|\\)tavmant-categories(\/|\\)/
             $.div class-name : "col-md-9 col-md-9",
                 if @state.files.current
                     $.div class-name : "thumbnail",
