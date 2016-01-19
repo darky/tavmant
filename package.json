@@ -37,6 +37,7 @@
         "react-dom"                : "0.14.6",
         "react-dropzone"           : "3.3.2",
         "run-sequence"             : "1.1.5",
+        "semver-sort"              : "0.0.3",
         "simple-git"               : "1.21.0",
         "through2"                 : "2.0.0"
     },

@@ -4,6 +4,7 @@ querystring = require "querystring"
 zlib = require "zlib"
 
 _ = require "lodash"
+semver_sort = require "semver-sort"
 
 err, users_str <- fs.read-file "users.json", encoding : "utf8"
 users = JSON.parse users_str
@@ -28,8 +29,8 @@ server = http.create-server (req, res)->
     if params.version.match /^latest([\d]+)/
       err, files <- fs.readdir "."
       cb do
-        files.filter (name)-> !!name.match "tavmant-#{that.1}"
-        .sort!reverse!.0 or ""
+        semver_sort.desc files.filter (name)-> !!name.match "tavmant-#{that.1}"
+        .0 or ""
     else
       cb "tavmant-#{params.version}"
 
