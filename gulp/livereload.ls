@@ -80,7 +80,6 @@ module.exports = (done)->
             [
                 fs.realpath-sync "#{tavmant.path}/db/categories" .concat "/*.json"
                 fs.realpath-sync "#{tavmant.path}/db/subcategories" .concat "/*.json"
-                fs.realpath-sync "#{tavmant.path}/templates/categories" .concat "/**/*.html"
             ].concat if tavmant.stores.settings_store.attributes.category.portfolio
                 []
             else
