@@ -50,4 +50,9 @@ module.exports = [
                 resolve ""
             else
                 resolve opts.fn list.map (file_path)-> file_path.replace "#{tavmant.path}#{path.sep}assets", ""
+,
+    name : "filename_postfix"
+    fn   : (filename, postfix, opts)->
+      ext = path.extname filename
+      opts.fn filename.replace //#{ext}//, "#{postfix}#{ext}"
 ]
