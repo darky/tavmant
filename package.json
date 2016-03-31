@@ -1,4 +1,5 @@
 {
+    "name": "tavmant",
     "dependencies" : {
         "alertify.js"              : "1.0.9",
         "async"                    : "1.5.2",
