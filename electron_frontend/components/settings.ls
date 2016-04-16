@@ -9,7 +9,6 @@ tavmant = require "../../common.ls" .call!
 
 
 Cache = require "./cache.ls"
-Version = require "./version.ls"
 
 
 module.exports = class extends React.Component
@@ -80,7 +79,5 @@ module.exports = class extends React.Component
                     class-name : "btn btn-default"
                     on-click : _save.bind @
                     "Сохранить"
-            $.h4 null, "Версия"
-            React.create-element Version
             $.h4 null, "Очистка кеша"
             React.create-element Cache
