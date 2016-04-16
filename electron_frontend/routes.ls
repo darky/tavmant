@@ -10,7 +10,6 @@ dom = require "react-dom"
 #    COMPONENTS
 # ****************
 Menu_Comp = require "./components/menu.ls"
-Styles_Comp = require "./components/styles.ls"
 Notify_Comp = require "./components/notify.ls"
 
 
@@ -46,9 +45,6 @@ router.on "route", ->
 # *******************
 #    RENDER INITIAL
 # *******************
-dom.render do
-    React.create-element Styles_Comp
-    document.query-selector "\#styles"
 dom.render do
     React.create-element Menu_Comp
     document.query-selector "\#menu"
