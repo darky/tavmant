@@ -10,9 +10,7 @@ module.exports = class extends React.Component
     render : ->
         $.div null,
             $.div class-name : "pager row",
-                "Версия: #{global.tavmant.VERSION}"
-            $.div class-name : "pager row",
-                "Истекает: #{global.tavmant.EXPIRED}"
+                "Версия: 13.0.1+"
             $.ul class-name : "pager row",
                 $.li null,
                     "13.0.1",
