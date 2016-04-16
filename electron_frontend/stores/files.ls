@@ -67,6 +67,7 @@ module.exports = class extends Backbone.Model
             @set "content", content
 
     _select = (file)->
+        if not file then return
         err, content <~ fs.read-file file, encoding : "utf8"
         if err
             tavmant.radio.trigger "logs:new:err", (err.message or err)
