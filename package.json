@@ -1,6 +1,11 @@
 {
     "name": "tavmant",
     "version": "13.0.1",
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/darrrk/tavmant.git"
+    },
+    "license": "SimPL",
     "dependencies" : {
         "alertify.js"              : "1.0.10",
         "async"                    : "1.5.2",
