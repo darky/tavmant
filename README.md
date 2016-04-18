@@ -15,3 +15,9 @@ Powerfull static site generator application.
 * Image resizer for RWD
 * Images viewer with ability copy link to clipboard
 * Simple CSS/JS editor
+
+## Dependencies
+
+* git
+* libvips-tools
+* electron
