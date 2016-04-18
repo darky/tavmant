@@ -19,5 +19,5 @@ Powerfull static site generator application.
 ## Dependencies
 
 * git
-* libvips-tools
+* vipsthumbnail (provided by libvips-tools on Ubuntu or libvips on other)
 * electron
