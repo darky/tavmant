@@ -28,3 +28,4 @@ Powerfull static site generator application.
 1. Clone this repo in *tavmant* folder
 2. Also in *tavmant* create folder *tavmant.app* and place here unpacked electron files
 3. Run `./tools/link_electron.sh`
+4. Remove in *.gitignore* content between `### ***`
