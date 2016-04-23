@@ -1,4 +1,4 @@
-rm api assets db layouts pages partials settings site_root templates
+rm -rf api assets db layouts pages partials settings site_root templates
 ln -s ../$1/api api
 ln -s ../$1/assets assets
 ln -s ../$1/db db
