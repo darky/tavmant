@@ -29,3 +29,5 @@ Powerfull static site generator application.
 2. In electron folder remove content of *resources/default_app*
 3. Clone in *default_app* tavmant repo
 4. Remove in *.gitignore* content between `### ***`
+5. Run `npm install` in *default_app* folder
+
