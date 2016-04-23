@@ -18,14 +18,14 @@ Powerfull static site generator application.
 
 ## Dependencies
 
-* git
-* vipsthumbnail (provided by libvips-tools on Ubuntu or libvips on other OS)
-* electron 0.36.x
-* nodejs 5.x.x and npm 3.x.x
+* git [download](https://git-scm.com/)
+* vipsthumbnail (contained in libvips) [download](http://www.vips.ecs.soton.ac.uk/index.php?title=Stable#Installing)
+* electron 0.36.x [download](https://github.com/electron/electron/releases/tag/v0.36.12)
+* nodejs 5.x.x and npm 3.x.x [download](https://nodejs.org/en/download/)
 
 ## Installation
 
-1. Clone this repo in *tavmant* folder
-2. Also in *tavmant* create folder *tavmant.app* and place here unpacked electron files
-3. Run `./tools/link_electron.sh`
+1. Extract electron archive in any place
+2. In electron folder remove content of *resources/default_app*
+3. Clone in *default_app* tavmant repo
 4. Remove in *.gitignore* content between `### ***`
