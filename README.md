@@ -20,4 +20,5 @@ Powerfull static site generator application.
 
 * git
 * vipsthumbnail (provided by libvips-tools on Ubuntu or libvips on other)
-* electron
+* electron 0.36.x
+* node 5.x.x and npm 3.x.x
