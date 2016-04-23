@@ -45,7 +45,7 @@
         "react-dropzone"           : "3.4.0",
         "run-sequence"             : "1.1.5",
         "semver-sort"              : "0.0.4",
-        "simple-git"               : "1.32.0",
+        "simple-git"               : "1.32.1",
         "through2"                 : "2.0.1"
     },
     "main" : "electron.js"
