@@ -30,9 +30,8 @@ module.exports = class extends React.Component
                 cb!
         alertify.log "Скопировано в буфер обмена"
 
-    _try_search = _.debounce (e)->
+    _try_search = (e)->
         tavmant.radio.trigger "yakubovich:read", e.target.value
-    , 300
 
     component-will-mount : ->
         tavmant.radio.trigger "yakubovich:read"
