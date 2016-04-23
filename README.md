@@ -25,6 +25,6 @@ Powerfull static site generator application.
 
 ## Installation
 
-1. Download this repo
-2. Create folder *tavmant.app* and place here unpacked electron files
+1. Clone this repo in *tavmant* folder
+2. Also in *tavmant* create folder *tavmant.app* and place here unpacked electron files
 3. Run `./tools/link_electron.sh`
