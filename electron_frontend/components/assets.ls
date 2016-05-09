@@ -32,5 +32,6 @@ module.exports = class extends React.Component
                 React.create-element Files, folder : "assets", filter : /(\/|\\)assets(\/|\\)img(\/|\\)/
             $.div class-name : "col-md-9 col-md-9",
                 React.create-element Ace,
-                    ext     : path.extname @state.files.current
-                    content : @state.files.content
+                    ext      : path.extname @state.files.current
+                    content  : @state.files.content
+                    filepath : @state.files.current

@@ -23,6 +23,9 @@ module.exports = class extends React.Component
         tavmant.radio.trigger "files:save", val
     , 300
 
+    should-component-update: (props)->
+        !! props.filepath isnt @props.filepath
+
     render : ->
         $.div null,
             $.div class-name : "row",
