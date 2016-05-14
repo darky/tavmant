@@ -9,7 +9,7 @@ tavmant = require "../../common.ls" .call!
 module.exports = class extends Backbone.Model
 
     _clear_resize_images = ->
-        <~ del "#{tavmant.path}/tavmant-cache/resize_images" .then
+        <~ del "#{tavmant.path}/tavmant-cache/resize_images", force: true .then
         @set "cleared", "Резак изображений"
 
     initialize : ->

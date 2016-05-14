@@ -43,11 +43,11 @@ module.exports = class extends Backbone.Model
             tavmant.radio.trigger "portfolio:read:folder", @get("current"), dir
 
     _delete_folder = (dir)->
-        err <- del "#{tavmant.path}/assets/img/#{dir}/#{@get 'current'}" .then
+        err <- del "#{tavmant.path}/assets/img/#{dir}/#{@get 'current'}", force: true .then
         tavmant.radio.trigger "portfolio:read:folders", dir
 
     _delete_picture = (picture, dir)->
-        err <~ del "#{tavmant.path}/assets/img/#{dir}/#{@get 'current'}/#{picture}" .then
+        err <~ del "#{tavmant.path}/assets/img/#{dir}/#{@get 'current'}/#{picture}", force: true .then
         tavmant.radio.trigger "portfolio:read:folder", @get("current"), dir
 
     _read_folder = (folder, dir)->

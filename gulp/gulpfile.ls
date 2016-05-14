@@ -37,8 +37,8 @@ up_server = (dir, cb)->
 # ***************
 #    BUILD DEV
 # ***************
-gulp.task "очистка", (cb)->
-    del ["#{tavmant.path}/@dev/**/*.*", "#{tavmant.path}/@prod/**/*.*"], cb
+gulp.task "очистка", ->
+    del ["#{tavmant.path}/@dev/**/*.*", "#{tavmant.path}/@prod/**/*.*"], force: true
 
 gulp.task "cбор данных", (cb)->
     tavmant.stores.database_store.get_data_from_fs cb
