@@ -4,16 +4,4 @@
 /@prod
 /tavmant-cache
 
-### ***
-/api
-/assets
-/db
-/layouts
-/pages
-/partials
-/settings
-/site_root
-/templates
-### ***
-
 /tavmant.app
