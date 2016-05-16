@@ -20,8 +20,8 @@ Powerfull static site generator application.
 
 * git [download](https://git-scm.com/)
 * vipsthumbnail (contained in libvips) [download](http://www.vips.ecs.soton.ac.uk/index.php?title=Stable#Installing)
-* electron 0.36.x [download](https://github.com/electron/electron/releases/tag/v0.36.12)
-* nodejs 5.x.x and npm 3.x.x [download](https://nodejs.org/en/download/)
+* electron 1.x.x [download](https://github.com/electron/electron/releases/tag/v1.1.0)
+* nodejs 6.x.x and npm 3.x.x [download](https://nodejs.org/en/download/)
 
 ## Installation
 
