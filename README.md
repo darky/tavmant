@@ -27,6 +27,6 @@ Powerfull static site generator application.
 
 1. Extract electron archive in any place
 2. Create there empty folder *resources/app*
-3. Clone in *app* tavmant repo
-4. Run `npm install` in *app* folder
+3. Clone in *resources/app* tavmant repo
+4. Run `npm install` in *resources/app* folder
 
