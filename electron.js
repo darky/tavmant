@@ -76,6 +76,15 @@ app.on('ready', function() {
             if (focusedWindow)
               focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
           }
+        },
+        {
+          label: 'Инструменты разработчика',
+          accelerator: (() => {
+            return (process.platform === 'darwin') ? 'Alt+Command+I' : 'Ctrl+Shift+I'
+          })(),
+          click (item, focusedWindow) {
+            if (focusedWindow) focusedWindow.toggleDevTools()
+          }
         }
       ]
     },
