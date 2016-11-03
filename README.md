@@ -36,7 +36,7 @@ Powerfull static site generator application.
 2. Open devtools (Ctrl + Shift + I)
 3. Open in browser *localhost:9222*
 4. From this tab go to link
-5. Then in "Console" tab inject this code https://gist.github.com/darrrk/73feb95a991419b56c17dba795b26e1c
+5. Then in "Console" tab inject this code https://gist.github.com/darky/73feb95a991419b56c17dba795b26e1c
 6. Refresh devtools
 6. In devtools add or readd to "Workspace" root tavmant folder, then add mapping to remote ".ls" files
 7. Refresh devtools, now you can from devtools edit and debug **tavmant** sources
